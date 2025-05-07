@@ -61,6 +61,7 @@ this behavior by using the ``lock`` key like:
             lock: 'sqlsrv:server=127.0.0.1;Database=app'
             lock: 'oci:host=127.0.0.1;dbname=app'
             lock: 'mongodb://127.0.0.1/app?collection=lock'
+            lock: 'dynamodb://127.0.0.1/lock'
             lock: '%env(LOCK_DSN)%'
             # using an existing service
             lock: 'snc_redis.default'
@@ -119,6 +120,8 @@ this behavior by using the ``lock`` key like:
 
                     <framework:resource>mongodb://127.0.0.1/app?collection=lock</framework:resource>
 
+                    <framework:resource>dynamodb://127.0.0.1/lock</framework:resource>
+
                     <framework:resource>%env(LOCK_DSN)%</framework:resource>
 
                     <!-- using an existing service -->
@@ -157,6 +160,7 @@ this behavior by using the ``lock`` key like:
                 ->resource('default', ['sqlsrv:server=127.0.0.1;Database=app'])
                 ->resource('default', ['oci:host=127.0.0.1;dbname=app'])
                 ->resource('default', ['mongodb://127.0.0.1/app?collection=lock'])
+                ->resource('default', ['dynamodb://127.0.0.1/lock'])
                 ->resource('default', [env('LOCK_DSN')])
                 // using an existing service
                 ->resource('default', ['snc_redis.default'])
