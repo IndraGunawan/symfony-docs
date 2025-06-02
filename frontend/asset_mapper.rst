@@ -740,7 +740,11 @@ Symfony will add a ``Link`` header in the response to preload the CSS files.
 Pre-Compressing Assets
 ----------------------
 
-Although most servers (Caddy, Nginx, Apache, FrankenPHP) and services like Cloudflare
+.. versionadded:: 7.3
+
+    Support for pre-compressing assets was introduced in Symfony 7.3.
+
+Although most web servers (Caddy, Nginx, Apache, FrankenPHP) and services like Cloudflare
 provide asset compression features, AssetMapper also allows you to compress all
 your assets before serving them.
 
@@ -750,7 +754,7 @@ server, which then returns them to the client without wasting CPU resources on
 compression.
 
 AssetMapper supports  `Brotli`_, `Zstandard`_ and  `gzip`_ compression formats.
-Before using any of them, the server that pre-compresses assets must have
+Before using any of them, the machine that pre-compresses assets must have
 installed the following PHP extensions or CLI commands:
 
 * Brotli: ``brotli`` CLI command; `brotli PHP extension`_;
