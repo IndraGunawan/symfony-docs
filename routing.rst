@@ -3151,6 +3151,71 @@ If you need to know the reason why a signed URI is invalid, you can use the
     Support for :doc:`Symfony Clock </components/clock>` in ``UriSigner`` was
     introduced in Symfony 7.3.
 
+Another way to validate incoming requests is to use the ``#[IsSignatureValid]`` attribute.
+
+In the following example, all incoming requests to this controller action will be verified for
+a valid signature. If the signature is missing or invalid,
+a ``SignedUriException`` will be thrown::
+
+    // src/Controller/SomeController.php
+    // ...
+
+    use App\Security\Attribute\IsSignatureValid;
+
+    #[IsSignatureValid]
+    public function someAction(): Response
+    {
+        // ...
+    }
+
+To restrict signature validation to specific HTTP methods,
+use the ``methods`` argument. This can be a string or an array of methods::
+
+    // Only validate POST requests
+    #[IsSignatureValid(methods: 'POST')]
+    public function createItem(): Response
+    {
+        // ...
+    }
+
+    // Validate both POST and PUT requests
+    #[IsSignatureValid(methods: ['POST', 'PUT'])]
+    public function updateItem(): Response
+    {
+        // ...
+    }
+
+You can also apply ``#[IsSignatureValid]`` at the controller class level.
+This way, all actions within the controller will automatically
+be protected by signature validation::
+
+    // src/Controller/SecureController.php
+    // ...
+
+    use App\Security\Attribute\IsSignatureValid;
+
+    #[IsSignatureValid]
+    class SecureController extends AbstractController
+    {
+        public function index(): Response
+        {
+            // ...
+        }
+
+        public function submit(): Response
+        {
+            // ...
+        }
+    }
+
+
+This attribute provides a declarative way to enforce request signature validation directly
+at the controller level, helping to keep your security logic consistent and maintainable.
+
+.. versionadded:: 7.4
+
+    The ``#[IsSignatureValid]`` attribute was introduced in Symfony 7.4.
+
 Troubleshooting
 ---------------
 
