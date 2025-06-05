@@ -3672,10 +3672,6 @@ locale. Set this option to ``true`` to disable translation of validation message
 This is useful to avoid "missing translation" errors in applications that use
 only a single language.
 
-.. versionadded:: 7.3
-
-    The ``disable_translation`` option was introduced in Symfony 7.3.
-
 .. _reference-validation-email_validation_mode:
 
 email_validation_mode
