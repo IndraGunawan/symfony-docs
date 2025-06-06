@@ -995,9 +995,13 @@ Enabling cURL Support
 ~~~~~~~~~~~~~~~~~~~~~
 
 This component can make HTTP requests using native PHP streams and the
-``amphp/http-client`` and cURL libraries. Although they are interchangeable and
-provide the same features, including concurrent requests, HTTP/2 is only supported
-when using cURL or ``amphp/http-client``.
+``amphp/http-client`` (version 5.3.2 or higher) and cURL libraries. Although they
+are interchangeable and provide the same features, including concurrent requests,
+HTTP/2 is only supported when using cURL or ``amphp/http-client``.
+
+.. versionadded:: 8.0
+
+    Symfony started requiring ``amphp/http-client`` version 5.3.2 or higher in Symfony 8.0.
 
 .. note::
 
