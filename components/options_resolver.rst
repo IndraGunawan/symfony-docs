@@ -686,12 +686,6 @@ default value::
         ],
     ]);
 
-.. deprecated:: 7.3
-
-    Defining nested options via :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setDefault`
-    is deprecated since Symfony 7.3. Use the :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setOptions`
-    method instead, which also allows defining default values for prototyped options.
-
 .. versionadded:: 7.3
 
     The ``setOptions()`` method was introduced in Symfony 7.3.
