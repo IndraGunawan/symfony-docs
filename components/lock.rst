@@ -407,10 +407,6 @@ Store                                                       Scope   Blocking  Ex
     ``InMemoryStore``, which saves locks in memory during a process, and ``NullStore``,
     which doesn't persist anything.
 
-.. versionadded:: 7.2
-
-    The :class:`Symfony\\Component\\Lock\\Store\\NullStore` was introduced in Symfony 7.2.
-
 .. _lock-store-flock:
 
 FlockStore
@@ -622,10 +618,6 @@ and expects a TTL to avoid stalled locks::
     $redis->connect('localhost');
 
     $store = new RedisStore($redis);
-
-.. versionadded:: 7.3
-
-    Support for ``Relay\Cluster`` was introduced in Symfony 7.3.
 
 .. _lock-store-semaphore:
 

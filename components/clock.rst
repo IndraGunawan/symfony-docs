@@ -240,10 +240,6 @@ timestamps::
     // (for high precision sub-second datetimes) are also supported
     $dateOfFirstMoonLanding = DatePoint::createFromTimestamp(-14182940);
 
-.. versionadded:: 7.1
-
-    The ``createFromTimestamp()`` method was introduced in Symfony 7.1.
-
 .. note::
 
     In addition ``DatePoint`` offers stricter return types and provides consistent
@@ -260,12 +256,6 @@ timestamps::
 
     This feature polyfills PHP 8.4's behavior on the topic, as microseconds manipulation
     is not available in previous versions of PHP.
-
-.. versionadded:: 7.1
-
-    The :method:`Symfony\\Component\\Clock\\DatePoint::setMicrosecond` and
-    :method:`Symfony\\Component\\Clock\\DatePoint::getMicrosecond` methods were
-    introduced in Symfony 7.1.
 
 Storing DatePoints in the Database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -292,10 +282,6 @@ If you :doc:`use Doctrine </doctrine>` to work with databases, consider using th
 
         // ...
     }
-
-.. versionadded:: 7.3
-
-    The ``DatePointType`` was introduced in Symfony 7.3.
 
 .. _clock_writing-tests:
 

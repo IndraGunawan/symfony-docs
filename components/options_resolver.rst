@@ -316,10 +316,6 @@ correctly. To validate the types of the options, call
         }
     }
 
-.. versionadded:: 7.3
-
-    Defining type unions with the ``|`` syntax was introduced in Symfony 7.3.
-
 You can pass any type for which an ``is_<type>()`` function is defined in PHP.
 You may also pass fully qualified class or interface names (which is checked
 using ``instanceof``). Additionally, you can validate all items in an array
@@ -685,10 +681,6 @@ default value::
             'type' => 'memory',
         ],
     ]);
-
-.. versionadded:: 7.3
-
-    The ``setOptions()`` method was introduced in Symfony 7.3.
 
 Nested options also support required options, validation (type, value) and
 normalization of their values. If the default value of a nested option depends

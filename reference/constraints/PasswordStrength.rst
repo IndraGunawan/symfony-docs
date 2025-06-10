@@ -132,10 +132,6 @@ The default message supplied when the password does not reach the minimum requir
 Customizing the Password Strength Estimation
 --------------------------------------------
 
-.. versionadded:: 7.2
-
-    The feature to customize the password strength estimation was introduced in Symfony 7.2.
-
 By default, this constraint calculates the strength of a password based on its
 length and the number of unique characters used. You can get the calculated
 password strength (e.g. to display it in the user interface) using the following

@@ -748,10 +748,6 @@ after a message is consumed::
         // do something with the schedule, context, message or result
     }
 
-.. versionadded:: 7.3
-
-    The ``getResult()`` method was introduced in Symfony 7.3.
-
 Execute this command to find out which listeners are registered for this event
 and their priorities:
 
@@ -989,10 +985,6 @@ handle a message only once, you can use the ``processOnlyLastMissedRun`` option:
                 ->processOnlyLastMissedRun(true)
         }
     }
-
-.. versionadded:: 7.2
-
-    The ``processOnlyLastMissedRun`` option was introduced in Symfony 7.2.
 
 To scale your schedules more effectively, you can use multiple workers. In such
 cases, a good practice is to add a :doc:`lock </components/lock>` to prevent the

@@ -48,10 +48,6 @@ as the second and third parameters::
         ?MarshallerInterface $marshaller = null
     );
 
-.. versionadded:: 7.3
-
-    Support for ``Relay\Cluster`` was introduced in Symfony 7.3.
-
 Configure the Connection
 ------------------------
 
@@ -65,11 +61,6 @@ helper method allows creating and configuring the Redis client class instance us
     $client = RedisAdapter::createConnection(
         'redis://localhost'
     );
-
-.. versionadded:: 7.3
-
-    Starting in Symfony 7.3, when using Valkey servers you can use the
-    ``valkey[s]:`` scheme instead of the ``redis[s]:`` one in your DSNs.
 
 The DSN can specify either an IP/host (and an optional port) or a socket path, as well as a
 password and a database index. To enable TLS for connections, the scheme ``redis`` must be
@@ -248,15 +239,6 @@ Available Options
                 ],
             ],
         ];
-
-.. versionadded:: 7.1
-
-    The option ``sentinel_master`` as an alias for ``redis_sentinel`` was introduced
-    in Symfony 7.1.
-
-.. versionadded:: 7.3
-
-    The ``relay_cluster_context`` option was introduced in Symfony 7.3.
 
 .. note::
 

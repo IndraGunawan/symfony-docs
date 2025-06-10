@@ -270,10 +270,6 @@ Symfony provides ``Symfony\Component\Ldap\Security\MemberOfRoles``, a concrete
 implementation of the interface that fetches roles from the ``ismemberof``
 attribute.
 
-.. versionadded:: 7.3
-
-    The ``role_fetcher`` configuration option was introduced in Symfony 7.3.
-
 uid_key
 .......
 

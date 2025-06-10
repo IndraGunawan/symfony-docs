@@ -215,10 +215,6 @@ instances::
     $links[1]->getAttributes(); // ['pr' => '0.7']
     $links[2]->getHref();       // '/baz.js'
 
-.. versionadded:: 7.4
-
-    The ``HttpHeaderParser`` class was introduced in Symfony 7.4.
-
 .. _`WebLink`: https://github.com/symfony/web-link
 .. _`HTTP/2 Server Push`: https://tools.ietf.org/html/rfc7540#section-8.2
 .. _`Resource Hints`: https://www.w3.org/TR/resource-hints/

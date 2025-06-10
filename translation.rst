@@ -419,10 +419,6 @@ You can also specify the message domain and pass some additional variables:
 Global Translation Parameters
 -----------------------------
 
-.. versionadded:: 7.3
-
-    The global translation parameters feature was introduced in Symfony 7.3.
-
 If the content of a translation parameter is repeated across multiple
 translation messages (e.g. a company name, or a version number), you can define
 it as a global translation parameter. This helps you avoid repeating the same
@@ -563,10 +559,6 @@ to spot untranslated strings:
 
     # when using the --no-fill option, the --prefix option is ignored
     $ php bin/console translation:extract --force --no-fill fr
-
-.. versionadded:: 7.2
-
-    The ``--no-fill`` option was introduced in Symfony 7.2.
 
 .. _translation-resource-locations:
 
@@ -1096,10 +1088,6 @@ match between them, Symfony will try to find a partial match based on the langua
 If there's no perfect or partial match, this method returns the first locale passed
 as argument (that's why the order of the passed locales is important).
 
-.. versionadded:: 7.1
-
-    The feature to match locales partially was introduced in Symfony 7.1.
-
 .. _translation-fallback:
 
 Fallback Translation Locales
@@ -1510,10 +1498,6 @@ to check that the translation contents are also correct:
 
         # checks the contents of the translation catalogues for Italian (it) and Japanese (ja) locales
         $ php bin/console lint:translations --locale=it --locale=ja
-
-.. versionadded:: 7.2
-
-    The ``lint:translations`` command was introduced in Symfony 7.2.
 
 Pseudo-localization translator
 ------------------------------

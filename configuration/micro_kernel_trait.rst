@@ -311,11 +311,6 @@ Now it looks like this::
     }
 
 
-.. versionadded:: 7.3
-
-    The ``wdt.php`` and ``profiler.php`` files were introduced in Symfony 7.3.
-    Previously, you had to import ``wdt.xml`` and ``profiler.xml``
-
 Before continuing, run this command to add support for the new dependencies:
 
 .. code-block:: terminal

@@ -178,10 +178,6 @@ you to reveal a single secret's value.
 
      my secret
 
-.. versionadded:: 7.1
-
-    The ``secrets:reveal`` command was introduced in Symfony 7.1.
-
 Remove Secrets
 --------------
 

@@ -319,10 +319,6 @@ environment, you can use the ``#[WhenNot]`` attribute::
         // ...
     }
 
-.. versionadded:: 7.2
-
-    The ``#[WhenNot]`` attribute was introduced in Symfony 7.2.
-
 .. _services-constructor-injection:
 
 Injecting Services/Config into a Service
@@ -1109,20 +1105,12 @@ application to production (e.g. in your continuous integration server):
     # the command will fail if any of those environment variables are missing
     $ php bin/console lint:container --resolve-env-vars
 
-.. versionadded:: 7.2
-
-    The ``--resolve-env-vars`` option was introduced in Symfony 7.2.
-
 Performing those checks whenever the container is compiled can hurt performance.
 That's why they are implemented in :doc:`compiler passes </service_container/compiler_passes>`
 called ``CheckTypeDeclarationsPass`` and ``CheckAliasValidityPass``, which are
 disabled by default and enabled only when executing the ``lint:container`` command.
 If you don't mind the performance loss, you can enable these compiler passes in
 your application.
-
-.. versionadded:: 7.1
-
-    The ``CheckAliasValidityPass`` compiler pass was introduced in Symfony 7.1.
 
 .. _container-public:
 

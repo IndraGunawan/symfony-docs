@@ -67,7 +67,3 @@ ajax_replace
 
 If you set this option to ``true``, the toolbar is replaced on AJAX requests.
 This only works in combination with an enabled toolbar.
-
-.. versionadded:: 7.3
-
-    The ``ajax_replace`` configuration option was introduced in Symfony 7.3.

@@ -77,10 +77,6 @@ expose_security_errors
 
 **type**: ``string`` **default**: ``'none'``
 
-.. versionadded:: 7.3
-
-    The ``expose_security_errors`` option was introduced in Symfony 7.3
-
 User enumeration is a common security issue where attackers infer valid usernames
 based on error messages. For example, a message like "This user does not exist"
 shown by your login form reveals whether a username exists.

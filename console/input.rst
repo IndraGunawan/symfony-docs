@@ -342,11 +342,6 @@ command without having to worry about the number of arguments or options::
         // ...
     }
 
-.. versionadded:: 7.1
-
-    The :method:`Symfony\\Component\\Console\\Input\\ArgvInput::getRawTokens`
-    method was introduced in Symfony 7.1.
-
 Adding Argument/Option Value Completion
 ---------------------------------------
 
@@ -452,10 +447,6 @@ The Console component adds some predefined options to all commands:
 * ``--version``: outputs the version number of the console application
 * ``--help``: displays the command help
 * ``--ansi|--no-ansi``: whether to force of disable coloring the output
-
-.. versionadded:: 7.2
-
-    The ``--silent`` option was introduced in Symfony 7.2.
 
 When using the ``FrameworkBundle``, two more options are predefined:
 

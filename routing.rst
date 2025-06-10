@@ -505,10 +505,6 @@ evaluates them:
     $ php bin/console debug:router --method=GET
     $ php bin/console debug:router --method=ANY
 
-.. versionadded:: 7.3
-
-    The ``--method`` option was introduced in Symfony 7.3.
-
 Pass the name (or part of the name) of some route to this argument to print the
 route details:
 
@@ -1080,10 +1076,6 @@ The ``{slug:post}`` syntax maps the route parameter named ``slug`` to the contro
 argument named ``$post``. It also hints the "param converter" to look up the
 corresponding ``BlogPost`` object from the database using the slug.
 
-.. versionadded:: 7.1
-
-    Route parameter mapping was introduced in Symfony 7.1.
-
 When mapping multiple entities from route parameters, name collisions can occur.
 In this example, the route tries to define two mappings: one for an author and one
 for a category; both using the same ``name`` parameter. This isn't allowed because
@@ -1098,10 +1090,6 @@ Such routes should instead be defined using the following syntax::
 This way, the route parameter names are unique (``authorName`` and ``categoryName``),
 and the "param converter" can correctly map them to controller arguments (``$author``
 and ``$category``), loading them both by their name.
-
-.. versionadded:: 7.3
-
-    This more advanced style of route parameter mapping was introduced in Symfony 7.3.
 
 More advanced mappings can be achieved using the ``#[MapEntity]`` attribute.
 Check out the :ref:`Doctrine param conversion documentation <doctrine-entity-value-resolver>`
@@ -1512,10 +1500,6 @@ Instead of duplicating the original route, you can create an alias for it.
             // second argument refers to the name of the route declared above
             $routes->alias('product_details', 'product_show');
         };
-
-.. versionadded:: 7.3
-
-    Support for route aliases in PHP attributes was introduced in Symfony 7.3.
 
 In this example, both ``product_show`` and ``product_details`` routes can
 be used in the application and will produce the same result.
@@ -3053,10 +3037,6 @@ argument of :method:`Symfony\\Component\\HttpFoundation\\UriSigner::sign`::
     The expiration date/time is included in the signed URIs as a timestamp via
     the ``_expiration`` query parameter.
 
-.. versionadded:: 7.1
-
-    The feature to add an expiration date for a signed URI was introduced in Symfony 7.1.
-
 If you need to know the reason why a signed URI is invalid, you can use the
 ``verify()`` method which throws exceptions on failure::
 
@@ -3078,20 +3058,11 @@ If you need to know the reason why a signed URI is invalid, you can use the
         // the URI is signed but expired
     }
 
-.. versionadded:: 7.3
-
-    The ``verify()`` method was introduced in Symfony 7.3.
-
 .. tip::
 
     If ``symfony/clock`` is installed, it will be used to create and verify
     expirations. This allows you to :ref:`mock the current time in your tests
     <clock_writing-tests>`.
-
-.. versionadded:: 7.3
-
-    Support for :doc:`Symfony Clock </components/clock>` in ``UriSigner`` was
-    introduced in Symfony 7.3.
 
 Troubleshooting
 ---------------

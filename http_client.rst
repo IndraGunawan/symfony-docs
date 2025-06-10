@@ -157,11 +157,6 @@ brings most of the available options with type-hinted getters and setters::
             ->toArray()
     );
 
-.. versionadded:: 7.1
-
-    The :method:`Symfony\\Component\\HttpClient\\HttpOptions::setHeader`
-    method was introduced in Symfony 7.1.
-
 Some options are described in this guide:
 
 * `Authentication`_
@@ -1604,11 +1599,6 @@ installed in your application::
         $client = HttpClient::createForBaseUri('https://example.com');
         $throttlingClient = new ThrottlingHttpClient($client, $limiter);
 
-.. versionadded:: 7.1
-
-    The :class:`Symfony\\Component\\HttpClient\\ThrottlingHttpClient` was
-    introduced in Symfony 7.1.
-
 Consuming Server-Sent Events
 ----------------------------
 
@@ -2057,11 +2047,6 @@ snapshots in files::
 
     $response = MockResponse::fromFile('tests/fixtures/response.xml');
 
-.. versionadded:: 7.1
-
-    The :method:`Symfony\\Component\\HttpClient\\Response\\MockResponse::fromFile`
-    method was introduced in Symfony 7.1.
-
 Another way of using :class:`Symfony\\Component\\HttpClient\\MockHttpClient` is to
 pass a callback that generates the responses dynamically when it's called::
 
@@ -2243,11 +2228,6 @@ directly from a file::
     use Symfony\Component\HttpClient\Response\JsonMockResponse;
 
     $response = JsonMockResponse::fromFile('tests/fixtures/response.json');
-
-.. versionadded:: 7.1
-
-    The :method:`Symfony\\Component\\HttpClient\\Response\\JsonMockResponse::fromFile`
-    method was introduced in Symfony 7.1.
 
 Testing Request Data
 ~~~~~~~~~~~~~~~~~~~~

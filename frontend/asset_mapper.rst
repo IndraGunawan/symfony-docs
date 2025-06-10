@@ -157,10 +157,6 @@ The ``debug:asset-map`` command provides several options to filter results:
     # you can also combine all filters (e.g. find bold web fonts in your own asset dirs)
     $ php bin/console debug:asset-map bold --no-vendor --ext=woff2
 
-.. versionadded:: 7.2
-
-    The options to filter ``debug:asset-map`` results were introduced in Symfony 7.2.
-
 .. _importmaps-javascript:
 
 Importmaps & Writing JavaScript
@@ -219,10 +215,6 @@ to add any `npm package`_:
 
     Add the ``--dry-run`` option to simulate package installation without actually
     making any changes (e.g. ``php bin/console importmap:require bootstrap --dry-run``)
-
-    .. versionadded:: 7.3
-
-        The ``--dry-run`` option was introduced in Symfony 7.3.
 
 This adds the ``bootstrap`` package to your ``importmap.php`` file::
 
@@ -739,10 +731,6 @@ Symfony will add a ``Link`` header in the response to preload the CSS files.
 
 Pre-Compressing Assets
 ----------------------
-
-.. versionadded:: 7.3
-
-    Support for pre-compressing assets was introduced in Symfony 7.3.
 
 Although most web servers (Caddy, Nginx, Apache, FrankenPHP) and services like Cloudflare
 provide asset compression features, AssetMapper also allows you to compress all

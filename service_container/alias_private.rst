@@ -203,10 +203,6 @@ The ``#[AsAlias]`` attribute can also be limited to one or more specific
         // ...
     }
 
-.. versionadded:: 7.3
-
-    The ``when`` argument of the ``#[AsAlias]`` attribute was introduced in Symfony 7.3.
-
 .. tip::
 
     When using ``#[AsAlias]`` attribute, you may omit passing ``id`` argument

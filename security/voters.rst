@@ -49,11 +49,6 @@ which makes creating a voter even easier::
         abstract protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool;
     }
 
-.. versionadded:: 7.3
-    
-    The ``$vote`` argument of the ``voteOnAttribute()`` method was introduced
-    in Symfony 7.3.
-
 .. _how-to-use-the-voter-in-a-controller:
 
 Setup: Checking for Access in a Controller

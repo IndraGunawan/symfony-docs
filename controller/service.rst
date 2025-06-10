@@ -25,11 +25,6 @@ its methods.
 This is the simplest and recommended way to register controllers as services
 when not extending the base controller class.
 
-.. versionadded:: 7.3
-
-    The feature to register controllers as services when using the ``#[Route]``
-    attribute was introduced in Symfony 7.3.
-
 Using the ``#[AsController]`` Attribute
 ---------------------------------------
 

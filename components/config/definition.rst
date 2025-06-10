@@ -92,10 +92,6 @@ reflect the real structure of the configuration values::
         ->end()
     ;
 
-.. versionadded:: 7.2
-
-    The ``stringNode()`` method was introduced in Symfony 7.2.
-
 The root node itself is an array node, and has children, like the boolean
 node ``auto_connect`` and the scalar node ``default_connection``. In general:
 after defining a node, a call to ``end()`` takes you one step up in the
@@ -119,10 +115,6 @@ node definition. Node types are available for:
 
 and are created with ``node($name, $type)`` or their associated shortcut
 ``xxxxNode($name)`` method.
-
-.. versionadded:: 7.2
-
-    Support for the ``string`` type was introduced in Symfony 7.2.
 
 Numeric Node Constraints
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -200,10 +192,6 @@ the cases of the enum::
 
 When using a backed enum, the values provided to the node will be cast
 to one of the enum cases if possible.
-
-.. versionadded:: 7.3
-
-    The ``enumClass()`` method was introduced in Symfony 7.3.
 
 Array Nodes
 ~~~~~~~~~~~
@@ -566,10 +554,6 @@ A few placeholders are available to customize the URL:
 The placeholders will be replaced when printing the configuration tree with the
 ``config:dump-reference`` command.
 
-.. versionadded:: 7.3
-
-    The ``docUrl()`` method was introduced in Symfony 7.3.
-
 Optional Sections
 -----------------
 
@@ -876,10 +860,6 @@ A validation rule also requires a "then" part:
 
 Usually, "then" is a closure. Its return value will be used as a new value
 for the node, instead of the node's original value.
-
-.. versionadded:: 7.3
-
-    The ``ifFalse()`` method was introduced in Symfony 7.3.
 
 Configuring the Node Path Separator
 -----------------------------------

@@ -38,10 +38,6 @@ The notifier component supports the following channels:
 * :ref:`Desktop channel <notifier-desktop-channel>` displays desktop notifications
   on the same host machine.
 
-.. versionadded:: 7.2
-
-    The ``Desktop`` channel was introduced in Symfony 7.2.
-
 .. _notifier-sms-channel:
 
 SMS Channel
@@ -229,21 +225,6 @@ Service
     via webhooks. See the :doc:`Webhook documentation </webhook>` for more
     details.
 
-.. versionadded:: 7.1
-
-    The ``Smsbox``, ``SmsSluzba``, ``SMSense``, ``LOX24`` and ``Unifonic``
-    integrations were introduced in Symfony 7.1.
-
-.. versionadded:: 7.2
-
-    The ``Primotexto``, ``Sipgate`` and ``Sweego`` integrations were introduced in Symfony 7.2.
-
-.. versionadded:: 7.3
-
-    Webhook support for the ``Brevo`` integration was introduced in Symfony 7.3.
-    The extra properties in ``SentMessage`` for ``AllMySms`` and ``OvhCloud``
-    providers were introduced in Symfony 7.3 too.
-
 .. deprecated:: 7.1
 
     The `Sms77`_ integration is deprecated since
@@ -406,22 +387,10 @@ Service
                                          **DSN**: ``zulip://EMAIL:TOKEN@HOST?channel=CHANNEL``
 ======================================   =====================================================================================
 
-.. versionadded:: 7.1
-
-    The ``Bluesky`` integration was introduced in Symfony 7.1.
-
-.. versionadded:: 7.2
-
-    The ``LINE Bot`` integration was introduced in Symfony 7.2.
-
 .. deprecated:: 7.2
 
     The ``Gitter`` integration was removed in Symfony 7.2 because that service
     no longer provides an API.
-
-.. versionadded:: 7.3
-
-    The ``Matrix`` integration was introduced in Symfony 7.3.
 
 .. warning::
 
@@ -628,10 +597,6 @@ Service
 To enable a texter, add the correct DSN in your ``.env`` file and
 configure the ``texter_transports``:
 
-.. versionadded:: 7.1
-
-    The `Pushy`_ integration was introduced in Symfony 7.1.
-
 .. code-block:: bash
 
     # .env
@@ -693,10 +658,6 @@ Provider         Install                                           DSN
 ===============  ================================================  ==============================================================================
 `JoliNotif`_     ``composer require symfony/joli-notif-notifier``  ``jolinotif://default``
 ===============  ================================================  ==============================================================================
-
-.. versionadded:: 7.2
-
-    The JoliNotif bridge was introduced in Symfony 7.2.
 
 If you are using :ref:`Symfony Flex <symfony-flex>`, installing that package will
 also create the necessary environment variable and configuration. Otherwise, you'll

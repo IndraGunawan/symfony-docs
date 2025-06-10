@@ -177,10 +177,6 @@ Some of these adapters could be configured via shortcuts.
             ;
         };
 
-.. versionadded:: 7.1
-
-    Using a DSN as the provider for the PDO adapter was introduced in Symfony 7.1.
-
 .. _cache-create-pools:
 
 Creating Custom (Namespaced) Pools

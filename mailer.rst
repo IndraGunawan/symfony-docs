@@ -120,18 +120,6 @@ Service               Install with                                    Webhook su
 `Sweego`_             ``composer require symfony/sweego-mailer``      yes
 ===================== =============================================== ===============
 
-.. versionadded:: 7.1
-
-    The Azure and Resend integrations were introduced in Symfony 7.1.
-
-.. versionadded:: 7.2
-
-    The Mailomat, Mailtrap, Postal and Sweego integrations were introduced in Symfony 7.2.
-
-.. versionadded:: 7.3
-
-    The AhaSend integration was introduced in Symfony 7.3.
-
 .. note::
 
     As a convenience, Symfony also provides support for Gmail (``composer
@@ -341,10 +329,6 @@ the retry period by setting the ``retry_period`` option in the DSN:
 
     MAILER_DSN="failover(postmark+api://ID@default sendgrid+smtp://KEY@default)?retry_period=15"
 
-.. versionadded:: 7.3
-
-    The ``retry_period`` option was introduced in Symfony 7.3.
-
 Load Balancing
 ~~~~~~~~~~~~~~
 
@@ -372,10 +356,6 @@ the retry period by setting the ``retry_period`` option in the DSN:
 
     MAILER_DSN="roundrobin(postmark+api://ID@default sendgrid+smtp://KEY@default)?retry_period=15"
 
-.. versionadded:: 7.3
-
-    The ``retry_period`` option was introduced in Symfony 7.3.
-
 TLS Peer Verification
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -398,10 +378,6 @@ may be specified as SHA1 or MD5 hash::
 
 Disabling Automatic TLS
 ~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 7.1
-
-    The option to disable automatic TLS was introduced in Symfony 7.1.
 
 By default, the Mailer component will use encryption when the OpenSSL extension
 is enabled and the SMTP server supports ``STARTTLS``. This behavior can be turned
@@ -438,16 +414,8 @@ with the SMTP server.
 
     This setting only applies when using the ``smtp://`` protocol.
 
-.. versionadded:: 7.3
-
-    The ``require_tls`` option was introduced in Symfony 7.3.
-
 Binding to IPv4 or IPv6
 ~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 7.3
-
-    The option to bind to IPv4, or IPv6, or a specific IP address was introduced in Symfony 7.3.
 
 By default, the underlying ``SocketStream`` will bind to IPv4 or IPv6 based on the
 available interfaces. You can enforce binding to a specific protocol or IP address
@@ -633,11 +601,6 @@ both strings or address objects::
     Instead of calling ``->from()`` *every* time you create a new email, you can
     :ref:`configure emails globally <mailer-configure-email-globally>` to set the
     same ``From`` email to all messages.
-
-.. versionadded:: 7.2
-
-    Support for non-ASCII email addresses (e.g. ``jânë.dœ@ëxãmplę.com``)
-    was introduced in Symfony 7.2.
 
 .. note::
 
@@ -1123,10 +1086,6 @@ This behavior can be overridden by passing a custom file name as the third argum
 
     <img src="{{ email.image('@images/logo.png', 'image/png', 'logo-acme.png') }}" alt="ACME Logo">
 
-.. versionadded:: 7.3
-
-    The third argument of ``email.image()`` was introduced in Symfony 7.3.
-
 .. _mailer-inline-css:
 
 Inlining CSS Styles
@@ -1495,10 +1454,6 @@ minimizes repetition and centralizes your configuration for DKIM and S/MIME sign
             ;
         };
 
-.. versionadded:: 7.3
-
-    Global message signing was introduced in Symfony 7.3.
-
 Encrypting Messages
 ~~~~~~~~~~~~~~~~~~~
 
@@ -1615,10 +1570,6 @@ return the file path to the certificate associated with the given email address:
             return file_exists($path) ? $path : null;
         }
     }
-
-.. versionadded:: 7.3
-
-    Global message encryption configuration was introduced in Symfony 7.3.
 
 .. _multiple-email-transports:
 
@@ -2225,10 +2176,6 @@ to maintain their original destination:
 With this configuration, all emails will be sent to ``youremail@example.com``,
 except for those sent to ``internal@example.com``, ``internal-monitoring@example.fr``,
 etc., which will receive emails as usual.
-
-.. versionadded:: 7.1
-
-    The ``allowed_recipients`` option was introduced in Symfony 7.1.
 
 Write a Functional Test
 ~~~~~~~~~~~~~~~~~~~~~~~

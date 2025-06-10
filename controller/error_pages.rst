@@ -192,11 +192,6 @@ need to replace ``http://localhost/`` by the host used in your local setup):
 * ``http://localhost/_error/{statusCode}`` for HTML
 * ``http://localhost/_error/{statusCode}.{format}`` for any other format
 
-.. versionadded:: 7.3
-
-    The ``errors.php`` file was introduced in Symfony 7.3.
-    Previously, you had to import ``errors.xml``
-
 .. _overriding-non-html-error-output:
 
 Overriding Error output for non-HTML formats
@@ -345,10 +340,6 @@ time and again, you can have just one (or several) listeners deal with them.
 
 Dumping Error Pages as Static HTML Files
 ----------------------------------------
-
-.. versionadded:: 7.3
-
-    The feature to dump error pages into static HTML files was introduced in Symfony 7.3.
 
 If an error occurs before reaching your Symfony application, web servers display
 their own default error pages instead of your custom ones. Dumping your application's

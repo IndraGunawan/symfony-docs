@@ -663,10 +663,6 @@ a block to render::
         }
     }
 
-.. versionadded:: 7.2
-
-    The ``#[Template]`` attribute's ``block`` argument was introduced in Symfony 7.2.
-
 Rendering a Template in Services
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -819,10 +815,6 @@ provided by Symfony:
             ;
         };
 
-.. versionadded:: 7.2
-
-    The ``headers`` option was introduced in Symfony 7.2.
-
 Checking if a Template Exists
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -874,15 +866,6 @@ errors. It's useful to run it before deploying your application to production
 
     # you can also excludes directories
     $ php bin/console lint:twig templates/ --excludes=data_collector --excludes=dev_tool
-
-.. versionadded:: 7.1
-
-    The option to exclude directories was introduced in Symfony 7.1.
-
-.. versionadded:: 7.3
-
-    Before Symfony 7.3, the ``--show-deprecations`` option only displayed the
-    first deprecation found, so you had to run the command repeatedly.
 
 When running the linter inside `GitHub Actions`_, the output is automatically
 adapted to the format required by GitHub, but you can force that format too:
@@ -1599,13 +1582,6 @@ If you want to create a function instead of a filter, use the
 
     Along with custom filters and functions, you can also register
     `global variables`_.
-
-.. versionadded:: 7.3
-
-    Support for the ``#[AsTwigFilter]``, ``#[AsTwigFunction]`` and ``#[AsTwigTest]``
-    attributes was introduced in Symfony 7.3. Previously, you had to extend the
-    ``AbstractExtension`` class, and override the ``getFilters()`` and ``getFunctions()``
-    methods.
 
 If you're using the :ref:`default services.yaml configuration <service-container-services-load-example>`,
 the :ref:`service autoconfiguration <services-autoconfigure>` feature will enable

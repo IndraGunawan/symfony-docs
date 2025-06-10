@@ -313,10 +313,6 @@ also relative URLs that contain no protocol (e.g. ``//example.com``).
 
 **type**: ``boolean`` **default**: ``false``
 
-.. versionadded:: 7.1
-
-    The ``requireTld`` option was introduced in Symfony 7.1.
-
 .. deprecated:: 7.1
 
     Not setting the ``requireTld`` option is deprecated since Symfony 7.1
@@ -337,10 +333,6 @@ name): e.g. ``https://example.com`` will be valid but ``https://example`` won't.
 ~~~~~~~~~~~~~~
 
 **type**: ``string`` **default**: ``This URL does not contain a TLD.``
-
-.. versionadded:: 7.1
-
-    The ``tldMessage`` option was introduced in Symfony 7.1.
 
 This message is shown if the ``requireTld`` option is set to ``true`` and the URL
 does not contain at least one TLD.

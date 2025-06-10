@@ -392,10 +392,6 @@ If a non-empty parameter is ``null``, an empty string ``''``, or an empty array 
 Symfony will throw an exception. This validation is **not** made at compile time
 but when attempting to retrieve the value of the parameter.
 
-.. versionadded:: 7.2
-
-    Validating non-empty parameters was introduced in Symfony 7.2.
-
 .. seealso::
 
     Later in this article you can read how to
@@ -983,11 +979,6 @@ to learn more about this.
 
 If you need to know the path to the ``.env`` file that Symfony is using, you can
 read the ``SYMFONY_DOTENV_PATH`` environment variable in your application.
-
-.. versionadded:: 7.1
-
-    The ``SYMFONY_DOTENV_PATH`` environment variable was introduced in Symfony
-    7.1.
 
 .. _configuration-secrets:
 
