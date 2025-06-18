@@ -1082,13 +1082,17 @@ Mailer Assertions
 ``assertEmailHeaderSame(RawMessage $email, string $headerName, string $expectedValue, string $message = '')``/``assertEmailHeaderNotSame(RawMessage $email, string $headerName, string $expectedValue, string $message = '')``
     Asserts that the given email does (not) have the expected header set to
     the expected value.
-``assertEmailAddressContains(RawMessage $email, string $headerName, string $expectedValue, string $message = '')``
-    Asserts that the given address header equals the expected e-mail
+``assertEmailAddressContains(RawMessage $email, string $headerName, string $expectedValue, string $message = '')``/``assertEmailAddressNotContains(RawMessage $email, string $headerName, string $expectedValue, string $message = '')``
+    Asserts that the given address header does (not) equal the expected e-mail
     address. This assertion normalizes addresses like ``Jane Smith
     <jane@example.com>`` into ``jane@example.com``.
 ``assertEmailSubjectContains(RawMessage $email, string $expectedValue, string $message = '')``/``assertEmailSubjectNotContains(RawMessage $email, string $expectedValue, string $message = '')``
     Asserts that the subject of the given email does (not) contain the
     expected subject.
+
+.. versionadded:: 7.4
+
+    The ``assertEmailAddressNotContains()`` assertion was introduced in Symfony 7.4.
 
 Notifier Assertions
 ...................
