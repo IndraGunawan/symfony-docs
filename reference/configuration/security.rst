@@ -46,32 +46,6 @@ access_denied_url
 Defines the URL where the user is redirected after a ``403`` HTTP error (unless
 you define a custom access denial handler). Example: ``/no-permission``
 
-erase_credentials
------------------
-
-**type**: ``boolean`` **default**: ``true``
-
-If ``true``, the ``eraseCredentials()`` method of the user object is called
-after authentication::
-
-    use Symfony\Component\Security\Core\User\UserInterface;
-
-    class User implements UserInterface
-    {
-        // ...
-
-        public function eraseCredentials(): void
-        {
-            // If you store any temporary, sensitive data on the user, clear it here
-            // $this->plainPassword = null;
-        }
-    }
-
-.. deprecated:: 7.3
-
-   Since Symfony 7.3, ``eraseCredentials()`` methods are deprecated and are
-   not called if they have the ``#[\Deprecated]`` attribute.
-
 expose_security_errors
 ----------------------
 
