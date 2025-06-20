@@ -289,10 +289,6 @@ lowercasing identifiers helps treat values like "john.doe", "John.Doe", or
 If needed, you can pass a normalizer as the third argument to ``UserBadge``.
 This callable receives the ``$userIdentifier`` and must return a string.
 
-.. versionadded:: 7.3
-
-    Support for user identifier normalizers was introduced in Symfony 7.3.
-
 The example below uses a normalizer that converts usernames to a normalized,
 ASCII-only, lowercase format::
 

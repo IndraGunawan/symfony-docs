@@ -665,7 +665,3 @@ class to check precisely which of the constraints failed to pass::
         }
     }
 
-.. versionadded:: 7.2
-
-    The :class:`Symfony\\Component\\Validator\\Test\\CompoundConstraintTestCase`
-    class was introduced in Symfony 7.2.

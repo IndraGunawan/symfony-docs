@@ -255,10 +255,6 @@ Use these methods to transform the UUID object into different bases::
     $uuid->toHex();     // string(34) "0xd9e7a1845d5b11eaa62a3499710062d0"
     $uuid->toString();  // string(36) "d9e7a184-5d5b-11ea-a62a-3499710062d0"
 
-.. versionadded:: 7.1
-
-    The ``toString()`` method was introduced in Symfony 7.1.
-
 You can also convert some UUID versions to others::
 
     // convert V1 to V6 or V7
@@ -271,13 +267,6 @@ You can also convert some UUID versions to others::
     $uuid = Uuid::v6();
 
     $uuid->toV7(); // returns a Symfony\Component\Uid\UuidV7 instance
-
-.. versionadded:: 7.1
-
-    The :method:`Symfony\\Component\\Uid\\UuidV1::toV6`,
-    :method:`Symfony\\Component\\Uid\\UuidV1::toV7` and
-    :method:`Symfony\\Component\\Uid\\UuidV6::toV7`
-    methods were introduced in Symfony 7.1.
 
 Working with UUIDs
 ~~~~~~~~~~~~~~~~~~
@@ -335,11 +324,6 @@ The following constants are available:
 
 You can also use the ``Uuid::FORMAT_ALL`` constant to accept any UUID format.
 By default, only the RFC 4122 format is accepted.
-
-.. versionadded:: 7.2
-
-    The ``$format`` parameter of the :method:`Symfony\\Component\\Uid\\Uuid::isValid`
-    method and the related constants were introduced in Symfony 7.2.
 
 Storing UUIDs in Databases
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

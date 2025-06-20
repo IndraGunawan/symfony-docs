@@ -46,10 +46,6 @@ You can also use a generic method that detects the type automatically::
     Type::fromValue('...'); // same as Type::string()
     Type::fromValue(false); // same as Type::false()
 
-.. versionadded:: 7.3
-
-    The ``fromValue()`` method was introduced in Symfony 7.3.
-
 Resolvers
 ~~~~~~~~~
 
@@ -162,11 +158,6 @@ Checking if a type **accepts a value**::
     // now the second check is true because the union type accepts either an int or a string value
     $type->accepts(123); // true
     $type->accepts('z'); // true
-
-.. versionadded:: 7.3
-
-    The :method:`Symfony\\Component\\TypeInfo\\Type::accepts`
-    method was introduced in Symfony 7.3.
 
 Using callables for **complex checks**::
 

@@ -97,10 +97,6 @@ argument of type ``service_closure``:
             //     ->args([service_closure('mailer')->ignoreOnInvalid()]);
         };
 
-.. versionadded:: 7.3
-
-    The ``@>`` shortcut syntax for YAML was introduced in Symfony 7.3.
-
 .. seealso::
 
     Service closures can be injected :ref:`by using autowiring <autowiring_closures>`

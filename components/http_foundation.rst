@@ -376,11 +376,6 @@ anonymized depending on the IP address format::
     $anonymousIpv6 = IpUtils::anonymize($ipv6, 3, 10);
     // $anonymousIpv6 = '2a01:198:603::'
 
-.. versionadded:: 7.2
-
-    The ``v4Bytes`` and ``v6Bytes`` parameters of the ``anonymize()`` method
-    were introduced in Symfony 7.2.
-
 Check If an IP Belongs to a CIDR Subnet
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -458,11 +453,6 @@ You can use them individually or combine them using the
     if ($matcher->matches($request)) {
         // ...
     }
-
-.. versionadded:: 7.1
-
-    The ``HeaderRequestMatcher`` and ``QueryParameterRequestMatcher`` were
-    introduced in Symfony 7.1.
 
 Accessing other Data
 ~~~~~~~~~~~~~~~~~~~~
@@ -721,10 +711,6 @@ a PHP callable::
         // disables FastCGI buffering in nginx only for this response
         $response->headers->set('X-Accel-Buffering', 'no');
 
-.. versionadded:: 7.3
-
-    Support for using string iterables was introduced in Symfony 7.3.
-
 Streaming a JSON Response
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -905,11 +891,6 @@ and that will be automatically deleted after the response is sent::
     $file->rewind();
 
     $response = new BinaryFileResponse($file);
-
-.. versionadded:: 7.1
-
-    The support for ``\SplTempFileObject`` in ``BinaryFileResponse``
-    was introduced in Symfony 7.1.
 
 If the size of the served file is unknown (e.g. because it's being generated on the fly,
 or because a PHP stream filter is registered on it, etc.), you can pass a ``Stream``

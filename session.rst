@@ -512,11 +512,6 @@ Alternatively, you can configure these settings by passing ``gc_probability``,
 or to the :method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions`
 method.
 
-.. versionadded:: 7.2
-
-    Using the ``php.ini`` directive as the default value for ``gc_probability``
-    was introduced in Symfony 7.2.
-
 .. _session-database:
 
 Store Sessions in a Database

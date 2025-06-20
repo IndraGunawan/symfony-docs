@@ -138,10 +138,6 @@ It defines an optional parameter used to define interfaces for proxy and interse
     ) {
     }
 
-.. versionadded:: 7.1
-
-    The ``#[Lazy]`` attribute was introduced in Symfony 7.1.
-
 Interface Proxifying
 --------------------
 

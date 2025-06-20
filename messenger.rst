@@ -266,10 +266,6 @@ you can configure them to be sent to a transport:
             ;
         };
 
-.. versionadded:: 7.2
-
-    The ``#[AsMessage]`` attribute was introduced in Symfony 7.2.
-
 Thanks to this, the ``App\Message\SmsNotification`` will be sent to the ``async``
 transport and its handler(s) will *not* be called immediately. Any messages not
 matched under ``routing`` will still be handled immediately, i.e. synchronously.
@@ -539,10 +535,6 @@ command with the ``--all`` option:
 
     $ php bin/console messenger:consume --all
 
-.. versionadded:: 7.1
-
-    The ``--all`` option was introduced in Symfony 7.1.
-
 Messages that take a long time to process may be redelivered prematurely because
 some transports assume that an unacknowledged message is lost. To prevent this
 issue, use the ``--keepalive`` command option to specify an interval (in seconds;
@@ -556,10 +548,6 @@ the message from being redelivered until the worker completes processing it:
 .. note::
 
     This option is only available for the following transports: Beanstalkd, AmazonSQS, Doctrine and Redis.
-
-.. versionadded:: 7.2
-
-    The ``--keepalive`` option was introduced in Symfony 7.2.
 
 .. tip::
 
@@ -757,10 +745,6 @@ of some or all transports:
     $ php bin/console messenger:stats --format=json
     $ php bin/console messenger:stats my_transport_name other_transport_name --format=json
 
-.. versionadded:: 7.2
-
-    The ``format`` option was introduced in Symfony 7.2.
-
 .. note::
 
     In order for this command to work, the configured transport's receiver must implement
@@ -893,12 +877,6 @@ configuration option:
             $framework->messenger()
                 ->stopWorkerOnSignals(['SIGTERM', 'SIGINT', 'SIGUSR1']);
         };
-
-.. versionadded:: 7.3
-
-    Support for signals plain names in configuration was introduced in Symfony 7.3.
-    Previously, you had to use the numeric values of signals as defined by the
-    ``pcntl`` extension's `predefined constants`_.
 
 In some cases the ``SIGTERM`` signal is sent by Supervisor itself (e.g. stopping
 a Docker container having Supervisor as its entrypoint). In these cases you
@@ -1166,10 +1144,6 @@ this is configurable for each transport:
             ;
         };
 
-.. versionadded:: 7.1
-
-    The ``jitter`` option was introduced in Symfony 7.1.
-
 .. tip::
 
     Symfony triggers a :class:`Symfony\\Component\\Messenger\\Event\\WorkerMessageRetriedEvent`
@@ -1206,11 +1180,6 @@ the message will always be retried infinitely and ``max_retries`` setting will b
 You can define a custom retry delay (e.g., to use the value from the ``Retry-After``
 header in an HTTP response) by setting the ``retryDelay`` argument in the
 constructor of the ``RecoverableMessageHandlingException``.
-
-.. versionadded:: 7.2
-
-    The ``retryDelay`` argument and the ``getRetryDelay()`` method were introduced
-    in Symfony 7.2.
 
 .. _messenger-failure-transport:
 
@@ -1318,16 +1287,6 @@ to retry them:
 If the message fails again, it will be re-sent back to the failure transport
 due to the normal :ref:`retry rules <messenger-retries-failures>`. Once the max
 retry has been hit, the message will be discarded permanently.
-
-.. versionadded:: 7.2
-
-    The option to skip a message in the ``messenger:failed:retry`` command was
-    introduced in Symfony 7.2
-
-.. versionadded:: 7.3
-
-    The option to filter by a message class in the ``messenger:failed:remove`` command was
-    introduced in Symfony 7.3
 
 Multiple Failed Transports
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1650,10 +1609,6 @@ The transport has a number of options:
 ``exchange[type]`` (default: ``fanout``)
     Type of exchange
 
-.. versionadded:: 7.3
-
-    Empty string support for ``exchange[name]`` was introduced in Symfony 7.3.
-
 You can also configure AMQP-specific settings on your message by adding
 :class:`Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpStamp` to
 your Envelope::
@@ -1760,10 +1715,6 @@ in the table.
 The Doctrine transport supports the ``--keepalive`` option by periodically updating
 the ``delivered_at`` timestamp to prevent the message from being redelivered.
 
-.. versionadded:: 7.3
-
-    Keepalive support was introduced in Symfony 7.3.
-
 Beanstalkd Transport
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -1790,10 +1741,6 @@ The transport has a number of options:
     When set to ``true``, rejected messages are placed into a "buried" state
     in Beanstalkd instead of being deleted.
 
-    .. versionadded:: 7.3
-
-        The ``bury_on_reject`` option was introduced in Symfony 7.3.
-
 ``timeout`` (default: ``0``)
     Message reservation timeout - in seconds. 0 will cause the server to
     immediately return either a response or a TransportException will be thrown.
@@ -1808,10 +1755,6 @@ The transport has a number of options:
 The Beanstalkd transport supports the ``--keepalive`` option by using Beanstalkd's
 ``touch`` command to periodically reset the job's ``ttr``.
 
-.. versionadded:: 7.2
-
-    Keepalive support was introduced in Symfony 7.2.
-
 The Beanstalkd transport lets you set the priority of the messages being dispatched.
 Use the :class:`Symfony\\Component\\Messenger\\Bridge\\Beanstalkd\\Transport\\BeanstalkdPriorityStamp`
 and pass a number to specify the priority (default = ``1024``; lower numbers mean higher priority)::
@@ -1824,10 +1767,6 @@ and pass a number to specify the priority (default = ``1024``; lower numbers mea
         // 2**32 - 1 = lowest priority
         new BeanstalkdPriorityStamp(0),
     ]);
-
-.. versionadded:: 7.3
-
-    ``BeanstalkdPriorityStamp`` support was introduced in Symfony 7.3.
 
 .. _messenger-redis-transport:
 
@@ -1931,10 +1870,6 @@ under the transport in ``messenger.yaml``:
 ``redis_sentinel`` (default: ``null``)
     An alias of the ``sentinel_master`` option
 
-    .. versionadded:: 7.1
-
-        The ``redis_sentinel`` option was introduced in Symfony 7.1.
-
 ``ssl`` (default: ``null``)
     Map of `SSL context options`_ for the TLS channel. This is useful for example
     to change the requirements for the TLS channel in tests:
@@ -1977,10 +1912,6 @@ under the transport in ``messenger.yaml``:
 
 The Redis transport supports the ``--keepalive`` option by using Redis's ``XCLAIM``
 command to periodically reset the message's idle time to zero.
-
-.. versionadded:: 7.3
-
-    Keepalive support was introduced in Symfony 7.3.
 
 In Memory Transport
 ~~~~~~~~~~~~~~~~~~~
@@ -2145,10 +2076,6 @@ The transport has a number of options:
 ``wait_time`` (default: ``20``)
     `Long polling`_ duration in seconds
 
-.. versionadded:: 7.3
-
-    The ``queue_attributes`` and ``queue_tags`` options were introduced in Symfony 7.3.
-
 .. note::
 
     The ``wait_time`` parameter defines the maximum duration Amazon SQS should
@@ -2183,10 +2110,6 @@ The transport has a number of options:
 
 The SQS transport supports the ``--keepalive`` option by using the ``ChangeMessageVisibility``
 action to periodically update the ``VisibilityTimeout`` of the message.
-
-.. versionadded:: 7.2
-
-    Keepalive support was introduced in Symfony 7.2.
 
 Serializing Messages
 ~~~~~~~~~~~~~~~~~~~~
@@ -2282,11 +2205,6 @@ This interface is implemented by the following transports: AmazonSqs, Amqp, and 
 If you need to close a Doctrine connection, you can do so
 :ref:`using middleware <middleware-for-doctrine>`.
 
-.. versionadded:: 7.3
-
-    The ``CloseableTransportInterface`` and its ``close()`` method were introduced
-    in Symfony 7.3.
-
 Running Commands And External Processes
 ---------------------------------------
 
@@ -2378,10 +2296,6 @@ factory :method:Symfony\\Component\\Process\\Messenger\\RunProcessMessage::fromS
 
 For more information, read the documentation about
 :ref:`using features from the OS shell <process-using-features-from-the-os-shell>`.
-
-.. versionadded:: 7.3
-
-    The ``RunProcessMessage::fromShellCommandline()`` method was introduced in Symfony 7.3.
 
 Once handled, the handler will return a
 :class:`Symfony\\Component\\Process\\Messenger\\RunProcessContext` which
@@ -2533,10 +2447,6 @@ You can also add new stamps when handling a message; they will be appended
 to the existing ones::
 
     $this->handle(new SomeMessage($data), [new SomeStamp(), new AnotherStamp()]);
-
-.. versionadded:: 7.3
-
-    The ``$stamps`` parameter of the ``handle()`` method was introduced in Symfony 7.3.
 
 Customizing Handlers
 --------------------
@@ -3764,5 +3674,4 @@ Learn more
 .. _`high connection churn`: https://www.rabbitmq.com/connections.html#high-connection-churn
 .. _`article about CQRS`: https://martinfowler.com/bliki/CQRS.html
 .. _`SSL context options`: https://php.net/context.ssl
-.. _`predefined constants`: https://www.php.net/pcntl.constants
 .. _`SQS CreateQueue API`: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CreateQueue.html

@@ -570,10 +570,6 @@ allows you to mock the PHP's built-in time functions ``time()``, ``microtime()``
 Additionally the function ``date()`` is mocked so it uses the mocked time if no
 timestamp is specified.
 
-.. versionadded:: 7.4
-
-    Support for mocking the ``strtotime()`` function was introduced in Symfony 7.4.
-
 Other functions with an optional timestamp parameter that defaults to ``time()``
 will still use the system time instead of the mocked time. This means that you
 may need to change some code in your tests. For example, instead of ``new DateTime()``,

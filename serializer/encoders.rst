@@ -208,14 +208,6 @@ These are the options available on the :ref:`serializer context <serializer-cont
 ``ignore_empty_attributes`` (default: ``false``)
     If set to true, ignores all attributes with empty values in the generated XML
 
-.. versionadded:: 7.1
-
-    The ``cdata_wrapping_pattern`` option was introduced in Symfony 7.1.
-
-.. versionadded:: 7.3
-
-    The ``ignore_empty_attributes`` option was introduced in Symfony 7.3.
-
 Example with a custom ``context``::
 
     use Symfony\Component\Serializer\Encoder\XmlEncoder;

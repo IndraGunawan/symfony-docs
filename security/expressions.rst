@@ -228,11 +228,6 @@ returns an array of values that will be injected into the closure::
         }
     }
 
-.. versionadded:: 7.3
-
-    The support for closures in the ``#[IsGranted]`` attribute was introduced
-    in Symfony 7.3 and requires PHP 8.5.
-
 Learn more
 ----------
 

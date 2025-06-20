@@ -321,15 +321,6 @@ array, the attribute is ignored for that request, and no CSRF validation occurs:
         // ... delete the object
     }
 
-.. versionadded:: 7.1
-
-    The :class:`Symfony\\Component\\Security\\Http\\Attribute\\IsCsrfTokenValid`
-    attribute was introduced in Symfony 7.1.
-
-.. versionadded:: 7.3
-
-    The ``methods`` parameter was introduced in Symfony 7.3.
-
 CSRF Tokens and Compression Side-Channel Attacks
 ------------------------------------------------
 
@@ -343,10 +334,6 @@ and used to scramble it.
 
 Stateless CSRF Tokens
 ---------------------
-
-.. versionadded:: 7.2
-
-    Stateless anti-CSRF protection was introduced in Symfony 7.2.
 
 Traditionally, CSRF tokens are stateful, meaning they're stored in the session.
 However, some token IDs can be declared as stateless using the

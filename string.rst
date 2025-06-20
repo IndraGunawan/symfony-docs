@@ -239,19 +239,6 @@ Methods to Change Case
     // other cases can be achieved by chaining methods, e.g. :
     u('Foo: Bar-baz.')->camel()->upper(); // 'FOOBARBAZ'
 
-.. versionadded:: 7.1
-
-    The ``localeLower()``, ``localeUpper()`` and ``localeTitle()`` methods were
-    introduced in Symfony 7.1.
-
-.. versionadded:: 7.2
-
-    The ``kebab()`` method was introduced in Symfony 7.2.
-
-.. versionadded:: 7.3
-
-    The ``pascal()`` method was introduced in Symfony 7.3.
-
 The methods of all string classes are case-sensitive by default. You can perform
 case-insensitive operations with the ``ignoreCase()`` method::
 
@@ -416,10 +403,6 @@ Methods to Join, Split, Truncate and Reverse
     u('Lorem ipsum dolor sit amet')->truncate(8, cut: TruncateMode::WordBefore); // 'Lorem'
     // returns up to the last complete word that fits in the given length, surpassing it if needed
     u('Lorem ipsum dolor sit amet')->truncate(8, cut: TruncateMode::WordAfter);   // 'Lorem ipsum'
-
-.. versionadded:: 7.2
-
-    The ``TruncateMode`` parameter for truncate function was introduced in Symfony 7.2.
 
 ::
 
@@ -679,10 +662,6 @@ Symfony also provides inflectors for other languages::
     $inflector = new SpanishInflector();
     $result = $inflector->singularize('aviones'); // ['avión']
     $result = $inflector->pluralize('miércoles'); // ['miércoles']
-
-.. versionadded:: 7.2
-
-    The ``SpanishInflector`` class was introduced in Symfony 7.2.
 
 .. note::
 

@@ -712,10 +712,6 @@ The ``{slug:product}`` syntax maps the route parameter named ``slug`` to the
 controller argument named ``$product``. It also hints the resolver to look up
 the corresponding ``Product`` object from the database using the slug.
 
-.. versionadded:: 7.1
-
-    Route parameter mapping was introduced in Symfony 7.1.
-
 You can also configure the mapping explicitly for any controller argument
 using the ``MapEntity`` attribute. You can even control the behavior of the
 ``EntityValueResolver`` by using the `MapEntity options`_ ::
@@ -768,10 +764,6 @@ In that case, update the type of your controller argument::
     ): Response {
     }
 
-.. versionadded:: 7.1
-
-    The mapping of the lists of entities was introduced in Symfony 7.1.
-
 This can also be used to help resolve multiple arguments::
 
     #[Route('/product/{id}/comments/{comment_id}')]
@@ -818,11 +810,6 @@ resolved automatically::
     ): Response {
         // ...
     }
-
-.. versionadded:: 7.3
-
-    Support for target entity resolution in the ``EntityValueResolver`` was
-    introduced Symfony 7.3
 
 MapEntity Options
 ~~~~~~~~~~~~~~~~~
@@ -887,10 +874,6 @@ control behavior:
             Product $product
         ): Response {
         }
-
-.. versionadded:: 7.1
-
-    The ``message`` option was introduced in Symfony 7.1.
 
 Updating an Object
 ------------------

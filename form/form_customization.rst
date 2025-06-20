@@ -131,10 +131,6 @@ fields, so you no longer have to deal with form themes:
         {% endfor %}
     </select>
 
-.. versionadded:: 7.3
-
-    The ``field_id()`` helper was introduced in Symfony 7.3.
-
 Form Rendering Variables
 ------------------------
 

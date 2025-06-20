@@ -15,11 +15,6 @@ This makes it possible to define relationships between entities without
 creating hard dependencies. This feature also works with the ``EntityValueResolver``
 :ref:`as explained in the main Doctrine article <doctrine-entity-value-resolver-resolve-target-entities>`.
 
-.. versionadded:: 7.3
-
-    Support for target entity resolution in the ``EntityValueResolver`` was
-    introduced Symfony 7.3
-
 Background
 ----------
 

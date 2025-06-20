@@ -87,12 +87,6 @@ Set this option to ``false`` to disable Twig template compilation. However, this
 is not recommended, not even in the ``dev`` environment, because the ``auto_reload``
 option ensures that cached templates which have changed get compiled again.
 
-.. versionadded:: 7.3
-
-    Support for using ``true`` as a value was introduced in Symfony 7.3. It also
-    became the default value for this option, replacing the explicit path
-    ``%kernel.cache_dir%/twig``.
-
 charset
 ~~~~~~~
 

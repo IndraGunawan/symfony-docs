@@ -202,10 +202,6 @@ can be found in :ref:`security-template`.
 is_granted_for_user
 ~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 7.3
-
-    The ``is_granted_for_user()`` function was introduced in Symfony 7.3.
-
 .. code-block:: twig
 
     {{ is_granted_for_user(user, attribute, subject = null) }}
@@ -1009,10 +1005,6 @@ For example::
 
 emojify
 ~~~~~~~
-
-.. versionadded:: 7.1
-
-    The ``emojify`` filter was introduced in Symfony 7.1.
 
 .. code-block:: twig
 

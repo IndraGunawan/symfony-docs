@@ -198,11 +198,6 @@ can provide the full documentation block for a property as a string::
             It can span multiple lines.
     */
 
-.. versionadded:: 7.1
-
-    The :class:`Symfony\\Component\\PropertyInfo\\PropertyDocBlockExtractorInterface`
-    interface was introduced in Symfony 7.1.
-
 .. _property-info-description:
 
 Description Information
@@ -435,11 +430,6 @@ library is present::
     $phpDocExtractor->getLongDescription($class, $property);
     $phpDocExtractor->getDocBlock($class, $property);
 
-.. versionadded:: 7.1
-
-    The :method:`Symfony\\Component\\PropertyInfo\\Extractor\\PhpDocExtractor::getDocBlock`
-    method was introduced in Symfony 7.1.
-
 PhpStanExtractor
 ~~~~~~~~~~~~~~~~
 
@@ -475,12 +465,6 @@ information from annotations of properties and methods, such as ``@var``,
     // Description information.
     $phpStanExtractor->getShortDescription($class, 'bar');
     $phpStanExtractor->getLongDescription($class, 'bar');
-
-.. versionadded:: 7.3
-
-    The :method:`Symfony\\Component\\PropertyInfo\\Extractor\\PhpStanExtractor::getShortDescription`
-    and :method:`Symfony\\Component\\PropertyInfo\\Extractor\\PhpStanExtractor::getLongDescription`
-    methods were introduced in Symfony 7.3.
 
 SerializerExtractor
 ~~~~~~~~~~~~~~~~~~~
@@ -591,10 +575,6 @@ service by defining it as a service with one or more of the following
 * ``property_info.initializable_extractor`` if it provides initializable information
   (it checks if a property can be initialized through the constructor).
 * ``property_info.constructor_extractor`` if it provides type information from the constructor argument.
-
-  .. versionadded:: 7.3
-
-      The ``property_info.constructor_extractor`` tag was introduced in Symfony 7.3.
 
 .. _`PSR-1`: https://www.php-fig.org/psr/psr-1/
 .. _`phpDocumentor Reflection`: https://github.com/phpDocumentor/ReflectionDocBlock

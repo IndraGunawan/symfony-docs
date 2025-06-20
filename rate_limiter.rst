@@ -222,19 +222,8 @@ prevents that number from being higher than 5,000).
     find them with a :doc:`tagged iterator </service_container/tags>` or
     :doc:`locator </service_container/service_subscribers_locators>`.
 
-    .. versionadded:: 7.1
-
-        The automatic addition of the ``rate_limiter`` tag was introduced
-        in Symfony 7.1.
-
 Rate Limiting in Action
 -----------------------
-
-.. versionadded:: 7.3
-
-    :class:`Symfony\\Component\\RateLimiter\\RateLimiterFactoryInterface` was
-    added and should now be used for autowiring instead of
-    :class:`Symfony\\Component\\RateLimiter\\RateLimiterFactory`.
 
 After having installed and configured the rate limiter, inject it in any service
 or controller and call the ``consume()`` method to try to consume a given number
@@ -541,18 +530,8 @@ at all):
                 ;
         };
 
-.. versionadded:: 7.3
-
-    Before Symfony 7.3, configuring a rate limiter and using the default configured
-    lock factory (``lock.factory``) failed if the Symfony Lock component was not
-    installed in the application.
-
 Compound Rate Limiter
 ---------------------
-
-.. versionadded:: 7.3
-
-    Support for configuring compound rate limiters was introduced in Symfony 7.3.
 
 You can configure multiple rate limiters to work together:
 

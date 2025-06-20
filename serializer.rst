@@ -1300,10 +1300,6 @@ setting the ``name_converter`` setting to
         ];
         $serializer = new Serializer($normalizers, $encoders);
 
-.. versionadded:: 7.2
-
-    The snake_case to CamelCase converter was introduced in Symfony 7.2.
-
 .. _serializer-built-in-normalizers:
 
 Serializer Normalizers
@@ -1348,10 +1344,6 @@ normalizers (in order of priority):
     context option ``DateTimeNormalizer::CAST_KEY`` to ``int`` or
     ``float``.
 
-    .. versionadded:: 7.1
-
-        The ``DateTimeNormalizer::CAST_KEY`` context option was introduced in Symfony 7.1.
-
 :class:`Symfony\\Component\\Serializer\\Normalizer\\ConstraintViolationListNormalizer`
     This normalizer converts objects that implement
     :class:`Symfony\\Component\\Validator\\ConstraintViolationListInterface`
@@ -1390,10 +1382,6 @@ normalizers (in order of priority):
 :class:`Symfony\\Component\\Serializer\\Normalizer\\NumberNormalizer`
     This normalizer converts between :phpclass:`BcMath\\Number` or :phpclass:`GMP` objects and
     strings or integers.
-
-.. versionadded:: 7.2
-
-    The ``NumberNormalizer`` was introduced in Symfony 7.2.
 
 :class:`Symfony\\Component\\Serializer\\Normalizer\\DataUriNormalizer`
     This normalizer converts between :phpclass:`SplFileInfo` objects and a
@@ -1569,10 +1557,6 @@ like:
 
 Named Serializers
 -----------------
-
-.. versionadded:: 7.2
-
-    Named serializers were introduced in Symfony 7.2.
 
 Sometimes, you may need multiple configurations for the serializer, such as
 different default contexts, name converters, or sets of normalizers and encoders,
@@ -2444,10 +2428,6 @@ Now it deserializes like this:
         $invoiceLine = $serializer->deserialize('{"invoiceItem":{...},...}', InvoiceLine::class, 'json');
         // $invoiceLine contains new InvoiceLine(new Product(...))
 
-.. versionadded:: 7.3
-
-    The ``defaultType`` parameter was added in Symfony 7.3.
-
 .. _serializer-unwrapping-denormalizer:
 
 Deserializing Input Partially (Unwrapping)
@@ -2508,10 +2488,6 @@ setting the serializer context option
 
 Handling Boolean Values
 ~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 7.1
-
-    The ``AbstractNormalizer::FILTER_BOOL`` context option was introduced in Symfony 7.1.
 
 PHP considers many different values as true or false. For example, the
 strings ``true``, ``1``, and ``yes`` are considered true, while

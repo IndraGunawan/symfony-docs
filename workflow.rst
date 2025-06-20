@@ -178,11 +178,6 @@ follows:
     that are used in the workflow. Symfony will automatically extract the places
     from the transitions.
 
-    .. versionadded:: 7.1
-
-        The support for omitting the ``places`` option was introduced in
-        Symfony 7.1.
-
 The configured property will be used via its implemented getter/setter methods by the marking store::
 
     // src/Entity/BlogPost.php
@@ -364,11 +359,6 @@ To get the enabled transition of a Workflow, you can use
 :method:`Symfony\\Component\\Workflow\\WorkflowInterface::getEnabledTransition`
 method.
 
-.. versionadded:: 7.1
-
-    The :method:`Symfony\\Component\\Workflow\\WorkflowInterface::getEnabledTransition`
-    method was introduced in Symfony 7.1.
-
 Workflows can also be injected thanks to their name and the
 :class:`Symfony\\Component\\DependencyInjection\\Attribute\\Target`
 attribute::
@@ -405,10 +395,6 @@ name.
     giving you more context and information about the workflow at disposal.
     Learn more about :ref:`tag attributes <tags_additional-attributes>` and
     :ref:`storing workflow metadata <workflow_storing-metadata>`.
-
-    .. versionadded:: 7.1
-
-        The attached configuration to the tag was introduced in Symfony 7.1.
 
 .. tip::
 
@@ -567,10 +553,6 @@ workflow leaves a place::
     method to build the full event name without having to deal with strings.
     You can also use this method in your custom events via the
     :class:`Symfony\\Component\\Workflow\\Event\\EventNameTrait`.
-
-    .. versionadded:: 7.1
-
-        The ``getName()`` method was introduced in Symfony 7.1.
 
 If some listeners update the context during a transition, you can retrieve
 it via the marking::
@@ -1382,10 +1364,6 @@ After implementing your validator, configure your workflow to use it:
 
 The ``BlogPublishingValidator`` will be executed during container compilation
 to validate the workflow definition.
-
-.. versionadded:: 7.3
-
-    Support for workflow definition validators was introduced in Symfony 7.3.
 
 Learn more
 ----------

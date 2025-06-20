@@ -87,10 +87,6 @@ generate and return the value::
 Creating Sub-Namespaces
 -----------------------
 
-.. versionadded:: 7.3
-
-   Cache sub-namespaces were introduced in Symfony 7.3.
-
 Sometimes you need to create context-dependent variations of data that should be
 cached. For example, the data used to render a dashboard page may be expensive
 to generate and unique per user, so you can't cache the same data for everyone.
@@ -285,12 +281,6 @@ function from the `Igbinary extension`_::
     $cache = new RedisAdapter(new \Redis(), 'namespace', 0, $marshaller);
 
 There are other *marshallers* that can encrypt or compress the data before storing it.
-
-.. versionadded:: 7.2
-
-    In Symfony versions prior to 7.2, the ``igbinary_serialize()`` function was
-    used by default when the Igbinary extension was installed. Starting from
-    Symfony 7.2, you have to enable Igbinary support explicitly.
 
 Advanced Usage
 --------------

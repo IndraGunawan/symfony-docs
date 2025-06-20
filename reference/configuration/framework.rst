@@ -859,10 +859,6 @@ stateless_token_ids
 
 The list of CSRF token ids that will use :ref:`stateless CSRF protection <csrf-stateless-tokens>`.
 
-.. versionadded:: 7.2
-
-    The ``stateless_token_ids`` option was introduced in Symfony 7.2.
-
 check_header
 ............
 
@@ -874,10 +870,6 @@ this to ``2`` (the value of the ``CHECK_ONLY_HEADER`` constant on the
 :class:`Symfony\\Component\\Security\\Csrf\\SameOriginCsrfTokenManager` class)
 to check only the header and ignore the cookie.
 
-.. versionadded:: 7.2
-
-    The ``check_header`` option was introduced in Symfony 7.2.
-
 cookie_name
 ...........
 
@@ -885,10 +877,6 @@ cookie_name
 
 The name of the cookie (and HTTP header) to use for the double-submit when using
 :ref:`stateless CSRF protection <csrf-stateless-tokens>`.
-
-.. versionadded:: 7.2
-
-    The ``cookie_name`` option was introduced in Symfony 7.2.
 
 .. _config-framework-default_locale:
 
@@ -1112,10 +1100,6 @@ and HTTP status code applied to the exceptions that match the given exception cl
             ;
         };
 
-.. versionadded:: 7.3
-
-    The ``log_channel`` option was introduced in Symfony 7.3.
-
 The order in which you configure exceptions is important because Symfony will
 use the configuration of the first exception that matches ``instanceof``:
 
@@ -1174,11 +1158,6 @@ The attributes can also be added to interfaces directly::
     class CustomException extends \Exception implements CustomExceptionInterface
     {
     }
-
-.. versionadded:: 7.1
-
-    Support to use ``#[WithHttpStatus]`` and ``#[WithLogLevel]`` attributes
-    on interfaces was introduced in Symfony 7.1.
 
 .. _reference-framework-form:
 
@@ -1832,10 +1811,6 @@ rate_limiter
 The service ID of the rate limiter used to limit the number of HTTP requests
 within a certain period. The service must implement the
 :class:`Symfony\\Component\\RateLimiter\\LimiterInterface`.
-
-.. versionadded:: 7.1
-
-    The ``rate_limiter`` option was introduced in Symfony 7.1.
 
 resolve
 .......
@@ -2525,10 +2500,6 @@ with_constructor_extractor
 Configures the ``property_info`` service to extract property information from the constructor arguments
 using the :ref:`ConstructorExtractor <components-property-information-constructor-extractor>`.
 
-.. versionadded:: 7.3
-
-    The ``with_constructor_extractor`` option was introduced in Symfony 7.3.
-
 rate_limiter
 ~~~~~~~~~~~~
 
@@ -3144,11 +3115,6 @@ chance that the GC process will start on each request.
 If not set, Symfony will use the value of the `session.gc_probability`_ directive
 in the ``php.ini`` configuration file.
 
-.. versionadded:: 7.2
-
-    Relying on ``php.ini``'s directive as default for ``gc_probability`` was
-    introduced in Symfony 7.2.
-
 .. _config-framework-session-handler-id:
 
 handler_id
@@ -3480,11 +3446,6 @@ trust_x_sendfile_type_header
 
 **type**: ``boolean`` **default**: ``%env(bool:default::SYMFONY_TRUST_X_SENDFILE_TYPE_HEADER)%``
 
-.. versionadded:: 7.2
-
-    In Symfony 7.2, the default value of this option was changed from ``false`` to the
-    value stored in the ``SYMFONY_TRUST_X_SENDFILE_TYPE_HEADER`` environment variable.
-
 ``X-Sendfile`` is a special HTTP header that tells web servers to replace the
 response contents by the file that is defined in that header. This improves
 performance because files are no longer served by your application but directly
@@ -3511,11 +3472,6 @@ trusted_hosts
 ~~~~~~~~~~~~~
 
 **type**: ``array`` | ``string`` **default**: ``['%env(default::SYMFONY_TRUSTED_HOSTS)%']``
-
-.. versionadded:: 7.2
-
-    In Symfony 7.2, the default value of this option was changed from ``[]`` to the
-    value stored in the ``SYMFONY_TRUSTED_HOSTS`` environment variable.
 
 A lot of different attacks have been discovered relying on inconsistencies
 in handling the ``Host`` header by various software (web servers, reverse

@@ -43,13 +43,6 @@ A custom name converter can handle such cases::
         }
     }
 
-.. versionadded:: 7.1
-
-    Accessing the current class name, format and context via
-    :method:`Symfony\\Component\\Serializer\\NameConverter\\NameConverterInterface::normalize`
-    and :method:`Symfony\\Component\\Serializer\\NameConverter\\NameConverterInterface::denormalize`
-    was introduced in Symfony 7.1.
-
 .. note::
 
     You can also implement

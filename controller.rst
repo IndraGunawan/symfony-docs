@@ -373,10 +373,6 @@ The ``MapQueryParameter`` attribute supports the following argument types:
 * ``string``
 * Objects that extend :class:`Symfony\\Component\\Uid\\AbstractUid`
 
-.. versionadded:: 7.3
-
-    Support for ``AbstractUid`` objects was introduced in Symfony 7.3.
-
 ``#[MapQueryParameter]`` can take an optional argument called ``filter``. You can use the
 `Validate Filters`_ constants defined in PHP::
 
@@ -472,10 +468,6 @@ set the ``key`` option in the ``#[MapQueryString]`` attribute::
     {
         // ...
     }
-
-.. versionadded:: 7.3
-
-    The ``key`` option of ``#[MapQueryString]`` was introduced in Symfony 7.3.
 
 If you need a valid DTO even when the request query string is empty, set a
 default value for your controller arguments::
@@ -618,10 +610,6 @@ using the ``type`` option of the attribute::
         // ...
     }
 
-.. versionadded:: 7.1
-
-    The ``type`` option of ``#[MapRequestPayload]`` was introduced in Symfony 7.1.
-
 .. _controller_map-uploaded-file:
 
 Mapping Uploaded Files
@@ -717,10 +705,6 @@ there are constraint violations:
         validationFailedStatusCode: Response::HTTP_REQUEST_ENTITY_TOO_LARGE
     )]
     UploadedFile $document
-
-.. versionadded:: 7.1
-
-    The ``#[MapUploadedFile]`` attribute was introduced in Symfony 7.1.
 
 Managing the Session
 --------------------

@@ -477,10 +477,6 @@ Next, configure the ``base_uri`` and ``discovery`` options:
             ;
         };
 
-.. versionadded:: 7.3
-
-    Support for OpenID Connect Discovery was introduced in Symfony 7.3.
-
 Following the `OpenID Connect Specification`_, the ``sub`` claim is used as user
 identifier by default. To use another claim, specify it on the configuration:
 
@@ -707,15 +703,6 @@ it, and retrieves the user information from it. Optionally, the token can be enc
             ;
         };
 
-.. versionadded:: 7.1
-
-    The support of multiple algorithms to sign the JWS was introduced in Symfony 7.1.
-    In previous versions, only the ``ES256`` algorithm was supported.
-
-.. versionadded:: 7.3
-
-    Support for encryption algorithms to decrypt JWEs was introduced in Symfony 7.3.
-
 To enable `OpenID Connect Discovery`_, the ``OidcTokenHandler`` requires the
 ``symfony/cache`` package to store the OIDC configuration in the cache. If you
 haven't installed it yet, run the following command:
@@ -877,10 +864,6 @@ create your own User from the claims, you must
 
 Using CAS 2.0
 -------------
-
-.. versionadded:: 7.1
-
-    The support for CAS token handlers was introduced in Symfony 7.1.
 
 `Central Authentication Service (CAS)`_ is an enterprise multilingual single
 sign-on solution and identity provider for the web and attempts to be a

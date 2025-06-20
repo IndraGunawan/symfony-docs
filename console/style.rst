@@ -185,11 +185,6 @@ Content Methods
             ],
         ]);
 
-.. versionadded:: 7.3
-
-    The ``SymfonyStyle::tree()`` and the ``SymfonyStyle::createTree()`` methods
-    were introduced in Symfony 7.3.
-
 :method:`Symfony\\Component\\Console\\Style\\SymfonyStyle::createTree`
     Creates an instance of :class:`Symfony\\Component\\Console\\Helper\\TreeHelper`
     styled according to the Symfony Style Guide, which allows you to use

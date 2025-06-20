@@ -988,10 +988,6 @@ Response Assertions
 ``assertResponseIsUnprocessable(string $message = '', bool $verbose = true)``
     Asserts the response is unprocessable (HTTP status is 422)
 
-.. versionadded:: 7.1
-
-    The ``$verbose`` parameters were introduced in Symfony 7.1.
-
 Request Assertions
 ..................
 

@@ -865,10 +865,6 @@ Symfony provides the following env var processors:
                 $container->setParameter('encoded_database_url', '%env(urlencode:DATABASE_URL)%');
             };
 
-    .. versionadded:: 7.1
-
-        The ``env(urlencode:...)`` env var processor was introduced in Symfony 7.1.
-
 It is also possible to combine any number of processors:
 
 .. configuration-block::

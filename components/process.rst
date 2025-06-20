@@ -522,11 +522,6 @@ method. The given signals won't be propagated to the child process::
     $process = new Process(['find', '/', '-name', 'rabbit']);
     $process->setIgnoredSignals([SIGKILL, SIGUSR1]);
 
-.. versionadded:: 7.1
-
-    The :method:`Symfony\\Component\\Process\\Process::setIgnoredSignals`
-    method was introduced in Symfony 7.1.
-
 Process Pid
 -----------
 

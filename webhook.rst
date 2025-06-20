@@ -42,19 +42,6 @@ Sendgrid       ``mailer.webhook.request_parser.sendgrid``
 Sweego         ``mailer.webhook.request_parser.sweego``
 ============== ============================================
 
-.. versionadded:: 7.1
-
-    The support for ``Resend`` and ``MailerSend`` were introduced in Symfony 7.1.
-
-.. versionadded:: 7.2
-
-    The ``Mandrill``, ``Mailomat``, ``Mailtrap``, and ``Sweego`` integrations were introduced in
-    Symfony 7.2.
-
-.. versionadded:: 7.3
-
-    The ``AhaSend`` integration was introduced in Symfony 7.3.
-
 .. note::
 
     Install the third-party mailer provider you want to use as described in the

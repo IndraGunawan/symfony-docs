@@ -794,11 +794,6 @@ by using the property name as method name::
         }
     }
 
-.. versionadded:: 7.1
-
-    The :class:`Symfony\Component\DependencyInjection\Attribute\\AutowireMethodOf`
-    attribute was introduced in Symfony 7.1.
-
 .. _autowiring-calls:
 
 Autowiring other Methods (e.g. Setters and Public Typed Properties)
@@ -864,10 +859,6 @@ typed properties:
 
 Autowiring Anonymous Services Inline
 ------------------------------------
-
-.. versionadded:: 7.1
-
-   The ``#[AutowireInline]`` attribute was added in Symfony 7.1.
 
 Similar to how anonymous services can be defined inline in configuration files,
 the :class:`Symfony\\Component\\DependencyInjection\\Attribute\\AutowireInline`

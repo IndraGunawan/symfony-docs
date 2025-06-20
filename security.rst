@@ -1774,12 +1774,6 @@ You can log in a user programmatically using the ``login()`` method of the
         }
     }
 
-.. versionadded:: 7.2
-
-    The support for passport attributes in the
-    :method:`Symfony\\Bundle\\SecurityBundle\\Security::login` method was
-    introduced in Symfony 7.2.
-
 .. _security-logging-out:
 
 Logging Out
@@ -2594,11 +2588,6 @@ want to include extra details only for users that have a ``ROLE_SALES_ADMIN`` ro
     is unavailable (e.g., in a CLI context such as a message queue or cron job), you
     can use the ``isGrantedForUser()`` method to explicitly set the target user.
 
-    .. versionadded:: 7.3
-
-        The :method:`Symfony\\Bundle\\SecurityBundle\\Security::isGrantedForUser`
-        method was introduced in Symfony 7.3.
-
 If you're using the :ref:`default services.yaml configuration <service-container-services-load-example>`,
 Symfony will automatically pass the ``security.helper`` to your service
 thanks to autowiring and the ``Security`` type-hint.
@@ -2713,11 +2702,6 @@ anonymous users access by checking if there is no user set on the token::
         }
     }
 
-.. versionadded:: 7.3
-    
-    The ``$vote`` argument of the ``voteOnAttribute()`` method was introduced
-    in Symfony 7.3.
-
 Setting Individual User Permissions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2808,11 +2792,6 @@ Two strategies are supported:
 
            return $data;
        }
-
-.. versionadded:: 7.3
-
-    Support for hashing passwords with ``crc32c`` in session serialization was
-    introduced in Symfony 7.3.
 
 If you're having problems authenticating, it could be that you *are* authenticating
 successfully, but you immediately lose authentication after the first redirect.
