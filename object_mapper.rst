@@ -1,10 +1,6 @@
 Object Mapper
 =============
 
-.. warning::
-
-    The ObjectMapper component is an :doc:`experimental feature </contributing/code/experimental>`
-
 This component transforms one object into another, simplifying tasks such as
 converting DTOs (Data Transfer Objects) into entities or vice versa. It can also
 be helpful when decoupling API input/output from internal models, particularly
