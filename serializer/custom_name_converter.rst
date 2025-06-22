@@ -43,12 +43,6 @@ A custom name converter can handle such cases::
         }
     }
 
-.. note::
-
-    You can also implement
-    :class:`Symfony\\Component\\Serializer\\NameConverter\\AdvancedNameConverterInterface`
-    to access the current class name, format and context.
-
 Then, configure the serializer to use your name converter:
 
 .. configuration-block::
