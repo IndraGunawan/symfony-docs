@@ -379,11 +379,6 @@ Service
                                          **DSN**: ``zulip://EMAIL:TOKEN@HOST?channel=CHANNEL``
 ======================================   =====================================================================================
 
-.. deprecated:: 7.2
-
-    The ``Gitter`` integration was removed in Symfony 7.2 because that service
-    no longer provides an API.
-
 .. warning::
 
     By default, if you have the :doc:`Messenger component </messenger>` installed,
