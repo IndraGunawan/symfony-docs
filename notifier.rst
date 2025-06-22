@@ -155,9 +155,6 @@ Service
 `Sendinblue`_       **Install**: ``composer require symfony/sendinblue-notifier`` \
                     **DSN**: ``sendinblue://API_KEY@default?sender=PHONE`` \
                     **Webhook support**: No
-`Sms77`_            **Install**: ``composer require symfony/sms77-notifier`` \
-                    **DSN**: ``sms77://API_KEY@default?from=FROM`` \
-                    **Webhook support**: No
 `SimpleTextin`_     **Install**: ``composer require symfony/simple-textin-notifier`` \
                     **DSN**: ``simpletextin://API_KEY@default?from=FROM`` \
                     **Webhook support**: No
@@ -224,11 +221,6 @@ Service
     Some third party transports, when using the API, support status callbacks
     via webhooks. See the :doc:`Webhook documentation </webhook>` for more
     details.
-
-.. deprecated:: 7.1
-
-    The `Sms77`_ integration is deprecated since
-    Symfony 7.1, use the `Seven.io`_ integration instead.
 
 To enable a texter, add the correct DSN in your ``.env`` file and
 configure the ``texter_transports``:
@@ -1290,7 +1282,6 @@ is dispatched. Listeners receive a
 .. _`Sinch`: https://github.com/symfony/symfony/blob/{version}/src/Symfony/Component/Notifier/Bridge/Sinch/README.md
 .. _`Sipgate`: https://github.com/symfony/symfony/blob/{version}/src/Symfony/Component/Notifier/Bridge/Sipgate/README.md
 .. _`Slack`: https://github.com/symfony/symfony/blob/{version}/src/Symfony/Component/Notifier/Bridge/Slack/README.md
-.. _`Sms77`: https://github.com/symfony/symfony/blob/{version}/src/Symfony/Component/Notifier/Bridge/Sms77/README.md
 .. _`SmsBiuras`: https://github.com/symfony/symfony/blob/{version}/src/Symfony/Component/Notifier/Bridge/SmsBiuras/README.md
 .. _`Smsbox`: https://github.com/symfony/symfony/blob/{version}/src/Symfony/Component/Notifier/Bridge/Smsbox/README.md
 .. _`Smsapi`: https://github.com/symfony/symfony/blob/{version}/src/Symfony/Component/Notifier/Bridge/Smsapi/README.md
