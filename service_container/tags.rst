@@ -1047,8 +1047,6 @@ you can define it in the configuration of the collecting service:
         // config/services.php
         namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-        use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-
         return function (ContainerConfigurator $container): void {
             $services = $container->services();
 
@@ -1138,7 +1136,6 @@ to index the services:
 
         use App\Handler\One;
         use App\Handler\Two;
-        use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 
         return function (ContainerConfigurator $container): void {
             $services = $container->services();
@@ -1242,7 +1239,6 @@ get the value used to index the services:
         namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
         use App\HandlerCollection;
-        use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 
         return function (ContainerConfigurator $container) {
             $services = $container->services();
