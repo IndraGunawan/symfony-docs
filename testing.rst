@@ -963,11 +963,11 @@ However, Symfony provides useful shortcut methods for the most common cases:
 Response Assertions
 ...................
 
-``assertResponseIsSuccessful(string $message = '', bool $verbose = true)``
+``assertResponseIsSuccessful(string $message = '', ?bool $verbose = null)``
     Asserts that the response was successful (HTTP status is 2xx).
-``assertResponseStatusCodeSame(int $expectedCode, string $message = '', bool $verbose = true)``
+``assertResponseStatusCodeSame(int $expectedCode, string $message = '', ?bool $verbose = null)``
     Asserts a specific HTTP status code.
-``assertResponseRedirects(?string $expectedLocation = null, ?int $expectedCode = null, string $message = '', bool $verbose = true)``
+``assertResponseRedirects(?string $expectedLocation = null, ?int $expectedCode = null, string $message = '', ?bool $verbose = null)``
     Asserts the response is a redirect response (optionally, you can check
     the target location and status code). The excepted location can be either
     an absolute or a relative path.
@@ -985,8 +985,16 @@ Response Assertions
     Asserts the response format returned by the
     :method:`Symfony\\Component\\HttpFoundation\\Response::getFormat` method
     is the same as the expected value.
-``assertResponseIsUnprocessable(string $message = '', bool $verbose = true)``
+``assertResponseIsUnprocessable(string $message = '', bool ?$verbose = null)``
     Asserts the response is unprocessable (HTTP status is 422)
+
+By default, these assert methods provide detailed error messages when they fail.
+You can control the verbosity level using the optional ``verbose`` argument in
+each assert method. To set this verbosity level globally, use the
+``setBrowserKitAssertionsAsVerbose()`` method from the
+:class:`Symfony\\Bundle\\FrameworkBundle\\Test\\BrowserKitAssertionsTrait`::
+
+    BrowserKitAssertionsTrait::setBrowserKitAssertionsAsVerbose(false);
 
 Request Assertions
 ..................
