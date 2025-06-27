@@ -1147,16 +1147,7 @@ special parameters created by Symfony:
     Used to set the :ref:`locale <translation-locale-url>` on the request.
 
 ``_query``
-    Used to add query parameters to the generated URL.
-
-    .. versionadded:: 7.4
-
-        The ``_query`` parameter was introduced in Symfony 7.4.
-
-    .. deprecated:: 7.4
-
-        Passing a value other than an array as the ``_query`` parameter was
-        deprecated in Symfony 7.4.
+    An array of query parameters to add to the generated URL.
 
 You can include these attributes (except ``_fragment``) both in individual routes
 and in route imports. Symfony defines some special attributes with the same name
