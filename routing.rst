@@ -1146,6 +1146,18 @@ special parameters created by Symfony:
 ``_locale``
     Used to set the :ref:`locale <translation-locale-url>` on the request.
 
+``_query``
+    Used to add query parameters to the generated URL.
+
+    .. versionadded:: 7.4
+
+        The ``_query`` parameter was introduced in Symfony 7.4.
+
+    .. deprecated:: 7.4
+
+        Passing a value other than an array as the ``_query`` parameter was
+        deprecated in Symfony 7.4.
+
 You can include these attributes (except ``_fragment``) both in individual routes
 and in route imports. Symfony defines some special attributes with the same name
 (except for the leading underscore) so you can define them easier:
@@ -1164,6 +1176,7 @@ and in route imports. Symfony defines some special attributes with the same name
                 path: '/articles/{_locale}/search.{_format}',
                 locale: 'en',
                 format: 'html',
+                query: ['page' => 1],
                 requirements: [
                     '_locale' => 'en|fr',
                     '_format' => 'html|xml',
@@ -1182,6 +1195,8 @@ and in route imports. Symfony defines some special attributes with the same name
           controller:  App\Controller\ArticleController::search
           locale:      en
           format:      html
+          query:
+              page:    1
           requirements:
               _locale: en|fr
               _format: html|xml
@@ -1219,6 +1234,7 @@ and in route imports. Symfony defines some special attributes with the same name
                 ->controller([ArticleController::class, 'search'])
                 ->locale('en')
                 ->format('html')
+                ->query(['page' => 1])
                 ->requirements([
                     '_locale' => 'en|fr',
                     '_format' => 'html|xml',
