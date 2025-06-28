@@ -23,7 +23,6 @@ key in your application configuration.
 
 * `access_denied_url`_
 * `expose_security_errors`_
-* `hide_user_not_found`_ (deprecated)
 * `session_fixation_strategy`_
 
 **Advanced Options**:
@@ -63,24 +62,6 @@ option can be one of the following:
 * ``'account_status'``: shows account-related exceptions (e.g. blocked or expired
   accounts) but only for users who provided the correct password;
 * ``'all'``: shows all security-related exceptions.
-
-hide_user_not_found
--------------------
-
-**type**: ``boolean`` **default**: ``true``
-
-.. deprecated:: 7.3
-
-    The ``hide_user_not_found`` option was deprecated in favor of the
-    ``expose_security_errors`` option in Symfony 7.3.
-
-If ``true``, when a user is not found a generic exception of type
-:class:`Symfony\\Component\\Security\\Core\\Exception\\BadCredentialsException`
-is thrown with the message "Bad credentials".
-
-If ``false``, the exception thrown is of type
-:class:`Symfony\\Component\\Security\\Core\\Exception\\UserNotFoundException`
-and it includes the given not found user identifier.
 
 session_fixation_strategy
 -------------------------
