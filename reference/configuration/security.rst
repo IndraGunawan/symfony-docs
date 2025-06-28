@@ -22,7 +22,6 @@ key in your application configuration.
 **Basic Options**:
 
 * `access_denied_url`_
-* `erase_credentials`_
 * `expose_security_errors`_
 * `hide_user_not_found`_ (deprecated)
 * `session_fixation_strategy`_
