@@ -64,13 +64,6 @@ are available to customize the behavior of the encoder:
     Sets the field enclosure (one character only).
 ``csv_end_of_line`` (default: ``\n``)
     Sets the character(s) used to mark the end of each line in the CSV file.
-``csv_escape_char`` (default: empty string)
-
-    .. deprecated:: 7.2
-
-        The ``csv_escape_char`` option was deprecated in Symfony 7.2.
-
-    Sets the escape character (at most one character).
 ``csv_key_separator`` (default: ``.``)
     Sets the separator for array's keys during its flattening
 ``csv_headers`` (default: ``[]``, inferred from input data's keys)
