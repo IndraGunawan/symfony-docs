@@ -3268,39 +3268,6 @@ If ``null``, ``php.ini``'s `session.save_path`_ directive will be relied on:
                 ->savePath(null);
         };
 
-sid_bits_per_character
-......................
-
-**type**: ``integer``
-
-This determines the number of bits in the encoded session ID character. The possible
-values are ``4`` (0-9, a-f), ``5`` (0-9, a-v), and ``6`` (0-9, a-z, A-Z, "-", ",").
-The more bits results in stronger session ID. ``5`` is recommended value for
-most environments.
-
-If not set, ``php.ini``'s `session.sid_bits_per_character`_ directive will be relied on.
-
-.. deprecated:: 7.2
-
-    The ``sid_bits_per_character`` option was deprecated in Symfony 7.2. No alternative
-    is provided as PHP 8.4 has deprecated the related option.
-
-sid_length
-..........
-
-**type**: ``integer``
-
-This determines the length of session ID string, which can be an integer between
-``22`` and ``256`` (both inclusive), ``32`` being the recommended value. Longer
-session IDs are harder to guess.
-
-If not set, ``php.ini``'s `session.sid_length`_ directive will be relied on.
-
-.. deprecated:: 7.2
-
-    The ``sid_length`` option was deprecated in Symfony 7.2. No alternative is
-    provided as PHP 8.4 has deprecated the related option.
-
 .. _storage_id:
 
 storage_factory_id
@@ -3963,8 +3930,6 @@ to know their differences.
 .. _`session.gc_divisor`: https://www.php.net/manual/en/session.configuration.php#ini.session.gc-divisor
 .. _`session.gc_probability`: https://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability
 .. _`session.gc_maxlifetime`: https://www.php.net/manual/en/session.configuration.php#ini.session.gc-maxlifetime
-.. _`session.sid_length`: https://www.php.net/manual/en/session.configuration.php#ini.session.sid-length
-.. _`session.sid_bits_per_character`: https://www.php.net/manual/en/session.configuration.php#ini.session.sid-bits-per-character
 .. _`session.save_path`: https://www.php.net/manual/en/session.configuration.php#ini.session.save-path
 .. _`session.use_cookies`: https://www.php.net/manual/en/session.configuration.php#ini.session.use-cookies
 .. _`Microsoft NTLM authentication protocol`: https://docs.microsoft.com/en-us/windows/win32/secauthn/microsoft-ntlm
