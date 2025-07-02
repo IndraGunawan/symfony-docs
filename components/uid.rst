@@ -130,10 +130,6 @@ better entropy (and a more strict chronological order of UUID generation)::
     $uuid = Uuid::v7();
     // $uuid is an instance of Symfony\Component\Uid\UuidV7
 
-.. versionadded:: 7.4
-
-    In Symfony 7.4, the precision was increased from milliseconds to microseconds.
-
 **UUID v8** (custom)
 
 Provides an RFC-compatible format intended for experimental or vendor-specific use cases

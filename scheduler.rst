@@ -136,11 +136,6 @@ on a particular schedule::
     The schedule name must be unique and by default, it is ``default``. The transport name follows
     the syntax: ``scheduler_nameofyourschedule`` (e.g. ``scheduler_default``).
 
-.. versionadded:: 7.4
-
-    Throwing an exception for duplicate schedule names instead of replacing the existing schedule
-    was introduced with Symfony 7.4.
-
 .. tip::
 
     `Memoizing`_ your schedule is a good practice to prevent unnecessary reconstruction
