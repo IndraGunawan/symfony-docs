@@ -54,20 +54,6 @@ called to determine the default escaping applied to the template.
 If the service defined in ``autoescape_service`` is invocable (i.e. it defines
 the `__invoke() PHP magic method`_) you can omit this option.
 
-base_template_class
-~~~~~~~~~~~~~~~~~~~
-
-**type**: ``string`` **default**: ``Twig\Template``
-
-.. deprecated:: 7.1
-
-    The ``base_template_class`` option is deprecated since Symfony 7.1.
-
-Twig templates are compiled into PHP classes before using them to render
-contents. This option defines the base class from which all the template classes
-extend. Using a custom base template is discouraged because it will make your
-application harder to maintain.
-
 cache
 ~~~~~
 
