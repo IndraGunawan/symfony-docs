@@ -585,6 +585,51 @@ Using it in practice::
     // $employeeDto->manager->name === 'Alice'
     // $employeeDto->manager->manager === $employeeDto
 
+Decorating the ObjectMapper
+---------------------------
+
+The ``object_mapper`` service can be decorated to add custom logic or manage
+state around the mapping process.
+
+You can use the :class:`Symfony\\Component\\ObjectMapper\\ObjectMapperAwareInterface`
+to enable the decorated service to access the outermost decorator. If the
+decorated service implements this interface, the decorator can pass itself to
+it. This allows underlying services, like the ``ObjectMapper``, to call the
+decorator's ``map()`` method during recursive mapping, ensuring that the
+decorator's state is used consistently throughout the process.
+
+Here's an example of a decorator that preserves object identity across calls.
+It uses the ``AsDecorator`` attribute to automatically configure itself as a
+decorator of the ``object_mapper`` service::
+
+    // src/ObjectMapper/StatefulObjectMapper.php
+    namespace App\ObjectMapper;
+
+    use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
+    use Symfony\Component\ObjectMapper\ObjectMapperAwareInterface;
+    use Symfony\Component\ObjectMapper\ObjectMapperInterface;
+
+    #[AsDecorator(decorates: ObjectMapperInterface::class)]
+    final class StatefulObjectMapper implements ObjectMapperInterface
+    {
+        public function __construct(private ObjectMapperInterface $decorated)
+        {
+            // pass this decorator to the decorated service if it's aware
+            if ($this->decorated instanceof ObjectMapperAwareInterface) {
+                $this->decorated = $this->decorated->withObjectMapper($this);
+            }
+        }
+
+        public function map(object $source, object|string|null $target = null): object
+        {
+            return $this->decorated->map($source, $target);
+        }
+    }
+
+.. versionadded:: 7.4
+
+    The feature to decorate the ObjetMapper was introduced in Symfony 7.4.
+
 .. _objectmapper-custom-mapping-logic:
 
 Custom Mapping Logic
