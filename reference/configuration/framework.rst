@@ -19,44 +19,6 @@ configured under the ``framework`` key in your application configuration.
     namespace and the related XSD schema is available at:
     ``https://symfony.com/schema/dic/symfony/symfony-1.0.xsd``
 
-annotations
-~~~~~~~~~~~
-
-.. _reference-annotations-cache:
-
-cache
-.....
-
-**type**: ``string`` **default**: ``php_array``
-
-This option can be one of the following values:
-
-php_array
-    Use a PHP array to cache annotations in memory
-file
-    Use the filesystem to cache annotations
-none
-    Disable the caching of annotations
-
-debug
-.....
-
-**type**: ``boolean`` **default**: ``%kernel.debug%``
-
-Whether to enable debug mode for caching. If enabled, the cache will
-automatically update when the original file is changed (both with code and
-annotation changes). For performance reasons, it is recommended to disable
-debug mode in production, which will happen automatically if you use the
-default value.
-
-file_cache_dir
-..............
-
-**type**: ``string`` **default**: ``%kernel.cache_dir%/annotations``
-
-The directory to store cache files for annotations, in case
-``annotations.cache`` is set to ``'file'``.
-
 .. _reference-assets:
 
 assets
@@ -2603,19 +2565,6 @@ To configure a ``jsonp`` format:
 
 router
 ~~~~~~
-
-cache_dir
-.........
-
-**type**: ``string`` **default**: ``%kernel.cache_dir%``
-
-The directory where routing information will be cached. Can be set to
-``~`` (``null``) to disable route caching.
-
-.. deprecated:: 7.1
-
-    Setting the ``cache_dir`` option is deprecated since Symfony 7.1. The routes
-    are now always cached in the ``%kernel.build_dir%`` directory.
 
 default_uri
 ...........
