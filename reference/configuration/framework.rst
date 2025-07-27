@@ -2349,21 +2349,6 @@ Combine it with the ``collect`` option to enable/disable the profiler on demand:
   request and has value of ``true``, ``yes``, ``on`` or ``1``, the request data
   will be collected.
 
-.. _collect_serializer_data:
-
-collect_serializer_data
-.......................
-
-**type**: ``boolean`` **default**: ``false``
-
-When this option is ``true``, all normalizers and encoders are
-decorated by traceable implementations that collect profiling information about them.
-
-.. deprecated:: 7.3
-
-    Setting the ``collect_serializer_data`` option to ``false`` is deprecated
-    since Symfony 7.3.
-
 .. _profiler-dsn:
 
 dsn

@@ -51,9 +51,3 @@ its id:
 .. code-block:: terminal
 
     $ php bin/console debug:container App\Service\Mailer
-
-.. deprecated:: 7.3
-
-    Starting in Symfony 7.3, this command displays the service arguments by default.
-    In earlier Symfony versions, you needed to use the ``--show-arguments`` option,
-    which is now deprecated.
