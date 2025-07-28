@@ -226,11 +226,6 @@ command name; the others are aliases that can also be used to run the command::
         // ...
     }
 
-.. versionadded:: 7.4
-
-    The ability to define aliases through the command name was introduced in
-    Symfony 7.4.
-
 Console Output
 --------------
 

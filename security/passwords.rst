@@ -310,10 +310,6 @@ its configuration key::
 When injecting a specific hasher by its name, you should type-hint the generic
 :class:`Symfony\\Component\\PasswordHasher\\PasswordHasherInterface`.
 
-.. versionadded:: 7.4
-
-    The feature to inject specific password hashers was introduced in Symfony 7.4.
-
 .. _security-password-migration:
 
 Password Migration
