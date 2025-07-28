@@ -351,11 +351,6 @@ translated. You can ensure this behavior by using the
 This can be useful when rendering user-defined content or other strings
 that must remain exactly as given.
 
-.. versionadded:: 7.4
-
-    The :class:`Symfony\\Component\\Translation\\StaticMessage` class was
-    introduced in Symfony 7.4.
-
 .. _translation-in-templates:
 
 Translations in Templates

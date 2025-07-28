@@ -1053,10 +1053,6 @@ Browser Assertions
             self::assertThatForClient(new SomeCustomConstraint());
         }
 
-.. versionadded:: 7.4
-
-    The ``assertBrowserHistoryIsOnFirstPage()`` and ``assertBrowserHistoryIsOnLastPage()`` assertions were introduced in Symfony 7.4.
-
 Crawler Assertions
 ..................
 
