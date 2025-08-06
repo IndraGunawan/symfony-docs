@@ -1468,10 +1468,6 @@ normalizers (in order of priority):
     transforming the first letter to lowercase (e.g. ``getFirstName()`` ->
     ``firstName``).
 
-    .. versionadded:: 7.4
-
-        Support for the ``can`` prefix was introduced in Symfony 7.4.
-
     During denormalization, it supports using the constructor as well as
     the discovered methods.
 
