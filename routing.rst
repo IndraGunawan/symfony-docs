@@ -274,6 +274,13 @@ given value:
             {
                 // ...
             }
+
+            // You can also pass an array of environments
+            #[Route('/tools', name: 'tools', env: ['dev', 'test'])]
+            public function developerTools(): Response
+            {
+                // ...
+            }
         }
 
     .. code-block:: yaml
@@ -311,6 +318,10 @@ given value:
                 ;
             }
         };
+
+.. versionadded:: 7.4
+
+    The ability to pass an array of environments to the ``env`` argument was introduced in Symfony 7.4.
 
 .. _routing-matching-expressions:
 
@@ -487,19 +498,22 @@ evaluates them:
 
     $ php bin/console debug:router
 
-    ----------------  -------  -------  -----  --------------------------------------------
-    Name              Method   Scheme   Host   Path
-    ----------------  -------  -------  -----  --------------------------------------------
-    homepage          ANY      ANY      ANY    /
-    contact           GET      ANY      ANY    /contact
-    contact_process   POST     ANY      ANY    /contact
-    article_show      ANY      ANY      ANY    /articles/{_locale}/{year}/{title}.{_format}
-    blog              ANY      ANY      ANY    /blog/{page}
-    blog_show         ANY      ANY      ANY    /blog/{slug}
-    ----------------  -------  -------  -----  --------------------------------------------
+    ----------------  -------  --------------------------------------------
+    Name              Method   Path
+    ----------------  -------  --------------------------------------------
+    homepage          ANY      /
+    contact           GET      /contact
+    contact_process   POST     /contact
+    article_show      ANY      /articles/{_locale}/{year}/{title}.{_format}
+    blog              ANY      /blog/{page}
+    blog_show         ANY      /blog/{slug}
+    ----------------  -------  --------------------------------------------
 
     # pass this option to also display all the defined route aliases
     $ php bin/console debug:router --show-aliases
+
+    # pass this option to also display the associated controllers with the routes
+    $ php bin/console debug:router --show-controllers
 
     # pass this option to only display routes that match the given HTTP method
     # (you can use the special value ANY to see routes that match any method)

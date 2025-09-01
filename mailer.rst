@@ -219,7 +219,8 @@ party provider:
 +------------------------+-------------------------------------------------------------------------------------------+
 | `Mailtrap`_            | - SMTP ``mailtrap+smtp://PASSWORD@default``                                               |
 |                        | - HTTP n/a                                                                                |
-|                        | - API ``mailtrap+api://API_TOKEN@default``                                                |
+|                        | - API (Live) ``mailtrap+api://API_TOKEN@default``                                         |
+|                        | - API (Sandbox) ``mailtrap+sandbox://API_TOKEN@default/?inboxId=INBOX_ID``                |
 +------------------------+-------------------------------------------------------------------------------------------+
 | `Microsoft Graph`_     | - SMTP n/a                                                                                |
 |                        | - HTTP n/a                                                                                |
