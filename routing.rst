@@ -319,10 +319,6 @@ given value:
             }
         };
 
-.. versionadded:: 7.4
-
-    The ability to pass an array of environments to the ``env`` argument was introduced in Symfony 7.4.
-
 .. _routing-matching-expressions:
 
 Matching Expressions
