@@ -2532,11 +2532,6 @@ You can also extend the ``IsGranted`` attribute to create meaningful shortcuts::
         }
     }
 
-.. versionadded:: 7.4
-
-    The :class:`Symfony\\Component\\Security\\Http\\Attribute\\IsGranted`
-    attribute is extendable since Symfony 7.4.
-
 You can restrict access validation to specific HTTP methods
 by using the ``methods`` argument::
 
@@ -2555,10 +2550,6 @@ by using the ``methods`` argument::
             // ...
         }
     }
-
-.. versionadded:: 7.4
-
-    The ``methods`` argument was introduced in Symfony 7.4.
 
 .. _security-template:
 
