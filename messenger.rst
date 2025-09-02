@@ -535,6 +535,18 @@ command with the ``--all`` option:
 
     $ php bin/console messenger:consume --all
 
+When using ``--all``, you can exclude specific receivers using the ``--exclude-receivers``
+option (shortcut ``-eq``):
+
+.. code-block:: terminal
+
+    $ php bin/console messenger:consume --all --exclude-receivers=async_priority_low --exclude-receivers=failed
+
+.. note::
+
+    The ``--exclude-receivers`` option can only be used together with ``--all``.
+    Also, you cannot exclude all receivers.
+
 Messages that take a long time to process may be redelivered prematurely because
 some transports assume that an unacknowledged message is lost. To prevent this
 issue, use the ``--keepalive`` command option to specify an interval (in seconds;
