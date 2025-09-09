@@ -348,11 +348,6 @@ Note that some currencies (especially non-legal-tender ones) do not have validit
 ranges defined. In such cases, a ``RuntimeException`` will be thrown. In addition,
 an ``InvalidArgumentException`` will be thrown if the specified currency is invalid.
 
-.. versionadded:: 7.4
-
-    The ``forCountry()``, ``isValidInCountry()`` and ``isValidInAnyCountry()``
-    methods were introduced in Symfony 7.4.
-
 .. _component-intl-timezones:
 
 Timezones
