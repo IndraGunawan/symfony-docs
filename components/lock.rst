@@ -413,6 +413,10 @@ Store                                                       Scope   Blocking  Ex
 
     The :class:`Symfony\\Component\\Lock\\Store\\NullStore` was introduced in Symfony 7.2.
 
+.. versionadded:: 7.4
+
+    The ``DynamoDbStore`` was introduced in Symfony 7.4.
+
 .. _lock-store-flock:
 
 FlockStore
