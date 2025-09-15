@@ -130,8 +130,8 @@ but keeps a reference of the old one as ``.inner``:
 
     .. versionadded:: 7.4
 
-        The feature to allow multiple ``#[AsDecorator]`` attributes was introduced
-        in Symfony 7.4.
+        The possibility to allow multiple ``#[AsDecorator]`` attributes was
+        introduced in Symfony 7.4.
 
 The ``decorates`` option tells the container that the ``App\DecoratingMailer``
 service replaces the ``App\Mailer`` service. If you're using the
