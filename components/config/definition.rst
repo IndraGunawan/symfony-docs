@@ -281,9 +281,9 @@ Before defining the children of an array node, you can provide options like:
 A basic prototyped array configuration can be defined as follows::
 
     $node
-        ->fixXmlConfig('driver')
         ->children()
-            ->arrayNode('drivers')
+            // the arguments are the plural and singular variants of the option name
+            ->arrayNode('drivers', 'driver')
                 ->scalarPrototype()->end()
             ->end()
         ->end()
@@ -312,9 +312,8 @@ The processed configuration is::
 A more complex example would be to define a prototyped array with children::
 
     $node
-        ->fixXmlConfig('connection')
         ->children()
-            ->arrayNode('connections')
+            ->arrayNode('connections', 'connection')
                 ->arrayPrototype()
                     ->children()
                         ->scalarNode('table')->end()
@@ -385,9 +384,8 @@ the Symfony Config component treats arrays as lists by default.
 In order to maintain the array keys use the ``useAttributeAsKey()`` method::
 
     $node
-        ->fixXmlConfig('connection')
         ->children()
-            ->arrayNode('connections')
+            ->arrayNode('connections', 'connection')
                 ->useAttributeAsKey('name')
                 ->arrayPrototype()
                     ->children()
@@ -734,14 +732,14 @@ normalization would make both of these ``auto_connect``.
     ``foo-bar_moo`` or if it already exists.
 
 Another difference between YAML and XML is in the way arrays of values may
-be represented. In YAML you may have:
+be represented. In YAML you may have an option called ``extensions`` (in plural):
 
 .. code-block:: yaml
 
     twig:
         extensions: ['twig.extension.foo', 'twig.extension.bar']
 
-and in XML:
+and in XML you have a list of options called ``extension`` (in singular):
 
 .. code-block:: xml
 
@@ -750,33 +748,24 @@ and in XML:
         <twig:extension>twig.extension.bar</twig:extension>
     </twig:config>
 
-This difference can be removed in normalization by pluralizing the key used
-in XML. You can specify that you want a key to be pluralized in this way
-with ``fixXmlConfig()``::
+This difference can be removed in normalization by defining the singular variant
+of the option name using the second argument of the ``arrayNode()`` method::
 
     $rootNode
-        ->fixXmlConfig('extension')
         ->children()
-            ->arrayNode('extensions')
+            ->arrayNode('extensions', 'extension')
                 ->scalarPrototype()->end()
             ->end()
         ->end()
     ;
 
-If it is an irregular pluralization you can specify the plural to use as
-a second argument::
+.. versionadded:: 7.4
 
-    $rootNode
-        ->fixXmlConfig('child', 'children')
-        ->children()
-            ->arrayNode('children')
-                // ...
-            ->end()
-        ->end()
-    ;
+    The second argument of ``arrayNode()`` was introduced in Symfony 7.4. In prior
+    Symfony versions, you had to define the singular variant using the ``fixXmlConfig()``
+    method on the root node (``$rootNode->fixXmlConfig('extension')``).
 
-As well as fixing this, ``fixXmlConfig()`` ensures that single XML elements
-are still turned into an array. So you may have:
+This ensures that single XML elements are still turned into an array. So you may have:
 
 .. code-block:: xml
 
@@ -791,7 +780,7 @@ and sometimes only:
 
 By default, ``connection`` would be an array in the first case and a string
 in the second, making it difficult to validate. You can ensure it is always
-an array with ``fixXmlConfig()``.
+an array with the second argument of ``arrayNode()``.
 
 You can further control the normalization process if you need to. For example,
 you may want to allow a string to be set and used as a particular key or
