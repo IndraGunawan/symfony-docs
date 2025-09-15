@@ -321,6 +321,27 @@ array, the attribute is ignored for that request, and no CSRF validation occurs:
         // ... delete the object
     }
 
+You can also choose where the CSRF token is read from using the ``tokenSource``
+parameter. This is a bitfield that allows you to combine different sources:
+
+* ``IsCsrfTokenValid::SOURCE_PAYLOAD`` (default): request payload (POST body / json)
+* ``IsCsrfTokenValid::SOURCE_QUERY``: query string
+* ``IsCsrfTokenValid::SOURCE_HEADER``: request header
+
+Example::
+
+    #[IsCsrfTokenValid(
+        'delete-item',
+        tokenKey: 'token',
+        tokenSource: IsCsrfTokenValid::SOURCE_PAYLOAD | IsCsrfTokenValid::SOURCE_QUERY
+    )]
+    public function delete(Post $post): Response
+    {
+        // ... delete the object
+    }
+
+The token is checked against each selected source, and validation fails if none match.
+
 CSRF Tokens and Compression Side-Channel Attacks
 ------------------------------------------------
 
