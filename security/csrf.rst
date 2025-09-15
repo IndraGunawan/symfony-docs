@@ -321,12 +321,12 @@ array, the attribute is ignored for that request, and no CSRF validation occurs:
         // ... delete the object
     }
 
-You can also choose where the CSRF token is read from using the ``tokenSource`` parameter
-This is a bitfield allowing you to combine these sources:
+You can also choose where the CSRF token is read from using the ``tokenSource``
+parameter. This is a bitfield that allows you to combine different sources:
 
 * ``IsCsrfTokenValid::SOURCE_PAYLOAD`` (default): request payload (POST body / json)
 * ``IsCsrfTokenValid::SOURCE_QUERY``: query string
-* ``IsCsrfTokenValid::SOURCE_HEADER``: request headers
+* ``IsCsrfTokenValid::SOURCE_HEADER``: request header
 
 Example::
 
@@ -340,7 +340,7 @@ Example::
         // ... delete the object
     }
 
-The token will be checked in each selected source, and validation fails if none match.
+The token is checked against each selected source, and validation fails if none match.
 
 .. versionadded:: 7.1
 
