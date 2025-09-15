@@ -717,7 +717,7 @@ The DynamoDbStore saves locks on a Amazon DynamoDB table. Install it by running:
 
 .. code-block:: terminal
 
-    $ composer require symfony/amazon-dynamodb-lock
+    $ composer require symfony/amazon-dynamo-db-lock
 
 It requires a `DynamoDbClient`_ instance or a `Data Source Name (DSN)`_.
 This store does not support blocking, and expects a TTL to avoid stalled locks::
