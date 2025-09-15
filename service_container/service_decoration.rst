@@ -123,6 +123,16 @@ but keeps a reference of the old one as ``.inner``:
                 ->decorate(Mailer::class);
         };
 
+.. tip::
+
+    You can apply multiple ``#[AsDecorator]`` attributes to the same class to
+    decorate multiple services with it.
+
+    .. versionadded:: 7.4
+
+        The possibility to allow multiple ``#[AsDecorator]`` attributes was
+        introduced in Symfony 7.4.
+
 The ``decorates`` option tells the container that the ``App\DecoratingMailer``
 service replaces the ``App\Mailer`` service. If you're using the
 :ref:`default services.yaml configuration <service-container-services-load-example>`,
