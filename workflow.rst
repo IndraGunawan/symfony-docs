@@ -294,6 +294,154 @@ what actions are allowed on a blog post::
     // See a specific available transition for the post in the current state
     $transition = $workflow->getEnabledTransition($post, 'publish');
 
+.. tip::
+
+    In some specific cases, using PHP enums as places in your workflows might
+    make sense and one can use them seamlessly with the Workflow component if
+    they uses backed enumerations.
+
+    .. versionadded:: 7.4
+
+        The support for PHP Backed enumerations as Workflow places was
+        introduced with Symfony 7.4.
+
+    First, define your enum with backed values::
+
+        // src/Enumeration/BlogPostStatus.php
+        namespace App\Enumeration;
+
+        enum BlogPostStatus: string
+        {
+            case Draft = 'draft';
+            case Reviewed = 'reviewed';
+            case Published = 'published';
+            case Rejected = 'rejected';
+        }
+
+    Then configure the workflow using the enum cases as places, initial
+    marking, and transitions:
+
+    .. configuration-block::
+
+        .. code-block:: yaml
+
+            # config/packages/workflow.yaml
+            framework:
+                workflows:
+                    blog_publishing:
+                        type: 'workflow'
+                        marking_store:
+                            type: 'method'
+                            property: 'status'
+                        supports:
+                            - App\Entity\BlogPost
+                        initial_marking: !php/enum App\Enumeration\BlogPostStatus::Draft
+                        places: !php/enum App\Enumeration\BlogPostStatus
+                        transitions:
+                            to_review:
+                                from: !php/enum App\Enumeration\BlogPostStatus::Draft
+                                to:   !php/enum App\Enumeration\BlogPostStatus::Reviewed
+                            publish:
+                                from: !php/enum App\Enumeration\BlogPostStatus::Reviewed
+                                to:   !php/enum App\Enumeration\BlogPostStatus::Published
+                            reject:
+                                from: !php/enum App\Enumeration\BlogPostStatus::Reviewed
+                                to:   !php/enum App\Enumeration\BlogPostStatus::Rejected
+
+        .. code-block:: xml
+
+            <!-- config/packages/workflow.xml -->
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <container xmlns="http://symfony.com/schema/dic/services"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:framework="http://symfony.com/schema/dic/symfony"
+                xsi:schemaLocation="http://symfony.com/schema/dic/services
+                https://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+                <framework:config>
+                    <!-- or type="state_machine" -->
+                    <framework:workflow name="blog_publishing" type="workflow" places="App\Enumeration\BlogPostStatus::*">
+                        <framework:marking-store type="single_state">
+                            <framework:argument>status</framework:argument>
+                        </framework:marking-store>
+                        <framework:support>App\Entity\BlogPost</framework:support>
+                        <framework:initial-marking>draft</framework:initial-marking>
+
+                        <framework:transition name="to_review">
+                            <framework:from>draft</framework:from>
+                            <framework:to>reviewed</framework:to>
+                        </framework:transition>
+                        <framework:transition name="publish">
+                            <framework:from>reviewed</framework:from>
+                            <framework:to>published</framework:to>
+                        </framework:transition>
+                        <framework:transition name="reject">
+                            <framework:from>reviewed</framework:from>
+                            <framework:to>rejected</framework:to>
+                        </framework:transition>
+                    </framework:workflow>
+                </framework:config>
+            </container>
+
+        .. code-block:: php
+
+            // config/packages/workflow.php
+            use App\Entity\BlogPost;
+            use App\Enumeration\BlogPostStatus;
+            use Symfony\Config\FrameworkConfig;
+
+            return static function (FrameworkConfig $framework): void {
+                $blogPublishing = $framework->workflows()->workflows('blog_publishing');
+                $blogPublishing
+                    ->type('workflow')
+                    ->supports([BlogPost::class])
+                    ->initialMarking([BlogPostStatus::Draft]);
+
+                $blogPublishing->markingStore()
+                    ->type('method')
+                    ->property('status');
+
+                $blogPublishing->places(BlogPostStatus::cases());
+
+                $blogPublishing->transition()
+                    ->name('to_review')
+                        ->from(BlogPostStatus::Draft)
+                        ->to([BlogPostStatus::Reviewed]);
+
+                $blogPublishing->transition()
+                    ->name('publish')
+                        ->from([BlogPostStatus::Reviewed])
+                        ->to([BlogPostStatus::Published]);
+
+                $blogPublishing->transition()
+                    ->name('reject')
+                        ->from([BlogPostStatus::Reviewed])
+                        ->to([BlogPostStatus::Rejected]);
+            };
+
+    The component will now transparently cast the enum to its backing value
+    when needed and vice-versa when working with your objects::
+
+        // src/Entity/BlogPost.php
+        namespace App\Entity;
+
+        class BlogPost
+        {
+            private BlogPostStatus $status;
+
+            public function getStatus(): BlogPostStatus
+            {
+                return $this->status;
+            }
+
+            public function setStatus(BlogPostStatus $status): void
+            {
+                $this->status = $status;
+            }
+        }
+
 Using a multiple state marking store
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
