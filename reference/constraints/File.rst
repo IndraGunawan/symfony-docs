@@ -237,6 +237,8 @@ Parameter         Description
 ``{{ suffix }}``  Suffix for the used file size unit (see above)
 ================  =============================================================
 
+.. _reference-constraints-file-mime-types:
+
 ``mimeTypes``
 ~~~~~~~~~~~~~
 
