@@ -29,6 +29,13 @@ You can install the HTML Sanitizer component with:
 
     $ composer require symfony/html-sanitizer
 
+.. versionadded:: 7.4
+
+    Starting in Symfony 7.4, applications running on PHP 8.4 or higher will use
+    the native HTML5 parser provided by PHP. All other applications will continue
+    to use the third-party ``masterminds/html5`` parser, which is installed
+    automatically when installing the HTML Sanitizer package.
+
 Basic Usage
 -----------
 
