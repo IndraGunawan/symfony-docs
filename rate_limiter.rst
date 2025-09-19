@@ -257,7 +257,7 @@ argument named ``$anonymousApiLimiter``::
 
 When :ref:`dealing with multiple implementations of the same type <autowiring-multiple-implementations-same-type>`
 the ``#[Target]`` attribute helps you select which one to inject. Symfony creates
-a target called "rate limiter name" + ``.limiter`` suffix.
+a target with the same name as the rate limiter.
 
 For example, to select the ``anonymous_api`` limiter defined earlier, use
 ``anonymous_api.limiter`` as the target::
@@ -268,7 +268,7 @@ For example, to select the ``anonymous_api`` limiter defined earlier, use
     class ApiController extends AbstractController
     {
         public function index(
-            #[Target('anonymous_api.limiter')] RateLimiterFactoryInterface $rateLimiter
+            #[Target('anonymous_api')] RateLimiterFactoryInterface $rateLimiter
         ): Response
         {
             // ...
