@@ -301,7 +301,7 @@ to inject the ``foo_package`` package defined earlier::
 
 When :ref:`dealing with multiple implementations of the same type <autowiring-multiple-implementations-same-type>`
 the ``#[Target]`` attribute helps you select which one to inject. Symfony creates
-a target called "asset package name" + ``.package`` suffix.
+a target with the same name as the asset package.
 
 For example, to select the ``foo_package`` package defined earlier::
 
@@ -311,11 +311,16 @@ For example, to select the ``foo_package`` package defined earlier::
     class SomeService
     {
         public function __construct(
-            #[Target('foo_package.package')] private PackageInterface $package
+            #[Target('foo_package')] private PackageInterface $package
         ): void {
             // ...
         }
     }
+
+.. versionadded:: 7.4
+
+    Before Symfony 7.4, the target name had to include the ``.package``
+    suffix (e.g. ``#[Target('foo_package.package')]``).
 
 .. _reference-framework-assets-packages:
 
