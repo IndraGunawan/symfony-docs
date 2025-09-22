@@ -2576,6 +2576,34 @@ the built-in ``is_granted_for_user()`` helper function:
         <a href="...">Delete</a>
     {% endif %}
 
+Symfony also provides the ``access_decision()`` and ``access_decision_for_user()``
+Twig functions to check authorization and to retrieve the reasons for denying
+permission in :ref:`your custom security voters <creating-the-custom-voter>`:
+
+.. code-block:: html+twig
+
+    {% set voter_decision = access_decision('post_edit', post) %}
+    {% if voter_decision.isGranted() %}
+        {# ... #}
+    {% else %}
+        {# before showing voter messages to end users, make sure it's safe to do so #}
+        <p>{{ voter_decision.message }}</p>
+    {% endif %}
+
+    {% set voter_decision = access_decision('post_edit', post, anotherUser) %}
+    {% if voter_decision.isGranted() %}
+        {# ... #}
+    {% else %}
+        <p>The {{ anotherUser.name }} user doesn't have sufficient permission:</p>
+        {# before showing voter messages to end users, make sure it's safe to do so #}
+        <p>{{ voter_decision.message }}</p>
+    {% endif %}
+
+.. versionadded:: 7.4
+
+    The ``access_decision()`` and ``access_decision_for_user()`` Twig functions
+    were introduced in Symfony 7.4.
+
 .. _security-isgrantedforuser:
 
 Securing other Services
@@ -2621,6 +2649,37 @@ want to include extra details only for users that have a ``ROLE_SALES_ADMIN`` ro
     If you need to check authorization for a different user or when the user session
     is unavailable (e.g., in a CLI context such as a message queue or cron job), you
     can use the ``isGrantedForUser()`` method to explicitly set the target user.
+
+You can also use the ``getAccessDecision()`` and ``getAccessDecisionForUser()``
+methods to check authorization and get to retrieve the reasons for denying
+permission in :ref:`your custom security voters <creating-the-custom-voter>`::
+
+    // src/SalesReport/SalesReportManager.php
+
+    // ...
+    use Symfony\Bundle\SecurityBundle\Security;
+
+    class SalesReportManager
+    {
+        public function __construct(
+            private Security $security,
+        ) {
+        }
+
+        public function generateReport(): void
+        {
+            $voterDecision = $this->security->getAccessDecision('ROLE_SALES_ADMIN');
+            if ($voterDecision->isGranted('ROLE_SALES_ADMIN')) {
+                // ...
+            } else {
+                // do something with $voterDecision->getMessage()
+            }
+
+            // ...
+        }
+
+        // ...
+    }
 
 If you're using the :ref:`default services.yaml configuration <service-container-services-load-example>`,
 Symfony will automatically pass the ``security.helper`` to your service
