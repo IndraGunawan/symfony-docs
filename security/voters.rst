@@ -124,6 +124,8 @@ calls out to the "voter" system. Right now, no voters will vote on whether or no
 the user can "view" or "edit" a ``Post``. But you can create your *own* voter that
 decides this using whatever logic you want.
 
+.. _creating-the-custom-voter:
+
 Creating the custom Voter
 -------------------------
 
