@@ -2599,11 +2599,6 @@ permission in :ref:`your custom security voters <creating-the-custom-voter>`:
         <p>{{ voter_decision.message }}</p>
     {% endif %}
 
-.. versionadded:: 7.4
-
-    The ``access_decision()`` and ``access_decision_for_user()`` Twig functions
-    were introduced in Symfony 7.4.
-
 .. _security-isgrantedforuser:
 
 Securing other Services
