@@ -327,11 +327,11 @@ control character (``Ctrl-D`` on Unix systems or ``Ctrl-Z`` on Windows).
 Setting a Timeout for User Input
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 7.4
+Sometimes, commands can hang if a user takes too long to respond. For example,
+if interactive questions are used inside an open database transaction, a delayed
+response could leave the transaction open for too long.
 
-    The timeout functionality for questions was introduced in Symfony 7.4.
-
-You can set a maximum time limit for user input by using the
+You can prevent this by setting a maximum time limit for input using the
 :method:`Symfony\\Component\\Console\\Question\\Question::setTimeout` method.
 If the user doesn't respond within the specified timeout, a
 :class:`Symfony\\Component\\Console\\Exception\\MissingInputException` will be thrown::
@@ -346,7 +346,7 @@ If the user doesn't respond within the specified timeout, a
         $helper = new QuestionHelper();
 
         $question = new Question('Please enter your answer');
-        $question->setTimeout(30); // 30 seconds timeout
+        $question->setTimeout(30); // 30 seconds
 
         try {
             $answer = $helper->ask($input, $output, $question);
@@ -359,15 +359,11 @@ If the user doesn't respond within the specified timeout, a
         return Command::SUCCESS;
     }
 
-This is particularly useful when you have interactive questions inside database
-transactions or other time-sensitive operations where hanging indefinitely
-could cause problems.
-
 .. note::
 
     The timeout only applies to interactive input streams. For non-interactive
-    streams (like pipes or files), the timeout setting is ignored and the
-    question behaves normally.
+    streams (such as pipes or files), the timeout is ignored and the question
+    behaves normally.
 
 You can also use timeouts with other question types such as
 :class:`Symfony\\Component\\Console\\Question\\ConfirmationQuestion` and
@@ -377,9 +373,13 @@ You can also use timeouts with other question types such as
 
     // ...
     $question = new ConfirmationQuestion('Do you want to continue?', false);
-    $question->setTimeout(10); // 10 seconds timeout
+    $question->setTimeout(10); // 10 seconds
 
     $continue = $helper->ask($input, $output, $question);
+
+.. versionadded:: 7.4
+
+    The timeout functionality for questions was introduced in Symfony 7.4.
 
 Hiding the User's Response
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
