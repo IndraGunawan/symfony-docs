@@ -292,13 +292,8 @@ what actions are allowed on a blog post::
 Using Enums as Workflow Places
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When using a state machine, you can use PHP backend enums as places in your workflows:
-
-.. versionadded:: 7.4
-
-    The support for PHP backed enums as workflow places was introduced with Symfony 7.4.
-
-First, define your enum with backed values::
+When using a state machine, you can use PHP backend enums as places in your
+workflows. First, define your enum with backed values::
 
     // src/Enumeration/BlogPostStatus.php
     namespace App\Enumeration;
