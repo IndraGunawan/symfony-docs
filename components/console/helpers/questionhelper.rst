@@ -324,6 +324,63 @@ the response to a question should allow multiline answers by passing ``true`` to
 Multiline questions stop reading user input after receiving an end-of-transmission
 control character (``Ctrl-D`` on Unix systems or ``Ctrl-Z`` on Windows).
 
+Setting a Timeout for User Input
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 7.4
+
+    The timeout functionality for questions was introduced in Symfony 7.4.
+
+You can set a maximum time limit for user input by using the
+:method:`Symfony\\Component\\Console\\Question\\Question::setTimeout` method.
+If the user doesn't respond within the specified timeout, a
+:class:`Symfony\\Component\\Console\\Exception\\MissingInputException` will be thrown::
+
+    use Symfony\Component\Console\Exception\MissingInputException;
+    use Symfony\Component\Console\Question\Question;
+
+    // ...
+    public function __invoke(InputInterface $input, OutputInterface $output): int
+    {
+        // ...
+        $helper = new QuestionHelper();
+
+        $question = new Question('Please enter your answer');
+        $question->setTimeout(30); // 30 seconds timeout
+
+        try {
+            $answer = $helper->ask($input, $output, $question);
+            // ... do something with the answer
+        } catch (MissingInputException $exception) {
+            $output->writeln('No input received within timeout period.');
+            // ... handle timeout
+        }
+
+        return Command::SUCCESS;
+    }
+
+This is particularly useful when you have interactive questions inside database
+transactions or other time-sensitive operations where hanging indefinitely
+could cause problems.
+
+.. note::
+
+    The timeout only applies to interactive input streams. For non-interactive
+    streams (like pipes or files), the timeout setting is ignored and the
+    question behaves normally.
+
+You can also use timeouts with other question types such as
+:class:`Symfony\\Component\\Console\\Question\\ConfirmationQuestion` and
+:class:`Symfony\\Component\\Console\\Question\\ChoiceQuestion`::
+
+    use Symfony\Component\Console\Question\ConfirmationQuestion;
+
+    // ...
+    $question = new ConfirmationQuestion('Do you want to continue?', false);
+    $question->setTimeout(10); // 10 seconds timeout
+
+    $continue = $helper->ask($input, $output, $question);
+
 Hiding the User's Response
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
