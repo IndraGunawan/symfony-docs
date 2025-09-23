@@ -377,10 +377,6 @@ You can also use timeouts with other question types such as
 
     $continue = $helper->ask($input, $output, $question);
 
-.. versionadded:: 7.4
-
-    The timeout functionality for questions was introduced in Symfony 7.4.
-
 Hiding the User's Response
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
