@@ -165,7 +165,7 @@ Parameter        Description
 ``protocols``
 ~~~~~~~~~~~~~
 
-**type**: ``array`` **default**: ``['http', 'https']``
+**type**: ``array|string`` **default**: ``['http', 'https']``
 
 The protocols considered to be valid for the URL. For example, if you also consider
 the ``ftp://`` type URLs to be valid, redefine the ``protocols`` array, listing
@@ -237,20 +237,15 @@ the ``ftp://`` type URLs to be valid, redefine the ``protocols`` array, listing
             }
         }
 
-The value of this option can also be an asterisk (``*``) to allow all protocols
-or a regular expression::
+The value of this option can also be an asterisk (``*``) to allow all protocols::
 
     // allows all protocols whose names are RFC 3986 compliant
     // (e.g. 'https://', 'git+ssh://', 'file://', 'custom://')
-    protocols: ['*']
-
-    // regular expressions are also valid
-    protocols: ['https?', 'custom.*', 'my-app-.*']
+    protocols: '*'
 
 .. versionadded:: 7.4
 
-    Support for ``*`` and regular expressions in the ``protocols`` option was
-    introduced in Symfony 7.4.
+    Support for ``*`` in the ``protocols`` option was introduced in Symfony 7.4.
 
 ``relativeProtocol``
 ~~~~~~~~~~~~~~~~~~~~
