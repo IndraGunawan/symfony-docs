@@ -237,6 +237,21 @@ the ``ftp://`` type URLs to be valid, redefine the ``protocols`` array, listing
             }
         }
 
+The value of this option can also be an asterisk (``*``) to allow all protocols
+or a regular expression::
+
+    // allows all protocols whose names are RFC 3986 compliant
+    // (e.g. 'https://', 'git+ssh://', 'file://', 'custom://')
+    protocols: ['*']
+
+    // regular expressions are also valid
+    protocols: ['https?', 'custom.*', 'my-app-.*']
+
+.. versionadded:: 7.4
+
+    Support for ``*`` and regular expressions in the ``protocols`` option was
+    introduced in Symfony 7.4.
+
 ``relativeProtocol``
 ~~~~~~~~~~~~~~~~~~~~
 
