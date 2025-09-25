@@ -169,10 +169,6 @@ Twilio       ``notifier.webhook.request_parser.twilio``
 Vonage       ``notifier.webhook.request_parser.vonage``
 ============ ==========================================
 
-.. versionadded:: 7.4
-
-    The support for ``LOX24`` was introduced in Symfony 7.4.
-
 For SMS webhooks, react to the
 :class:`Symfony\\Component\\RemoteEvent\\Event\\Sms\\SmsEvent` event::
 
