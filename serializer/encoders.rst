@@ -204,6 +204,9 @@ These are the options available on the :ref:`serializer context <serializer-cont
     require it. Example: ``'/(firstname|lastname)/'``
 ``ignore_empty_attributes`` (default: ``false``)
     If set to true, ignores all attributes with empty values in the generated XML
+``preserve_numeric_keys`` (default: ``false``)
+    If set to true, it keeps numeric array indexes (e.g. ``<item key="0">``)
+    instead of collapsing them into ``<item>`` nodes.
 
 Example with a custom ``context``::
 
@@ -234,6 +237,45 @@ Example with a custom ``context``::
     //   <id>IDHNQIItNyQ</id>
     //   <date>2019-10-24</date>
     // </track>
+
+Example with ``preserve_numeric_keys``::
+
+    use Symfony\Component\Serializer\Encoder\XmlEncoder;
+
+    $data = [
+        'person' => [
+            ['firstname' => 'Benjamin', 'lastname' => 'Alexandre'],
+            ['firstname' => 'Damien', 'lastname' => 'Clay'],
+        ],
+    ];
+
+    $xmlEncoder->encode($data, 'xml', ['preserve_numeric_keys' => false]);
+    // outputs:
+    //<response>
+    //  <person>
+    //    <firstname>Benjamin</firstname>
+    //    <lastname>Alexandre</lastname>
+    //  </person>
+    //  <person>
+    //    <firstname>Damien</firstname>
+    //    <lastname>Clay</lastname>
+    //  </person>
+    //</response>
+
+    $xmlEncoder->encode($data, 'xml', ['preserve_numeric_keys' => true]);
+    // outputs:
+    //<response>
+    //  <person>
+    //    <item key="0">
+    //        <firstname>Benjamin</firstname>
+    //        <lastname>Alexandre</lastname>
+    //    </item>
+    //      <item key="1">
+    //        <firstname>Damien</firstname>
+    //        <lastname>Clay</lastname>
+    //      </item>
+    //  </person>
+    //</response>
 
 The ``YamlEncoder``
 -------------------
