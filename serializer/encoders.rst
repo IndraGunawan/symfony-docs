@@ -212,7 +212,8 @@ These are the options available on the :ref:`serializer context <serializer-cont
 ``ignore_empty_attributes`` (default: ``false``)
     If set to true, ignores all attributes with empty values in the generated XML
 ``preserve_numeric_keys`` (default: ``false``)
-    If set to true, it keeps numeric array indexes instead of collapsing them into ``<item>`` nodes.
+    If set to true, it keeps numeric array indexes (e.g. ``<item key="0">``)
+    instead of collapsing them into ``<item>`` nodes.
 
 .. versionadded:: 7.1
 
@@ -224,9 +225,8 @@ These are the options available on the :ref:`serializer context <serializer-cont
 
 .. versionadded:: 7.4
 
-    The ``cdata_wrapping_name_pattern`` option was introduced in Symfony 7.4.
-
-    The ``preserve_numeric_keys`` option was introduced in Symfony 7.4.
+    The ``cdata_wrapping_name_pattern`` and ``preserve_numeric_keys`` options
+    were introduced in Symfony 7.4.
 
 Example with a custom ``context``::
 
@@ -281,6 +281,7 @@ Example with ``preserve_numeric_keys``::
     //    <lastname>Clay</lastname>
     //  </person>
     //</response>
+
     $xmlEncoder->encode($data, 'xml', ['preserve_numeric_keys' => true]);
     // outputs:
     //<response>
