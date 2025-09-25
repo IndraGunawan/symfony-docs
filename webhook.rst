@@ -162,11 +162,16 @@ Currently, the following third-party SMS transports support webhooks:
 ============ ==========================================
 SMS service  Parser service name
 ============ ==========================================
-Twilio       ``notifier.webhook.request_parser.twilio``
+LOX24        ``notifier.webhook.request_parser.lox24``
 Smsbox       ``notifier.webhook.request_parser.smsbox``
 Sweego       ``notifier.webhook.request_parser.sweego``
+Twilio       ``notifier.webhook.request_parser.twilio``
 Vonage       ``notifier.webhook.request_parser.vonage``
 ============ ==========================================
+
+.. versionadded:: 7.4
+
+    The support for ``LOX24`` was introduced in Symfony 7.4.
 
 For SMS webhooks, react to the
 :class:`Symfony\\Component\\RemoteEvent\\Event\\Sms\\SmsEvent` event::
