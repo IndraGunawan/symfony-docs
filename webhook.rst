@@ -175,9 +175,10 @@ Currently, the following third-party SMS transports support webhooks:
 ============ ==========================================
 SMS service  Parser service name
 ============ ==========================================
-Twilio       ``notifier.webhook.request_parser.twilio``
+LOX24        ``notifier.webhook.request_parser.lox24``
 Smsbox       ``notifier.webhook.request_parser.smsbox``
 Sweego       ``notifier.webhook.request_parser.sweego``
+Twilio       ``notifier.webhook.request_parser.twilio``
 Vonage       ``notifier.webhook.request_parser.vonage``
 ============ ==========================================
 
