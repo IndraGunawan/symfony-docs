@@ -248,11 +248,6 @@ You can configure these default values::
             ]);
         };
 
-.. versionadded:: 7.4
-
-    Starting from Symfony 7.4, the default version for both UUIDs and time-based
-    UUIDs is v7. In previous versions, the default was v6.
-
 Converting UUIDs
 ~~~~~~~~~~~~~~~~
 
