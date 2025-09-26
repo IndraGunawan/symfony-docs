@@ -158,8 +158,42 @@ following methods to create a ``Uuid`` object from it::
     $uuid = Uuid::fromBase58('TuetYWNHhmuSQ3xPoVLv9M');
     $uuid = Uuid::fromRfc4122('d9e7a184-5d5b-11ea-a62a-3499710062d0');
 
-You can also use the ``UuidFactory`` to generate UUIDs. First, you may
-configure the behavior of the factory using configuration files::
+You can also use the ``UuidFactory`` to generate UUIDs. Inject the factory in
+your services and use it as follows:
+
+    namespace App\Service;
+
+    use Symfony\Component\Uid\Factory\UuidFactory;
+
+    class FooService
+    {
+        public function __construct(
+            private UuidFactory $uuidFactory,
+        ) {
+        }
+
+        public function generate(): void
+        {
+            $uuid = $this->uuidFactory->create();
+
+            $randomBasedUuid = $this->uuidFactory->randomBased()->create();
+            // $namespace can be omitted if a default namespace is configured in the factory (see below)
+            $nameBasedUuid = $this->uuidFactory->nameBased($namespace)->create($name);
+            // $node can be omitted if a default node is configured in the factory (see below)
+            $timestampBased = $this->uuidFactory->timeBased($node)->create();
+
+            // ...
+        }
+    }
+
+By default, this factory generates the folllowing UUIDs:
+
+* Default and time-based UUIDs: UUIDv7
+* Name-based UUIDs: UUIDv5
+* Random-based UUIDs: UUIDv4
+* Time-based node and UUID namespace: ``null``
+
+You can configure these default values::
 
 .. configuration-block::
 
@@ -168,10 +202,10 @@ configure the behavior of the factory using configuration files::
         # config/packages/uid.yaml
         framework:
             uid:
-                default_uuid_version: 7
-                name_based_uuid_version: 5
+                default_uuid_version: 6
+                name_based_uuid_version: 3
                 name_based_uuid_namespace: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
-                time_based_uuid_version: 7
+                time_based_uuid_version: 6
                 time_based_uuid_node: 121212121212
 
     .. code-block:: xml
@@ -187,10 +221,10 @@ configure the behavior of the factory using configuration files::
 
             <framework:config>
                 <framework:uid
-                    default_uuid_version="7"
-                    name_based_uuid_version="5"
+                    default_uuid_version="6"
+                    name_based_uuid_version="6"
                     name_based_uuid_namespace="6ba7b810-9dad-11d1-80b4-00c04fd430c8"
-                    time_based_uuid_version="7"
+                    time_based_uuid_version="6"
                     time_based_uuid_node="121212121212"
                 />
             </framework:config>
@@ -209,41 +243,19 @@ configure the behavior of the factory using configuration files::
 
             $container->extension('framework', [
                 'uid' => [
-                    'default_uuid_version' => 7,
-                    'name_based_uuid_version' => 5,
+                    'default_uuid_version' => 6,
+                    'name_based_uuid_version' => 3,
                     'name_based_uuid_namespace' => '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
-                    'time_based_uuid_version' => 7,
+                    'time_based_uuid_version' => 6,
                     'time_based_uuid_node' => 121212121212,
                 ],
             ]);
         };
 
-Then, you can inject the factory in your services and use it to generate UUIDs based
-on the configuration you defined::
+.. versionadded:: 7.4
 
-    namespace App\Service;
-
-    use Symfony\Component\Uid\Factory\UuidFactory;
-
-    class FooService
-    {
-        public function __construct(
-            private UuidFactory $uuidFactory,
-        ) {
-        }
-
-        public function generate(): void
-        {
-            // This creates a UUID of the version given in the configuration file (v7 by default)
-            $uuid = $this->uuidFactory->create();
-
-            $nameBasedUuid = $this->uuidFactory->nameBased(/** ... */);
-            $randomBasedUuid = $this->uuidFactory->randomBased();
-            $timestampBased = $this->uuidFactory->timeBased();
-
-            // ...
-        }
-    }
+    Starting from Symfony 7.4, the default version for both UUIDs and time-based
+    UUIDs is v7. In previous versions, the default was v6.
 
 Converting UUIDs
 ~~~~~~~~~~~~~~~~
