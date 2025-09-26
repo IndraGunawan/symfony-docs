@@ -298,7 +298,7 @@ The message displayed if the video file contains multiple video streams.
 
 **type**: ``string`` **default**: ``The size of the video could not be detected.``
 
-The message displayed if ffprobe cannot detect the dimensions of the video.
+The message displayed if ``ffprobe`` cannot detect the dimensions of the video.
 
 ``unsupportedCodecMessage``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
