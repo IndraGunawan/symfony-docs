@@ -2497,10 +2497,15 @@ enabled
 with_constructor_extractor
 ..........................
 
-**type**: ``boolean`` **default**: ``false``
+**type**: ``boolean`` **default**: ``true``
 
 Configures the ``property_info`` service to extract property information from the constructor arguments
 using the :ref:`ConstructorExtractor <components-property-information-constructor-extractor>`.
+
+.. versionadded:: 8.0
+
+    The default value of the ``with_constructor_extractor`` option was changed
+    to ``true`` in Symfony 8.0.
 
 rate_limiter
 ~~~~~~~~~~~~
