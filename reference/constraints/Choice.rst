@@ -34,7 +34,7 @@ If your valid choice list is simple, you can pass them in directly via the
         {
             public const GENRES = ['fiction', 'non-fiction'];
 
-            #[Assert\Choice(['New York', 'Berlin', 'Tokyo'])]
+            #[Assert\Choice(choices: ['New York', 'Berlin', 'Tokyo'])]
             protected string $city;
 
             #[Assert\Choice(choices: Author::GENRES, message: 'Choose a valid genre.')]
@@ -47,7 +47,8 @@ If your valid choice list is simple, you can pass them in directly via the
         App\Entity\Author:
             properties:
                 city:
-                    - Choice: [New York, Berlin, Tokyo]
+                    - Choice:
+                        choices: [New York, Berlin, Tokyo]
                 genre:
                     - Choice:
                         choices:  [fiction, non-fiction]
@@ -64,9 +65,11 @@ If your valid choice list is simple, you can pass them in directly via the
             <class name="App\Entity\Author">
                 <property name="city">
                     <constraint name="Choice">
-                        <value>New York</value>
-                        <value>Berlin</value>
-                        <value>Tokyo</value>
+                        <option name="choices">
+                            <value>New York</value>
+                            <value>Berlin</value>
+                            <value>Tokyo</value>
+                        </option>
                     </constraint>
                 </property>
                 <property name="genre">
@@ -97,7 +100,7 @@ If your valid choice list is simple, you can pass them in directly via the
             {
                 $metadata->addPropertyConstraint(
                     'city',
-                    new Assert\Choice(['New York', 'Berlin', 'Tokyo'])
+                    new Assert\Choice(choices: ['New York', 'Berlin', 'Tokyo'])
                 );
 
                 $metadata->addPropertyConstraint('genre', new Assert\Choice(
@@ -106,6 +109,12 @@ If your valid choice list is simple, you can pass them in directly via the
                 ));
             }
         }
+
+.. deprecated:: 7.4
+
+    Passing an array of choices as the first argument of the ``Choice`` constraint
+    is deprecated and will stop working in Symfony 8.0. Instead, pass the choices
+    using the ``choices:`` named argument.
 
 Supplying the Choices with a Callback Function
 ----------------------------------------------
