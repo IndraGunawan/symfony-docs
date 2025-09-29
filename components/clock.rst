@@ -261,7 +261,17 @@ Storing DatePoints in the Database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you :doc:`use Doctrine </doctrine>` to work with databases, consider using the
-``date_point`` Doctrine type, which converts to/from ``DatePoint`` objects automatically::
+new Doctrine types:
+
+=======================  ======================  =====
+DatePoint Doctrine type  Extends Doctrine type   Class
+=======================  ======================  =====
+``date_point``           ``datetime_immutable``  :class:`Symfony\\Bridge\\Doctrine\\Types\\DatePointType`
+``day_point``            ``date_immutable``      :class:`Symfony\\Bridge\\Doctrine\\Types\\DayPointType`
+``time_point``           ``time_immutable``      :class:`Symfony\\Bridge\\Doctrine\\Types\\TimePointType`
+=======================  ======================  =====
+
+They convert to/from ``DatePoint`` objects automatically::
 
     // src/Entity/Product.php
     namespace App\Entity;
@@ -272,13 +282,19 @@ If you :doc:`use Doctrine </doctrine>` to work with databases, consider using th
     #[ORM\Entity]
     class Product
     {
-        // if you don't define the Doctrine type explicitly, Symfony will autodetect it:
+        // if you don't define the Doctrine type explicitly, Symfony will autodetect 'date_point':
         #[ORM\Column]
         private DatePoint $createdAt;
 
         // if you prefer to define the Doctrine type explicitly:
         #[ORM\Column(type: 'date_point')]
         private DatePoint $updatedAt;
+
+        #[ORM\Column(type: 'day_point')]
+        public DatePoint $birthday;
+
+        #[ORM\Column(type: 'time_point')]
+        public DatePoint $openAt;
 
         // ...
     }
