@@ -279,11 +279,6 @@ For example, to select the ``foo_package`` package defined earlier::
         }
     }
 
-.. versionadded:: 7.4
-
-    Before Symfony 7.4, the target name had to include the ``.package``
-    suffix (e.g. ``#[Target('foo_package.package')]``).
-
 .. _reference-framework-assets-packages:
 
 packages

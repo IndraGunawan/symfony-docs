@@ -315,10 +315,6 @@ or a JSON encoded string::
 
     // ...
 
-.. versionadded:: 7.4
-
-    The support for JSON contents in ``APP_RUNTIME_OPTIONS`` was introduced in Symfony 7.4.
-
 You can also configure ``extra.runtime`` in ``composer.json``:
 
 .. code-block:: json

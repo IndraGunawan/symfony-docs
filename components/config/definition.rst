@@ -743,12 +743,6 @@ of the option name using the second argument of the ``arrayNode()`` method::
         ->end()
     ;
 
-.. versionadded:: 7.4
-
-    The second argument of ``arrayNode()`` was introduced in Symfony 7.4. In prior
-    Symfony versions, you had to define the singular variant using the ``fixXmlConfig()``
-    method on the root node (``$rootNode->fixXmlConfig('extension')``).
-
 This ensures that single XML elements are still turned into an array. So you may have:
 
 .. code-block:: xml
