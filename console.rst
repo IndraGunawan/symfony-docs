@@ -167,11 +167,6 @@ longer help text for the command::
         }
     }
 
-.. versionadded:: 7.4
-
-    The feature to define usage examples in the ``#[AsCommand]`` attribute was
-    introduced in Symfony 7.4.
-
 Additionally, you can extend the :class:`Symfony\\Component\\Console\\Command\\Command` class to
 leverage advanced features like lifecycle hooks (e.g. :method:`Symfony\\Component\\Console\\Command\\Command::initialize` and
 and :method:`Symfony\\Component\\Console\\Command\\Command::interact`)::

@@ -243,10 +243,6 @@ The value of this option can also be an asterisk (``*``) to allow all protocols:
     // (e.g. 'https://', 'git+ssh://', 'file://', 'custom://')
     protocols: '*'
 
-.. versionadded:: 7.4
-
-    Support for ``*`` in the ``protocols`` option was introduced in Symfony 7.4.
-
 ``relativeProtocol``
 ~~~~~~~~~~~~~~~~~~~~
 

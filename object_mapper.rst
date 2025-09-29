@@ -447,10 +447,6 @@ With this configuration, ObjectMapper maps each item in the ``products`` array
 according to the usual mapping rules. Without ``transform: new MapCollection()``,
 the array is left unchanged.
 
-.. versionadded:: 7.4
-
-    The ``MapCollection`` transformer was introduced in Symfony 7.4.
-
 Mapping Multiple Targets
 ------------------------
 
