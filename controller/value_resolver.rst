@@ -362,27 +362,6 @@ but you can set it yourself to change its ``priority`` or ``name`` attributes.
                         name: booking_id
                         priority: 150
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... be sure autowiring is enabled -->
-                <defaults autowire="true"/>
-                <!-- ... -->
-
-                <service id="App\ValueResolver\BookingIdValueResolver">
-                    <tag name="booking_id" priority="150">controller.argument_value_resolver</tag>
-                </service>
-            </services>
-
-        </container>
-
     .. code-block:: php
 
         // config/services.php

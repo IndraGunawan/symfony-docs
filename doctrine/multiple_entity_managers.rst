@@ -55,53 +55,6 @@ The following configuration code shows how you can configure two entity managers
                                 prefix: 'App\Entity\Customer'
                                 alias: Customer
 
-    .. code-block:: xml
-
-        <!-- config/packages/doctrine.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/doctrine
-                https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
-
-            <doctrine:config>
-                <doctrine:dbal default-connection="default">
-                    <doctrine:connection name="default"
-                        url="%env(resolve:DATABASE_URL)%"
-                    />
-
-                    <doctrine:connection name="customer"
-                        url="%env(resolve:CUSTOMER_DATABASE_URL)%"
-                    />
-                </doctrine:dbal>
-
-                <doctrine:orm default-entity-manager="default">
-                    <doctrine:entity-manager name="default" connection="default">
-                        <doctrine:mapping
-                            name="Main"
-                            is_bundle="false"
-                            dir="%kernel.project_dir%/src/Entity/Main"
-                            prefix="App\Entity\Main"
-                            alias="Main"
-                        />
-                    </doctrine:entity-manager>
-
-                    <doctrine:entity-manager name="customer" connection="customer">
-                        <doctrine:mapping
-                            name="Customer"
-                            is_bundle="false"
-                            dir="%kernel.project_dir%/src/Entity/Customer"
-                            prefix="App\Entity\Customer"
-                            alias="Customer"
-                        />
-                    </doctrine:entity-manager>
-                </doctrine:orm>
-            </doctrine:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/doctrine.php

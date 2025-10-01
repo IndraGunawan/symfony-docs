@@ -26,37 +26,6 @@ the session lasts using a cookie with the ``remember_me`` firewall option:
                         # following line to always enable it.
                         #always_remember_me: true
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-
-                    <!-- secret: default to "%kernel.secret%"
-                         lifetime: 604800 is 1 week in seconds -->
-                    <remember-me
-                        secret="%kernel.secret%"
-                        lifetime="604800"
-                    />
-                    <!-- by default, the feature is enabled by checking a checkbox
-                         in the login form (see below), add always-remember-me="true"
-                         to always enable it. -->
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -169,31 +138,6 @@ allow users to opt-out. In these cases, you can use the
                     remember_me:
                         # ...
                         always_remember_me: true
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-
-                    <remember-me
-                        always-remember-me="true"
-                    />
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -331,32 +275,6 @@ are fetched from the user object using the
                         # ...
                         signature_properties: ['password', 'updatedAt']
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-
-                    <remember-me>
-                        <signature-property>password</signature-property>
-                        <signature-property>updatedAt</signature-property>
-                    </remember-me>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -413,31 +331,6 @@ You can enable the doctrine token provider using the ``doctrine`` setting:
                         # ...
                         token_provider:
                             doctrine: true
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-
-                    <remember-me>
-                        <token-provider doctrine="true"/>
-                    </remember-me>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -500,31 +393,6 @@ Then, configure the service ID of your custom token provider as ``service``:
                         # ...
                         token_provider:
                             service: App\Security\RememberMe\CustomTokenProvider
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-
-                    <remember-me>
-                        <token-provider service="App\Security\RememberMe\CustomTokenProvider"/>
-                    </remember-me>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 

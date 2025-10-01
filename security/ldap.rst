@@ -78,33 +78,6 @@ An LDAP client can be configured using the built-in
                             protocol_version: 3
                             referrals: false
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="Symfony\Component\Ldap\Ldap">
-                    <argument type="service" id="Symfony\Component\Ldap\Adapter\ExtLdap\Adapter"/>
-                    <tag name="ldap"/>
-                </service>
-                <service id="Symfony\Component\Ldap\Adapter\ExtLdap\Adapter">
-                    <argument type="collection">
-                        <argument key="host">my-server</argument>
-                        <argument key="port">389</argument>
-                        <argument key="encryption">tls</argument>
-                        <argument key="options" type="collection">
-                            <argument key="protocol_version">3</argument>
-                            <argument key="referrals">false</argument>
-                        </argument>
-                    </argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -153,30 +126,6 @@ use the ``ldap`` user provider.
                         default_roles: ROLE_USER
                         uid_key: uid
                         extra_fields: ['email']
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <provider name="my_ldap">
-                    <ldap service="Symfony\Component\Ldap\Ldap"
-                        base-dn="dc=example,dc=com"
-                        search-dn="cn=read-only-admin,dc=example,dc=com"
-                        search-password="password"
-                        default-roles="ROLE_USER"
-                        uid-key="uid"/>
-                </provider>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -388,26 +337,6 @@ Configuration example for form login
                         service: Symfony\Component\Ldap\Ldap
                         dn_string: 'uid={user_identifier},dc=example,dc=com'
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <form-login-ldap service="Symfony\Component\Ldap\Ldap"
-                        dn-string="uid={user_identifier},dc=example,dc=com"/>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -439,28 +368,6 @@ Configuration example for HTTP Basic
                     http_basic_ldap:
                         service: Symfony\Component\Ldap\Ldap
                         dn_string: 'uid={user_identifier},dc=example,dc=com'
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main" stateless="true">
-                    <http-basic-ldap service="Symfony\Component\Ldap\Ldap"
-                        dn-string="uid={user_identifier},dc=example,dc=com"/>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -497,30 +404,6 @@ Configuration example for form login and query_string
                         query_string: '(&(uid={user_identifier})(memberOf=cn=users,ou=Services,dc=example,dc=com))'
                         search_dn: '...'
                         search_password: 'the-raw-password'
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <!-- ... -->
-                    <form-login-ldap service="Symfony\Component\Ldap\Ldap"
-                        dn-string="dc=example,dc=com"
-                        query-string="(&amp;(uid={user_identifier})(memberOf=cn=users,ou=Services,dc=example,dc=com))"
-                        search-dn="..."
-                        search-password="the-raw-password"/>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 

@@ -41,57 +41,6 @@ it is broken down.
                     formatter:  monolog.formatter.html
                     content_type: text/html
 
-    .. code-block:: xml
-
-        <!-- config/packages/prod/monolog.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/monolog https://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
-
-            <monolog:config>
-                <!--
-                500 errors are logged at the critical level,
-                to also log 400 level errors (but not 404's):
-                action-level="error"
-                And add this child inside this monolog:handler
-                <monolog:excluded-http-code code="404"/>
-                -->
-                <monolog:handler
-                    name="main"
-                    type="fingers_crossed"
-                    action-level="critical"
-                    handler="deduplicated"
-                />
-                <monolog:handler
-                    name="deduplicated"
-                    type="deduplication"
-                    handler="symfony_mailer"
-                />
-                <monolog:handler
-                    name="symfony_mailer"
-                    type="symfony_mailer"
-                    from-email="error@example.com"
-                    subject="An Error Occurred! %%message%%"
-                    level="debug"
-                    formatter="monolog.formatter.html"
-                    content-type="text/html">
-
-                    <monolog:to-email>error@example.com</monolog:to-email>
-
-                    <!-- or list of recipients -->
-                    <!--
-                    <monolog:to-email>dev1@example.com</monolog:to-email>
-                    <monolog:to-email>dev2@example.com</monolog:to-email>
-                    ...
-                    -->
-                </monolog:handler>
-            </monolog:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/prod/monolog.php
@@ -161,16 +110,6 @@ You can adjust the time period using the ``time`` option:
                     time: 10
                     handler: symfony_mailer
 
-    .. code-block:: xml
-
-        <!-- config/packages/prod/monolog.xml -->
-
-        <!-- time: the time in seconds during which duplicate entries are discarded (default: 60) -->
-        <monolog:handler name="deduplicated"
-            type="deduplication"
-            time="10"
-            handler="symfony_mailer"/>
-
     .. code-block:: php
 
         // config/packages/prod/monolog.php
@@ -224,61 +163,6 @@ get logged on the server as well as the emails being sent:
                     level:        debug
                     formatter:    monolog.formatter.html
                     content_type: text/html
-
-    .. code-block:: xml
-
-        <!-- config/packages/prod/monolog.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/monolog https://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
-
-            <monolog:config>
-                <monolog:handler
-                    name="main"
-                    type="fingers_crossed"
-                    action_level="critical"
-                    handler="grouped"
-                />
-                <monolog:handler
-                    name="grouped"
-                    type="group"
-                >
-                    <member type="stream"/>
-                    <member type="deduplicated"/>
-                </monolog:handler>
-                <monolog:handler
-                    name="stream"
-                    path="%kernel.logs_dir%/%kernel.environment%.log"
-                    level="debug"
-                />
-                <monolog:handler
-                    name="deduplicated"
-                    type="deduplication"
-                    handler="symfony_mailer"
-                />
-                <monolog:handler
-                    name="symfony_mailer"
-                    type="symfony_mailer"
-                    from-email="error@example.com"
-                    subject="An Error Occurred! %%message%%"
-                    level="debug"
-                    formatter="monolog.formatter.html"
-                    content-type="text/html">
-
-                    <monolog:to-email>error@example.com</monolog:to-email>
-
-                    <!-- or list of recipients -->
-                    <!--
-                    <monolog:to-email>dev1@example.com</monolog:to-email>
-                    <monolog:to-email>dev2@example.com</monolog:to-email>
-                    ...
-                    -->
-                </monolog:handler>
-            </monolog:config>
-        </container>
 
     .. code-block:: php
 

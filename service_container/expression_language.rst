@@ -27,26 +27,6 @@ to another service: ``App\Mailer``. One way to do this is with an expression:
                 # when using double-quoted strings, the backslash needs to be escaped twice (see https://yaml.org/spec/1.2/spec.html#id2787109)
                 # arguments: ["@=service('App\\\\Mail\\\\MailerConfiguration').getMailerMethod()"]
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="App\Mail\MailerConfiguration"></service>
-
-                <service id="App\Mailer">
-                    <argument type="expression">service('App\\Mail\\MailerConfiguration').getMailerMethod()</argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -88,22 +68,6 @@ via a ``container`` variable. Here's another example:
             App\Mailer:
                 # the '@=' prefix is required when using expressions for arguments in YAML files
                 arguments: ["@=container.hasParameter('some_param') ? parameter('some_param') : 'default_value'"]
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Mailer">
-                    <argument type="expression">container.hasParameter('some_param') ? parameter('some_param') : 'default_value'</argument>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

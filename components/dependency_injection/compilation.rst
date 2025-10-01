@@ -57,17 +57,17 @@ A very simple extension may just load configuration files into the container::
     use Symfony\Component\Config\FileLocator;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
     use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-    use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+    use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
     class AcmeDemoExtension implements ExtensionInterface
     {
         public function load(array $configs, ContainerBuilder $container): void
         {
-            $loader = new XmlFileLoader(
+            $loader = new PhpFileLoader(
                 $container,
                 new FileLocator(__DIR__.'/../Resources/config')
             );
-            $loader->load('services.xml');
+            $loader->load('services.php');
         }
 
         // ...
@@ -170,45 +170,6 @@ you could access the config value this way::
         // ...
     }
 
-There are a further two methods you must implement. One to return the XML
-namespace so that the relevant parts of an XML config file are passed to
-the extension. The other to specify the base path to XSD files to validate
-the XML configuration::
-
-    public function getXsdValidationBasePath(): string
-    {
-        return __DIR__.'/../Resources/config/';
-    }
-
-    public function getNamespace(): string
-    {
-        return 'http://www.example.com/symfony/schema/';
-    }
-
-.. note::
-
-    XSD validation is optional, returning ``false`` from the ``getXsdValidationBasePath()``
-    method will disable it.
-
-The XML version of the config would then look like this:
-
-.. code-block:: xml
-
-    <?xml version="1.0" encoding="UTF-8" ?>
-    <container xmlns="http://symfony.com/schema/dic/services"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:acme-demo="http://www.example.com/schema/dic/acme_demo"
-        xsi:schemaLocation="http://symfony.com/schema/dic/services
-            https://symfony.com/schema/dic/services/services-1.0.xsd
-            http://www.example.com/schema/dic/acme_demo
-            https://www.example.com/schema/dic/acme_demo/acme_demo-1.0.xsd"
-    >
-        <acme-demo:config>
-            <acme_demo:foo>fooValue</acme_demo:foo>
-            <acme_demo:bar>barValue</acme_demo:bar>
-        </acme-demo:config>
-    </container>
-
 .. note::
 
     In the Symfony full-stack Framework there is a base Extension class
@@ -240,14 +201,14 @@ file but also load a secondary one only if a certain parameter is set::
         $processor = new Processor();
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $loader = new XmlFileLoader(
+        $loader = new PhpFileLoader(
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
-        $loader->load('services.xml');
+        $loader->load('services.php');
 
         if ($config['advanced']) {
-            $loader->load('advanced.xml');
+            $loader->load('advanced.php');
         }
     }
 
@@ -256,7 +217,7 @@ about not using them anymore. This helps with the migration across major version
 of an extension.
 
 Deprecation is only possible when using PHP to configure the extension, not when
-using XML or YAML. Use the ``ContainerBuilder::deprecateParameter()`` method to
+using YAML. Use the ``ContainerBuilder::deprecateParameter()`` method to
 provide the deprecation details::
 
     public function load(array $configs, ContainerBuilder $containerBuilder)

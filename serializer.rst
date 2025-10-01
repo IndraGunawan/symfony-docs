@@ -317,26 +317,6 @@ instance to disallow extra fields while deserializing:
                 default_context:
                     allow_extra_attributes: false
 
-    .. code-block:: xml
-
-        <!-- config/packages/serializer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:serializer>
-                    <framework:default-context>
-                        <framework:allow-extra-attributes>false</framework:allow-extra-attributes>
-                    </framework:default-context>
-                </framework:serializer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/serializer.php
@@ -1228,24 +1208,6 @@ setting the ``name_converter`` setting to
             serializer:
                 name_converter: 'serializer.name_converter.camel_case_to_snake_case'
 
-    .. code-block:: xml
-
-        <!-- config/packages/serializer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:serializer
-                    name-converter="serializer.name_converter.camel_case_to_snake_case"
-                />
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/serializer.php
@@ -1288,24 +1250,6 @@ setting the ``name_converter`` setting to
         framework:
             serializer:
                 name_converter: 'serializer.name_converter.snake_case_to_camel_case'
-
-    .. code-block:: xml
-
-        <!-- config/packages/serializer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:serializer
-                    name-converter="serializer.name_converter.snake_case_to_camel_case"
-                />
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1500,28 +1444,6 @@ like:
                     # register the normalizer with a high priority (called earlier)
                     - { name: 'serializer.normalizer', priority: 500 }
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <!-- if you're using autoconfigure, the tag will be automatically applied -->
-                <service id="Symfony\Component\Serializer\Normalizer\CustomNormalizer">
-                    <!-- register the normalizer with a high priority (called earlier) -->
-                    <tag name="serializer.normalizer"
-                        priority="500"
-                    />
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -1611,39 +1533,6 @@ the ``named_serializers`` option:
                         default_context:
                             enable_max_depth: false
 
-    .. code-block:: xml
-
-        <!-- config/packages/serializer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:serializer>
-
-                    <framework:named-serializer
-                        name="api_client1"
-                        name-converter="serializer.name_converter.camel_case_to_snake_case"
-                    >
-                        <framework:default-context>
-                            <framework:enable_max_depth>true</framework:enable_max_depth>
-                        </framework:default-context>
-                    </framework:named-serializer>
-
-                    <framework:named-serializer name="api_client2">
-                        <framework:default-context>
-                            <framework:enable_max_depth>false</framework:enable_max_depth>
-                        </framework:default-context>
-                    </framework:named-serializer>
-
-                </framework:serializer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/serializer.php
@@ -1711,36 +1600,6 @@ or :ref:`serializer.encoder <reference-dic-tags-serializer-encoder>` tags:
                     # add this normalizer to all serializers, including the default one
                     - serializer.normalizer: { serializer: '*' }
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <!-- prevent this normalizer from being automatically added to the default serializer -->
-                <service
-                    id="Symfony\Component\Serializer\Normalizer\CustomNormalizer"
-                    autoconfigure="false"
-                >
-                    <!-- add this normalizer only to a specific named serializer -->
-                    <tag name="serializer.normalizer" serializer="api_client1"/>
-
-                    <!-- add this normalizer to several named serializers -->
-                    <tag name="serializer.normalizer" serializer="api_client1"/>
-                    <tag name="serializer.normalizer" serializer="api_client2"/>
-
-                    <!-- add this normalizer to all serializers, including the default one -->
-                    <tag name="serializer.normalizer" serializer="*"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -1790,30 +1649,6 @@ named serializer by setting the ``include_built_in_normalizers`` and
                     api_client1:
                         include_built_in_normalizers: false
                         include_built_in_encoders: true
-
-    .. code-block:: xml
-
-        <!-- config/packages/serializer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:serializer>
-
-                    <framework:named-serializer
-                        name="api_client1"
-                        include-built-in-normalizers="false"
-                        include-built-in-encoders="true"
-                    />
-
-                </framework:serializer>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

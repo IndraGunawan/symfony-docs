@@ -17,12 +17,6 @@ key in your application configuration.
     # environment variables with their actual values
     $ php bin/console debug:config --resolve-env debug
 
-.. note::
-
-    When using XML, you must use the ``http://symfony.com/schema/dic/debug``
-    namespace and the related XSD schema is available at:
-    ``https://symfony.com/schema/dic/debug/debug-1.0.xsd``
-
 .. _configuration-debug-dump_destination:
 
 dump_destination
@@ -44,20 +38,6 @@ Typically, you would set this to ``php://stderr``:
         # config/packages/debug.yaml
         debug:
             dump_destination: php://stderr
-
-    .. code-block:: xml
-
-        <!-- config/packages/debug.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/debug"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:debug="http://symfony.com/schema/dic/debug"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/debug https://symfony.com/schema/dic/debug/debug-1.0.xsd">
-
-            <debug:config dump-destination="php://stderr"/>
-        </container>
 
     .. code-block:: php
 

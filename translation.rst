@@ -77,25 +77,6 @@ are located:
             translator:
                 default_path: '%kernel.project_dir%/translations'
 
-    .. code-block:: xml
-
-        <!-- config/packages/translation.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config default-locale="en">
-                <framework:translator
-                    default-path="%kernel.project_dir%/translations"
-                />
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/translation.php
@@ -460,31 +441,6 @@ of your main configuration file using either ``%...%`` or ``{...}`` syntax:
                 '{app_version}': '1.2.3'
                 '{url}': { message: 'url', parameters: { scheme: 'https://' }, domain: 'global' }
 
-    .. code-block:: xml
-
-           <!-- config/packages/translation.xml -->
-           <?xml version="1.0" encoding="UTF-8" ?>
-           <container xmlns="http://symfony.com/schema/dic/services"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:framework="http://symfony.com/schema/dic/symfony"
-               xsi:schemaLocation="http://symfony.com/schema/dic/services
-                   https://symfony.com/schema/dic/services/services-1.0.xsd
-                   http://symfony.com/schema/dic/symfony
-                   https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-               <framework:config>
-                   <framework:translator>
-                       <!-- ... -->
-                        <!-- when using the '%' wrapping characters, you must escape them -->
-                       <framework:global name="%%app_name%%">My application</framework:global>
-                       <framework:global name="{app_version}" value="1.2.3"/>
-                       <framework:global name="{url}" message="url" domain="global">
-                            <framework:parameter name="scheme">https://</framework:parameter>
-                        </framework:global>
-                   </framework:translator>
-               </framework:config>
-           </container>
-
     .. code-block:: php
 
         // config/packages/translator.php
@@ -654,25 +610,6 @@ if you're generating translations with specialized programs or teams.
                     paths:
                         - '%kernel.project_dir%/custom/path/to/translations'
 
-        .. code-block:: xml
-
-            <!-- config/packages/translation.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <framework:config>
-                    <framework:translator>
-                        <framework:path>%kernel.project_dir%/custom/path/to/translations</framework:path>
-                    </framework:translator>
-                </framework:config>
-            </container>
-
         .. code-block:: php
 
             // config/packages/translation.php
@@ -775,31 +712,6 @@ configure the ``providers`` option:
                         dsn: '%env(LOCO_DSN)%'
                         domains: ['messages']
                         locales: ['en', 'fr']
-
-    .. code-block:: xml
-
-        <!-- config/packages/translation.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:translator>
-                    <framework:provider name="loco" dsn="%env(LOCO_DSN)%">
-                        <framework:domain>messages</framework:domain>
-                        <!-- ... -->
-                        <framework:locale>en</framework:locale>
-                        <framework:locale>fr</framework:locale>
-                        <!-- ... -->
-                    </framework:provider>
-                </framework:translator>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -999,21 +911,6 @@ A better policy is to include the locale in the URL using the
             requirements:
                 _locale: en|fr|de
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="contact" path="/{_locale}/contact">
-                controller="App\Controller\ContactController::index">
-                <requirement key="_locale">en|fr|de</requirement>
-            </route>
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -1059,21 +956,6 @@ the framework:
         # config/packages/translation.yaml
         framework:
             default_locale: en
-
-    .. code-block:: xml
-
-        <!-- config/packages/translation.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config default-locale="en"/>
-        </container>
 
     .. code-block:: php
 
@@ -1140,26 +1022,6 @@ checks translation resources for several locales:
                translator:
                    fallbacks: ['en']
                    # ...
-
-       .. code-block:: xml
-
-           <!-- config/packages/translation.xml -->
-           <?xml version="1.0" encoding="UTF-8" ?>
-           <container xmlns="http://symfony.com/schema/dic/services"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:framework="http://symfony.com/schema/dic/symfony"
-               xsi:schemaLocation="http://symfony.com/schema/dic/services
-                   https://symfony.com/schema/dic/services/services-1.0.xsd
-                   http://symfony.com/schema/dic/symfony
-                   https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-               <framework:config>
-                   <framework:translator>
-                       <framework:fallback>en</framework:fallback>
-                       <!-- ... -->
-                   </framework:translator>
-               </framework:config>
-           </container>
 
        .. code-block:: php
 
@@ -1581,37 +1443,6 @@ it in the translator configuration:
                     parse_html: true
                     # also translate the contents of these HTML attributes
                     localizable_html_attributes: ['title']
-
-    .. code-block:: xml
-
-        <!-- config/packages/translation.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:translator>
-                    <!-- accents: replace characters by their accented version -->
-                    <!-- brackets: wrap strings with brackets -->
-                    <!-- expansion_factor: controls how many extra characters are added to make text longer -->
-                    <!-- parse_html: maintain the original HTML tags of the translated contents -->
-                    <framework:pseudo-localization
-                        accents="true"
-                        brackets="true"
-                        expansion_factor="1.4"
-                        parse_html="true"
-                    >
-                        <!-- also translate the contents of these HTML attributes -->
-                        <framework:localizable-html-attribute>title</framework:localizable-html-attribute>
-                    </framework:pseudo-localization>
-                </framework:translator>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

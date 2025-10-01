@@ -39,25 +39,6 @@ digital signature, etc.).
                     access_token:
                         token_handler: App\Security\AccessTokenHandler
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token token-handler="App\Security\AccessTokenHandler"/>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -164,31 +145,6 @@ You can also create a custom extractor. The class must implement
                         # or provide the service ID of a custom extractor
                         token_extractors: 'App\Security\CustomTokenExtractor'
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token token-handler="App\Security\AccessTokenHandler">
-                        <!-- use a different built-in extractor -->
-                        <token-extractor>request_body</token-extractor>
-
-                        <!-- or provide the service ID of a custom extractor -->
-                        <token-extractor>App\Security\CustomTokenExtractor</token-extractor>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -225,28 +181,6 @@ important**: the first in the list is called first.
                         token_extractors:
                             - 'header'
                             - 'App\Security\CustomTokenExtractor'
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token token-handler="App\Security\AccessTokenHandler">
-                        <token-extractor>header</token-extractor>
-                        <token-extractor>App\Security\CustomTokenExtractor</token-extractor>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -300,27 +234,6 @@ and configure the service ID as the ``success_handler``:
                     access_token:
                         token_handler: App\Security\AccessTokenHandler
                         success_handler: App\Security\Authentication\AuthenticationSuccessHandler
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token token-handler="App\Security\AccessTokenHandler"
-                        success-handler="App\Security\Authentication\AuthenticationSuccessHandler"
-                    />
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -377,27 +290,6 @@ and retrieve the user info:
                         token_handler:
                             oidc_user_info: https://www.example.com/realms/demo/protocol/openid-connect/userinfo
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler oidc-user-info="https://www.example.com/realms/demo/protocol/openid-connect/userinfo"/>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -437,31 +329,6 @@ Next, configure the ``base_uri`` and ``discovery`` options:
                                     cache:
                                         id: cache.app
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <oidc-user-info base-uri="https://www.example.com/realms/demo/">
-                                <discovery cache="cache.app"/>
-                            </oidc-user-info>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -495,29 +362,6 @@ identifier by default. To use another claim, specify it using the ``claim`` opti
                                 claim: email
                                 base_uri: https://www.example.com/realms/demo/protocol/openid-connect/userinfo
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <oidc-user-info claim="email" base-uri="https://www.example.com/realms/demo/protocol/openid-connect/userinfo"/>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -549,29 +393,6 @@ specify the service name via the ``client`` option:
                         token_handler:
                             oidc_user_info:
                                 client: oidc.client
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <oidc-user-info client="oidc.client"/>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -640,41 +461,6 @@ it, and retrieves the user information from it. Optionally, the token can be enc
                                     algorithms: ['ECDH-ES', 'A128GCM']
                                     keyset: '{"keys": [...]}' # Encryption private keyset
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <!-- Algorithm used to sign the JWS -->
-                            <!-- A JSON-encoded JWK -->
-                            <!-- Audience (`aud` claim): required for validation purpose -->
-                            <oidc keyset="{'keys':[{'kty':'...','k':'...'}]}" audience="api-example">
-                                <!-- Issuers (`iss` claim): required for validation purpose -->
-                                <algorithm>ES256</algorithm>
-                                <algorithm>RS256</algorithm>
-                                <issuer>https://oidc.example.com</issuer>
-                                <encryption enabled="true" enforce="true" keyset="{'keys': [...]}">
-                                    <algorithm>ECDH-ES</algorithm>
-                                    <algorithm>A128GCM</algorithm>
-                                </encryption>
-                            </oidc>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -735,34 +521,6 @@ from the OpenID Connect Discovery), and configure the ``discovery`` option:
                                     cache:
                                         id: cache.app
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <oidc claim="email" audience="api-example">
-                                <algorithm>ES256</algorithm>
-                                <algorithm>RS256</algorithm>
-                                <issuer>https://oidc.example.com</issuer>
-                                <discovery base-uri="https://www.example.com/realms/demo/" cache="cache.app">
-                            </oidc>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -803,33 +561,6 @@ configuration:
                                 keyset: '{"keys":[{"kty":"...","k":"..."}]}'
                                 audience: 'api-example'
                                 issuers: ['https://oidc.example.com']
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <oidc claim="email" keyset="{'keys':[{'kty':'...','k':'...'}]}" audience="api-example">
-                                <algorithm>ES256</algorithm>
-                                <algorithm>RS256</algorithm>
-                                <issuer>https://oidc.example.com</issuer>
-                            </oidc>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -890,38 +621,6 @@ to validate tokens from different identity providers:
                                         - https://idp2.example.com/realms/demo/
                                     cache:
                                         id: cache.app
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <oidc audience="api-example">
-                                <algorithm>ES256</algorithm>
-                                <algorithm>RS256</algorithm>
-                                <issuer>https://oidc1.example.com</issuer>
-                                <issuer>https://oidc2.example.com</issuer>
-                                <discovery cache="cache.app">
-                                    <base-uri>https://idp1.example.com/realms/demo/</base-uri>
-                                    <base-uri>https://idp2.example.com/realms/demo/</base-uri>
-                                </discovery>
-                            </oidc>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -1003,29 +702,6 @@ You can configure a ``cas`` token handler as follows:
                             cas:
                                 validation_url: https://www.example.com/cas/validate
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <cas validation-url="https://www.example.com/cas/validate"/>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -1058,29 +734,6 @@ specify the service name via the ``http_client`` option:
                                 validation_url: https://www.example.com/cas/validate
                                 http_client: cas.client
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <cas validation-url="https://www.example.com/cas/validate" http-client="cas.client"/>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -1112,29 +765,6 @@ By default the token handler will read the validation URL XML response with
                             cas:
                                 validation_url: https://www.example.com/cas/validate
                                 prefix: cas-example
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <access-token>
-                        <token-handler>
-                            <cas validation-url="https://www.example.com/cas/validate" prefix="cas-example"/>
-                        </token-handler>
-                    </access-token>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 

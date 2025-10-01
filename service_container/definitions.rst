@@ -6,7 +6,7 @@ build a service. They are not the actual services used by your applications.
 The container will create the actual class instances based on the configuration
 in the definition.
 
-Normally, you would use YAML, XML or PHP to describe the service definitions.
+Normally, you would use YAML or PHP to describe the service definitions.
 But if you're doing advanced things with the service container, like working
 with a :doc:`Compiler Pass </service_container/compiler_passes>` or creating a
 :doc:`Dependency Injection Extension </bundles/extension>`, you may need to

@@ -45,32 +45,6 @@ the user provider uses :doc:`Doctrine </doctrine>` to retrieve them.
 
             # ...
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <config>
-                <provider name="users">
-                    <!-- class:    the class of the entity that represents users
-                         property: the property to query by - e.g. email, username, etc-->
-                    <entity class="App\Entity\User" property="email"/>
-
-                    <!-- optional, if you're using multiple Doctrine entity
-                         managers, "manager-name" defines which one to use -->
-                    <!-- <entity class="App\Entity\User" property="email"
-                                 manager-name="customer"/> -->
-                </provider>
-
-                <!-- ... -->
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -140,27 +114,6 @@ To finish this, remove the ``property`` key from the user provider in
 
             # ...
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <provider name="users">
-                    <entity class="App\Entity\User"/>
-                </provider>
-
-                <!-- ... -->
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -209,30 +162,6 @@ After setting up hashing, you can configure all the user information in
                             jane_admin: { password: '$2y$13$PFi1I ... rGwXCZ', roles: ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'] }
 
             # ...
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                       xmlns:srv="http://symfony.com/schema/dic/services"
-                       xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <provider name="app_user_provider2">
-                    <memory>
-                        <user identifier="john_admin" password="$2y$13$jxGxc ... IuqDju" roles="ROLE_ADMIN"/>
-                        <user identifier="jane_admin" password="$2y$13$PFi1I ... rGwXCZ" roles="ROLE_ADMIN, ROLE_SUPER_ADMIN"/>
-                    </memory>
-                </provider>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -296,47 +225,6 @@ providers until the user is found:
                 all_users:
                     chain:
                         providers: ['legacy_users', 'users', 'backend_users']
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                       xmlns:srv="http://symfony.com/schema/dic/services"
-                       xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <provider name="backend_users">
-                    <ldap service="..." base-dn="..."/>
-                </provider>
-
-                <provider name="legacy_users">
-                    <entity>
-                        <!-- ... -->
-                    </entity>
-                </provider>
-
-                <provider name="users">
-                    <entity>
-                        <!-- ... -->
-                    </entity>
-                </provider>
-
-                <provider name="all_users">
-                    <chain>
-                        <provider>backend_users</provider>
-                        <provider>legacy_users</provider>
-                        <provider>users</provider>
-                    </chain>
-                </provider>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -466,27 +354,6 @@ the user provider by adding it in ``security.yaml``:
                 # the name of your user provider can be anything
                 your_custom_user_provider:
                     id: App\Security\UserProvider
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                       xmlns:srv="http://symfony.com/schema/dic/services"
-                       xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <provider name="your_custom_user_provider" id="App\Security\UserProvider">
-                    <!-- ... -->
-                </provider>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 

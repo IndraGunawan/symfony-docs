@@ -105,23 +105,6 @@ After creating the strategy PHP class, register it as a Symfony service.
                     - "%kernel.project_dir%/busters.json"
                     - "%%s?version=%%s"
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd"
-        >
-            <services>
-                <service id="App\Asset\VersionStrategy\GulpBusterVersionStrategy">
-                    <argument>%kernel.project_dir%/busters.json</argument>
-                    <argument>%%s?version=%%s</argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -154,21 +137,6 @@ the :ref:`version_strategy <reference-assets-version-strategy>` option:
             # ...
             assets:
                 version_strategy: 'App\Asset\VersionStrategy\GulpBusterVersionStrategy'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:assets version-strategy="App\Asset\VersionStrategy\GulpBusterVersionStrategy"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

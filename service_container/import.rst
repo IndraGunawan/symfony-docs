@@ -4,7 +4,7 @@ How to Import Configuration Files/Resources
 .. tip::
 
     In this section, service configuration files are referred to as *resources*.
-    While most configuration resources are files (e.g. YAML, XML, PHP), Symfony is
+    While most configuration resources are files (e.g. YAML, PHP), Symfony is
     able to load configuration from anywhere (e.g. a database or even via an external
     web service).
 
@@ -38,24 +38,6 @@ decided to move some configuration to a new file:
         services:
             # ... some services
 
-    .. code-block:: xml
-
-        <!-- config/services/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <parameters>
-                <!-- ... some parameters -->
-            </parameters>
-
-            <services>
-                <!-- ... some services -->
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services/mailer.php
@@ -84,30 +66,6 @@ a relative or absolute path to the imported file:
                 resource: '../src/*'
 
             # ...
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <imports>
-                <import resource="services/mailer.xml"/>
-                <!-- If you want to import a whole directory: -->
-                <import resource="services/"/>
-            </imports>
-
-            <services>
-                <defaults autowire="true" autoconfigure="true"/>
-
-                <prototype namespace="App\" resource="../src/*"/>
-
-                <!-- ... -->
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -173,33 +131,6 @@ from auto-registering classes that are defined manually elsewhere:
                     - '../src/Mailer/'
                     - '../src/SpecificClass.php'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <imports>
-                <import resource="services/mailer.xml"/>
-                <!-- If you want to import a whole directory: -->
-                <import resource="services/"/>
-            </imports>
-
-            <services>
-                <defaults autowire="true" autoconfigure="true"/>
-
-                <prototype namespace="App\" resource="../src/*">
-                    <exclude>../src/Mailer/</exclude>
-                    <exclude>../src/SpecificClass.php</exclude>
-                </prototype>
-
-                <!-- ... -->
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -245,34 +176,6 @@ same file. These later definitions will override the auto-registered ones:
 
             App\Mailer\MyMailer:
                 arguments: ['%env(MAILER_DSN)%']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <imports>
-                <import resource="services/mailer.xml"/>
-                <!-- If you want to import a whole directory: -->
-                <import resource="services/"/>
-            </imports>
-
-            <services>
-                <defaults autowire="true" autoconfigure="true"/>
-
-                <prototype namespace="App\" resource="../src/*"/>
-
-                <service id="App\Mailer\MyMailer">
-                    <argument>%env(MAILER_DSN)%</argument>
-                </service>
-
-                <!-- ... -->
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -328,57 +231,6 @@ can override the auto-discovered ones.
         services:
             # definitions here override anything from the imports above
             # consider keeping most definitions inside imported files
-
-    .. code-block:: xml
-
-        <!-- config/services/autodiscovery.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://symfony.com/schema/dic/services
-                       https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <defaults autowire="true" autoconfigure="true"/>
-
-                <prototype namespace="App\" resource="../../src/*">
-                    <exclude>../../src/Mailer/</exclude>
-                </prototype>
-            </services>
-        </container>
-
-        <!-- config/services/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://symfony.com/schema/dic/services
-                       https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Mailer\SpecificMailer">
-                    <!-- ... custom configuration -->
-                </service>
-            </services>
-        </container>
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://symfony.com/schema/dic/services
-                       https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <imports>
-                <import resource="services/autodiscovery.xml"/>
-                <import resource="services/mailer.xml"/>
-                <import resource="services/"/>
-            </imports>
-
-            <services>
-                <!-- definitions here override anything from the imports above -->
-                <!-- consider keeping most definitions inside imported files -->
-            </services>
-        </container>
 
     .. code-block:: php
 

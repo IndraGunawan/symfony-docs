@@ -44,31 +44,6 @@ Now, examine the results to see this closely:
         # The Configurator does not know anything about
         # "%kernel.debug%" being a parameter.
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:my-bundle="http://example.org/schema/dic/my_bundle"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://example.org/schema/dic/my_bundle
-                https://example.org/schema/dic/my_bundle/my_bundle-1.0.xsd">
-
-            <my-bundle:config logging="true"/>
-            <!-- true, as expected -->
-
-            <my-bundle:config logging="%kernel.debug%"/>
-            <!-- true/false (depends on 2nd parameter of Kernel),
-                 as expected, because %kernel.debug% inside configuration
-                 gets evaluated before being passed to the extension -->
-
-            <my-bundle:config/>
-            <!-- passes the string "%kernel.debug%".
-                 Which is always considered as true.
-                 The Configurator does not know anything about
-                 "%kernel.debug%" being a parameter. -->
-        </container>
-
     .. code-block:: php
 
         $container->loadFromExtension('my_bundle', [

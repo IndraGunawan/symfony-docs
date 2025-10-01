@@ -177,39 +177,6 @@ with the ``doctrine.orm.entity_listener`` tag as follows:
                         # configure a custom method name with the 'method' option
                         # method: 'checkUserChanges'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine">
-            <services>
-                <!-- ... -->
-
-                <service id="App\EventListener\UserChangedNotifier">
-                    <!--
-                        * These are the options required to define the entity listener:
-                        *   * name
-                        *   * event
-                        *   * entity
-                        *
-                        * These are other options that you may define if needed:
-                        *   * lazy: if TRUE, listeners are only instantiated when they are used
-                        *   * entity_manager: define it if the listener is not associated to the default manager
-                        *   * method: by default, Symfony looks for a method called after the event (e.g. postUpdate())
-                        *           if it doesn't exist, it tries to execute the '__invoke()' method, but
-                        *           you can configure a custom method name with the 'method' option
-                    -->
-                    <tag name="doctrine.orm.entity_listener"
-                        event="postUpdate"
-                        entity="App\Entity\User"
-                        lazy="true"
-                        entity_manager="custom"
-                        method="checkUserChanges"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -323,30 +290,6 @@ listener in the Symfony application by creating a new service for it and
 
                         # you can also restrict listeners to a specific Doctrine connection
                         connection: 'default'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine">
-            <services>
-                <!-- ... -->
-
-                <!--
-                    * 'event' is the only required option that defines the lifecycle listener
-                    * 'priority': used when multiple listeners are associated to the same event
-                    *             (default priority = 0; higher numbers = listener is run earlier)
-                    * 'connection': restricts the listener to a specific Doctrine connection
-                -->
-                <service id="App\EventListener\SearchIndexer">
-                    <tag name="doctrine.event_listener"
-                        event="postPersist"
-                        priority="500"
-                        connection="default"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

@@ -70,11 +70,11 @@ to a route definition. Then, after creating your project:
    see if the bug appears or not.
 #. If you can see the bug, you're done and you can already share the code with us.
 #. If you can't see the bug, you must keep making small changes. For example, if
-   your original route was defined using XML, forget about the previous route
-   and define the route using XML instead. Or maybe your application
-   registers some event listeners and that's where the real bug is. In that case,
-   add an event listener that's similar to your real app to see if you can find
-   the bug.
+   your original route was defined in a YAML or PHP file in the ``config/`` folder,
+   forget about the previous route and define the route using the same pattern.
+   Or maybe your application registers some event listeners and that's where the
+   real bug is. In that case, add an event listener that's similar to your real
+   app to see if you can find the bug.
 
 In short, the idea is to keep adding small and incremental changes to a new project
 until you can reproduce the bug.

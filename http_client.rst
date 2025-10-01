@@ -99,24 +99,6 @@ You can configure the global options using the ``default_options`` option:
                 default_options:
                     max_redirects: 7
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client>
-                    <framework:default-options max-redirects="7"/>
-                </framework:http-client>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -184,24 +166,6 @@ This option cannot be overridden per request:
                 max_host_connections: 10
                 # ...
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client max-host-connections="10">
-                    <!-- ... -->
-                </framework:http-client>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -251,39 +215,6 @@ autoconfigure the HTTP client based on the requested URL:
                             Accept: 'application/vnd.github.v3+json'
                             Authorization: 'token %env(GITHUB_API_TOKEN)%'
                         # ...
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client>
-                    <!-- only requests matching scope will use these options -->
-                    <framework:scoped-client name="github.client"
-                        scope="https://api\.github\.com"
-                    >
-                        <framework:header name="Accept">application/vnd.github.v3+json</framework:header>
-                        <framework:header name="Authorization">token %env(GITHUB_API_TOKEN)%</framework:header>
-                    </framework:scoped-client>
-
-                    <!-- using base-uri, relative URLs (e.g. request("GET", "/repos/symfony/symfony-docs"))
-                         will default to these options -->
-                    <framework:scoped-client name="github.client"
-                        base-uri="https://api.github.com"
-                    >
-                        <framework:header name="Accept">application/vnd.github.v3+json</framework:header>
-                        <framework:header name="Authorization">token %env(GITHUB_API_TOKEN)%</framework:header>
-                    </framework:scoped-client>
-                </framework:http-client>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -421,33 +352,6 @@ each request (which overrides any global authentication):
                         # Microsoft NTLM authentication
                         auth_ntlm: 'the-username:the-password'
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client>
-                    <!-- Available authentication options:
-                         auth-basic: HTTP Basic authentication
-                         auth-bearer: HTTP Bearer authentication (also called token authentication)
-                         auth-ntlm: Microsoft NTLM authentication -->
-                    <framework:scoped-client name="example_api"
-                        base-uri="https://example.com/"
-                        auth-basic="the-username:the-password"
-                        auth-bearer="the-bearer-token"
-                        auth-ntlm="the-username:the-password"
-                    />
-                </framework:http-client>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -534,26 +438,6 @@ Use the ``headers`` option to define the default headers added to all requests:
                 default_options:
                     headers:
                         'User-Agent': 'My Fancy App'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client>
-                    <framework:default-options>
-                        <framework:header name="User-Agent">My Fancy App</framework:header>
-                    </framework:default-options>
-                </framework:http-client>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -950,26 +834,6 @@ of your application:
                     vars:
                         - secret: 'secret-token'
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client>
-                    <framework:default-options>
-                        <framework:vars name="secret">secret-token</framework:vars>
-                    </framework:default-options>
-                </framework:http-client>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -1105,24 +969,6 @@ To force HTTP/2 for ``http`` URLs, you need to enable it explicitly via the
             http_client:
                 default_options:
                     http_version: '2.0'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client>
-                    <framework:default-options http-version="2.0"/>
-                </framework:http-client>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1539,37 +1385,6 @@ installed in your application::
                     policy: 'token_bucket'
                     limit: 10
                     rate: { interval: '5 seconds', amount: 10 }
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client>
-                    <framework:scoped-client name="example.client"
-                        base-uri="https://example.com"
-                        rate-limiter="http_example_limiter"
-                    />
-                </framework:http-client>
-
-                <framework:rate-limiter>
-                    <!-- Don't send more than 10 requests in 5 seconds -->
-                    <framework:limiter name="http_example_limiter"
-                        policy="token_bucket"
-                        limit="10"
-                    >
-                        <framework:rate interval="5 seconds" amount="10"/>
-                    </framework:limiter>
-                </framework:rate-limiter>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -2195,35 +2010,6 @@ Then configure Symfony to use your callback:
         framework:
             http_client:
                 mock_response_factory: App\Tests\MockClientCallback
-
-    .. code-block:: xml
-
-        <!-- config/services_test.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
-            xsd:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Tests\MockClientCallback"/>
-            </services>
-        </container>
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client mock-response-factory="App\Tests\MockClientCallback">
-                    <!-- ... -->
-                </framework-http-client>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

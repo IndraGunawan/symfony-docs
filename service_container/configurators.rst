@@ -136,28 +136,6 @@ all the classes are already loaded as services. All you need to do is specify th
             App\Mail\GreetingCardManager:
                 configurator: ['@App\Mail\EmailConfigurator', 'configure']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <prototype namespace="App\" resource="../src/*"/>
-
-                <service id="App\Mail\NewsletterManager">
-                    <configurator service="App\Mail\EmailConfigurator" method="configure"/>
-                </service>
-
-                <service id="App\Mail\GreetingCardManager">
-                    <configurator service="App\Mail\EmailConfigurator" method="configure"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -205,28 +183,6 @@ Services can be configured via invokable configurators (replacing the
 
             App\Mail\GreetingCardManager:
                 configurator: '@App\Mail\EmailConfigurator'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <prototype namespace="App\" resource="../src/*"/>
-
-                <service id="App\Mail\NewsletterManager">
-                    <configurator service="App\Mail\EmailConfigurator"/>
-                </service>
-
-                <service id="App\Mail\GreetingCardManager">
-                    <configurator service="App\Mail\EmailConfigurator"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

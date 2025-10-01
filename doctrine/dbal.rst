@@ -78,25 +78,6 @@ mapping types, read Doctrine's `Custom Mapping Types`_ section of their document
                     custom_first:  App\Type\CustomFirst
                     custom_second: App\Type\CustomSecond
 
-    .. code-block:: xml
-
-        <!-- config/packages/doctrine.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/doctrine
-                https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
-
-            <doctrine:config>
-                <doctrine:dbal>
-                    <doctrine:type name="custom_first" class="App\Type\CustomFirst"/>
-                    <doctrine:type name="custom_second" class="App\Type\CustomSecond"/>
-                </doctrine:dbal>
-            </doctrine:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/doctrine.php
@@ -129,24 +110,6 @@ mapping type:
             dbal:
                 mapping_types:
                     enum: string
-
-    .. code-block:: xml
-
-        <!-- config/packages/doctrine.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/doctrine
-                https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
-
-            <doctrine:config>
-                <doctrine:dbal>
-                    <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
-                </doctrine:dbal>
-            </doctrine:config>
-        </container>
 
     .. code-block:: php
 

@@ -21,23 +21,6 @@ processor to turn the value of the ``HTTP_PORT`` env var into an integer:
             router:
                 http_port: '%env(int:HTTP_PORT)%'
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:router http-port="%env(int:HTTP_PORT)%"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -71,25 +54,6 @@ Symfony provides the following env var processors:
             framework:
                 secret: '%env(string:SECRET)%'
 
-        .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(SECRET)">some_secret</parameter>
-                </parameters>
-
-                <framework:config secret="%env(string:SECRET)%"/>
-            </container>
-
         .. code-block:: php
 
             // config/packages/framework.php
@@ -118,25 +82,6 @@ Symfony provides the following env var processors:
             framework:
                 http_method_override: '%env(bool:HTTP_METHOD_OVERRIDE)%'
 
-        .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(HTTP_METHOD_OVERRIDE)">true</parameter>
-                </parameters>
-
-                <framework:config http-method-override="%env(bool:HTTP_METHOD_OVERRIDE)%"/>
-            </container>
-
         .. code-block:: php
 
             // config/packages/framework.php
@@ -162,24 +107,6 @@ Symfony provides the following env var processors:
             parameters:
                 safe_for_production: '%env(not:APP_DEBUG)%'
 
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="safe_for_production">%env(not:APP_DEBUG)%</parameter>
-                </parameters>
-
-            </container>
-
         .. code-block:: php
 
             // config/services.php
@@ -204,27 +131,6 @@ Symfony provides the following env var processors:
             security:
                 access_control:
                     - { path: '^/health-check$', methods: '%env(const:HEALTH_CHECK_METHOD)%' }
-
-        .. code-block:: xml
-
-            <!-- config/packages/security.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:security="http://symfony.com/schema/dic/security"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/security
-                    https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(HEALTH_CHECK_METHOD)">Symfony\Component\HttpFoundation\Request::METHOD_HEAD</parameter>
-                </parameters>
-
-                <security:config>
-                    <rule path="^/health-check$" methods="%env(const:HEALTH_CHECK_METHOD)%"/>
-                </security:config>
-            </container>
 
         .. code-block:: php
 
@@ -255,24 +161,6 @@ Symfony provides the following env var processors:
                 env(ALLOWED_LANGUAGES): '["en","de","es"]'
                 app_allowed_languages: '%env(json:ALLOWED_LANGUAGES)%'
 
-        .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(ALLOWED_LANGUAGES)">["en","de","es"]</parameter>
-                    <parameter key="app_allowed_languages">%env(json:ALLOWED_LANGUAGES)%</parameter>
-                </parameters>
-            </container>
-
         .. code-block:: php
 
             // config/packages/framework.php
@@ -301,23 +189,6 @@ Symfony provides the following env var processors:
             sentry:
                 dsn: '%env(resolve:SENTRY_DSN)%'
 
-        .. code-block:: xml
-
-            <!-- config/packages/sentry.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-                <parameters>
-                    <parameter key="sentry_host">10.0.0.1</parameter>
-                    <parameter key="env(SENTRY_DSN)">http://%sentry_host%/project</parameter>
-                </parameters>
-
-                <sentry:config dsn="%env(resolve:SENTRY_DSN)%"/>
-            </container>
-
         .. code-block:: php
 
             // config/packages/sentry.php
@@ -338,24 +209,6 @@ Symfony provides the following env var processors:
             parameters:
                 env(ALLOWED_LANGUAGES): "en,de,es"
                 app_allowed_languages: '%env(csv:ALLOWED_LANGUAGES)%'
-
-        .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(ALLOWED_LANGUAGES)">en,de,es</parameter>
-                    <parameter key="app_allowed_languages">%env(csv:ALLOWED_LANGUAGES)%</parameter>
-                </parameters>
-            </container>
 
         .. code-block:: php
 
@@ -385,30 +238,6 @@ Symfony provides the following env var processors:
                     class: RedisCluster
                     arguments: [null, "%env(shuffle:csv:REDIS_NODES)%"]
 
-        .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(REDIS_NODES)">redis://127.0.0.1:6380,redis://127.0.0.1:6381</parameter>
-                </parameters>
-
-                <services>
-                    <service id="RedisCluster" class="RedisCluster">
-                        <argument>null</argument>
-                        <argument>%env(shuffle:csv:REDIS_NODES)%</argument>
-                    </service>
-                </services>
-            </container>
-
         .. code-block:: php
 
             // config/services.php
@@ -432,25 +261,6 @@ Symfony provides the following env var processors:
             google:
                 auth: '%env(file:AUTH_FILE)%'
 
-        .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(AUTH_FILE)">../config/auth.json</parameter>
-                </parameters>
-
-                <google auth="%env(file:AUTH_FILE)%"/>
-            </container>
-
         .. code-block:: php
 
             // config/packages/framework.php
@@ -472,25 +282,6 @@ Symfony provides the following env var processors:
                 env(PHP_FILE): '%kernel.project_dir%/config/.runtime-evaluated.php'
             app:
                 auth: '%env(require:PHP_FILE)%'
-
-        .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(PHP_FILE)">../config/.runtime-evaluated.php</parameter>
-                </parameters>
-
-                <app auth="%env(require:PHP_FILE)%"/>
-            </container>
 
         .. code-block:: php
 
@@ -515,25 +306,6 @@ Symfony provides the following env var processors:
             google:
                 auth: '%env(trim:file:AUTH_FILE)%'
 
-        .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(AUTH_FILE)">../config/auth.json</parameter>
-                </parameters>
-
-                <google auth="%env(trim:file:AUTH_FILE)%"/>
-            </container>
-
         .. code-block:: php
 
             // config/packages/framework.php
@@ -556,24 +328,6 @@ Symfony provides the following env var processors:
                 database_password: '%env(key:database_password:json:file:SECRETS_FILE)%'
                 # if SECRETS_FILE contents are: {"database_password": "secret"} it returns "secret"
 
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(SECRETS_FILE)">/opt/application/.secrets.json</parameter>
-                    <parameter key="database_password">%env(key:database_password:json:file:SECRETS_FILE)%</parameter>
-                </parameters>
-            </container>
-
         .. code-block:: php
 
             // config/services.php
@@ -593,24 +347,6 @@ Symfony provides the following env var processors:
                 # if PRIVATE_KEY is not a valid file path, the content of raw_key is returned
                 private_key: '%env(default:raw_key:file:PRIVATE_KEY)%'
                 raw_key: '%env(PRIVATE_KEY)%'
-
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-                <parameters>
-                    <!-- if PRIVATE_KEY is not a valid file path, the content of raw_key is returned -->
-                    <parameter key="private_key">%env(default:raw_key:file:PRIVATE_KEY)%</parameter>
-                    <parameter key="raw_key">%env(PRIVATE_KEY)%</parameter>
-                </parameters>
-            </container>
 
         .. code-block:: php
 
@@ -646,23 +382,6 @@ Symfony provides the following env var processors:
                 connections:
                     default:
                         database_name: '%env(key:path:url:MONGODB_URL)%'
-
-        .. code-block:: xml
-
-            <!-- config/packages/mongodb.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-                <mongodb:config>
-                    <mongodb:client name="default" username="%env(string:key:user:url:MONGODB_URL)%" password="%env(string:key:pass:url:MONGODB_URL)%">
-                        <mongodb:host host="%env(string:key:host:url:MONGODB_URL)%" port="%env(int:key:port:url:MONGODB_URL)%"/>
-                    </mongodb:client>
-                    <mongodb:connections name="default" database_name="%env(key:path:url:MONGODB_URL)%"/>
-                </mongodb:config>
-            </container>
 
         .. code-block:: php
 
@@ -712,20 +431,6 @@ Symfony provides the following env var processors:
                         # ...
                         connectTimeoutMS: '%env(int:key:timeout:query_string:MONGODB_URL)%'
 
-        .. code-block:: xml
-
-            <!-- config/packages/mongodb.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-                <mongodb:config>
-                    <mongodb:client name="default" connectTimeoutMS="%env(int:key:timeout:query_string:MONGODB_URL)%"/>
-                </mongodb:config>
-            </container>
-
         .. code-block:: php
 
             // config/packages/mongodb.php
@@ -759,23 +464,6 @@ Symfony provides the following env var processors:
             parameters:
                 suit: '%env(enum:App\Enum\Suit:CARD_SUIT)%'
 
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="suit">%env(enum:App\Enum\Suit:CARD_SUIT)%</parameter>
-                </parameters>
-            </container>
-
         .. code-block:: php
 
             // config/services.php
@@ -795,23 +483,6 @@ Symfony provides the following env var processors:
             # config/services.yaml
             parameters:
                 typed_env: '%env(defined:FOO)%'
-
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="typed_env"'%env(defined:FOO)%</parameter>
-                </parameters>
-            </container>
 
         .. code-block:: php
 
@@ -833,24 +504,6 @@ Symfony provides the following env var processors:
             parameters:
                 env(DATABASE_URL): 'mysql://db_user:foo@b$r@127.0.0.1:3306/db_name'
                 encoded_database_url: '%env(urlencode:DATABASE_URL)%'
-
-        .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <parameters>
-                    <parameter key="env(DATABASE_URL)">mysql://db_user:foo@b$r@127.0.0.1:3306/db_name</parameter>
-                    <parameter key="encoded_database_url">%env(urlencode:DATABASE_URL)%</parameter>
-                </parameters>
-            </container>
 
         .. code-block:: php
 
@@ -880,29 +533,6 @@ It is also possible to combine any number of processors:
             # 3. gets the content of the file stored in that path
             # 4. JSON-decodes the content of the file and returns it
             auth: '%env(json:file:resolve:AUTH_FILE)%'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <parameters>
-                <parameter key="env(AUTH_FILE)">%kernel.project_dir%/config/auth.json</parameter>
-            </parameters>
-
-            <!-- 1. gets the value of the AUTH_FILE env var -->
-            <!-- 2. replaces the values of any config param to get the config path -->
-            <!-- 3. gets the content of the file stored in that path -->
-            <!-- 4. JSON-decodes the content of the file and returns it -->
-            <google auth="%env(json:file:resolve:AUTH_FILE)%"/>
-        </container>
 
     .. code-block:: php
 

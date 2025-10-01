@@ -163,20 +163,6 @@ create an alias pointing to the existing ``profiler`` service:
         services:
             Symfony\Component\HttpKernel\Profiler\Profiler: '@profiler'
 
-    .. code-block:: xml
-
-        <!-- config/services_dev.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="Symfony\Component\HttpKernel\Profiler\Profiler" alias="profiler"/>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services_dev.php
@@ -229,22 +215,6 @@ toolbar to be refreshed after each AJAX request by enabling ``ajax_replace`` in 
         web_profiler:
             toolbar:
                 ajax_replace: true
-
-    .. code-block:: xml
-
-        <!-- config/packages/web_profiler.xml -->
-        <?xml version="1.0" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xmlns:web-profiler="http://symfony.com/schema/dic/webprofiler"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <web-profiler:config>
-                    <web-profiler:toolbar ajax-replace="true"/>
-                </web-profiler:config>
-        </container>
 
     .. code-block:: php
 
@@ -560,28 +530,6 @@ you'll need to configure the data collector explicitly:
                         template: 'data_collector/template.html.twig'
                         # optional priority (positive or negative integer; default = 0)
                         # priority: 300
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\DataCollector\RequestCollector">
-                    <!-- the 'template' attribute has more priority than the value returned by getTemplate() -->
-                    <tag name="data_collector"
-                        id="App\DataCollector\RequestCollector"
-                        template="data_collector/template.html.twig"
-                    />
-                    <!-- optional 'priority' attribute (positive or negative integer; default = 0) -->
-                    <!-- priority="300" -->
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

@@ -49,23 +49,6 @@ create its object:
                 # the first argument is the class and the second argument is the static method
                 factory: ['App\Email\NewsletterManagerStaticFactory', 'createNewsletterManager']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Email\NewsletterManager">
-                    <!-- the first argument is the class and the second argument is the static method -->
-                    <factory class="App\Email\NewsletterManagerStaticFactory" method="createNewsletterManager"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -132,22 +115,6 @@ You can omit the class on the factory declaration:
                 arguments:
                     $sender: 'fabien@symfony.com'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Email\NewsletterManager">
-                    <factory method="create"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -201,21 +168,6 @@ as the factory class:
                 arguments:
                     $sender: 'fabien@symfony.com'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Email\NewsletterManager" constructor="create">
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -252,29 +204,6 @@ Configuration of the service container then looks like this:
             # option and the factory method as the second argument
             App\Email\NewsletterManager:
                 factory: ['@App\Email\NewsletterManagerFactory', 'createNewsletterManager']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- first, create a service for the factory -->
-                <service id="App\Email\NewsletterManagerFactory"/>
-
-                <!-- second, use the factory service as the first argument of the 'factory'
-                     option and the factory method as the second argument -->
-                <service id="App\Email\NewsletterManager">
-                    <factory service="App\Email\NewsletterManagerFactory"
-                        method="createNewsletterManager"
-                    />
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -335,25 +264,6 @@ method name:
                 class:   App\Email\NewsletterManager
                 factory: '@App\Email\InvokableNewsletterManagerFactory'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="App\Email\NewsletterManager"
-                         class="App\Email\NewsletterManager">
-                    <factory service="App\Email\InvokableNewsletterManagerFactory"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -392,29 +302,6 @@ e.g. change the service based on a parameter:
                 factory: '@=arg(0).createNewsletterManager() ?: service("default_newsletter_manager")'
                 arguments:
                     - '@App\Email\NewsletterManagerFactory'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Email\NewsletterManagerInterface">
-                    <!-- use the "tracable_newsletter" service when debug is enabled, "newsletter" otherwise -->
-                    <factory expression="parameter('kernel.debug') ? service('tracable_newsletter') : service('newsletter')"/>
-                </service>
-
-                <!-- you can use the arg() function to retrieve an argument from the definition -->
-                <service id="App\Email\NewsletterManagerInterface">
-                    <factory expression="arg(0).createNewsletterManager() ?: service('default_newsletter_manager')"/>
-                    <argument type="service" id="App\Email\NewsletterManagerFactory"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -466,25 +353,6 @@ previous examples takes the ``templating`` service as an argument:
             App\Email\NewsletterManager:
                 factory:   ['@App\Email\NewsletterManagerFactory', createNewsletterManager]
                 arguments: ['@templating']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="App\Email\NewsletterManager">
-                    <factory service="App\Email\NewsletterManagerFactory" method="createNewsletterManager"/>
-                    <argument type="service" id="templating"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

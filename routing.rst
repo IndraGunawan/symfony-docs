@@ -12,7 +12,7 @@ provides other useful features, like generating SEO-friendly URLs (e.g.
 Creating Routes
 ---------------
 
-Routes can be configured in YAML, XML, PHP or using attributes.
+Routes can be configured in YAML, PHP or using attributes.
 All formats provide the same features and performance, so choose
 your favorite.
 :ref:`Symfony recommends attributes <best-practice-controller-attributes>`
@@ -91,15 +91,15 @@ The route name (``blog_list``) is not important for now, but it will be
 essential later when :ref:`generating URLs <routing-generating-urls>`. You only
 have to keep in mind that each route name must be unique in the application.
 
-Creating Routes in YAML, XML or PHP Files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating Routes in YAML or PHP Files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Instead of defining routes in the controller classes, you can define them in a
-separate YAML, XML or PHP file. The main advantage is that they don't require
+separate YAML or PHP file. The main advantage is that they don't require
 any extra dependency. The main drawback is that you have to work with multiple
 files when checking the routing of some controller action.
 
-The following example shows how to define in YAML/XML/PHP a route called
+The following example shows how to define in YAML or PHP a route called
 ``blog_list`` that associates the ``/blog`` URL with the ``list()`` action of
 the ``BlogController``:
 
@@ -117,24 +117,6 @@ the ``BlogController``:
             # controller class, you can skip the '::method_name' part:
             # controller: App\Controller\BlogController
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <!-- the controller value has the format 'controller_class::method_name' -->
-            <route id="blog_list" path="/blog"
-                   controller="App\Controller\BlogController::list"/>
-
-            <!-- if the action is implemented as the __invoke() method of the
-                 controller class, you can skip the '::method_name' part:
-                 controller="App\Controller\BlogController"/> -->
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -151,12 +133,6 @@ the ``BlogController``:
                 // ->controller(BlogController::class)
             ;
         };
-
-.. note::
-
-    By default, Symfony loads the routes defined in both YAML and PHP formats.
-    If you define routes in XML format, you need to
-    :ref:`update the src/Kernel.php file <configuration-formats>`.
 
 .. _routing-matching-http-methods:
 
@@ -204,24 +180,6 @@ Use the ``methods`` option to restrict the verbs each route should respond to:
             path:       /api/posts/{id}
             controller: App\Controller\BlogApiController::edit
             methods:    PUT
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="api_post_show" path="/api/posts/{id}"
-                controller="App\Controller\BlogApiController::show"
-                methods="GET|HEAD"/>
-
-            <route id="api_post_edit" path="/api/posts/{id}"
-                controller="App\Controller\BlogApiController::edit"
-                methods="PUT"/>
-        </routes>
 
     .. code-block:: php
 
@@ -290,20 +248,6 @@ given value:
             tools:
                 path: /tools
                 controller: App\Controller\DefaultController::developerTools
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <when env="dev">
-                <route id="tools" path="/tools" controller="App\Controller\DefaultController::developerTools"/>
-            </when>
-        </routes>
 
     .. code-block:: php
 
@@ -381,29 +325,6 @@ arbitrary matching logic:
             controller: App\Controller\DefaultController::showPost
             # expressions can retrieve route parameter values using the "params" variable
             condition:  "params['id'] < 1000"
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="contact" path="/contact" controller="App\Controller\DefaultController::contact">
-                <condition>context.getMethod() in ['GET', 'HEAD'] and request.headers.get('User-Agent') matches '/firefox/i'</condition>
-                <!-- expressions can also include configuration parameters: -->
-                <!-- <condition>request.headers.get('User-Agent') matches '%app.allowed_browsers%'</condition> -->
-                <!-- expressions can even use environment variables: -->
-                <!-- <condition>context.getHost() == env('APP_MAIN_HOST')</condition> -->
-            </route>
-
-            <route id="post_show" path="/posts/{id}" controller="App\Controller\DefaultController::showPost">
-                <!-- expressions can retrieve route parameter values using the "params" variable -->
-                <condition>params['id'] &lt; 1000</condition>
-            </route>
-        </routes>
 
     .. code-block:: php
 
@@ -588,19 +509,6 @@ For example, the route to display the blog post contents is defined as ``/blog/{
             path:       /blog/{slug}
             controller: App\Controller\BlogController::show
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="blog_show" path="/blog/{slug}"
-                   controller="App\Controller\BlogController::show"/>
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -673,23 +581,6 @@ the ``{page}`` parameter using the ``requirements`` option:
         blog_show:
             path:       /blog/{slug}
             controller: App\Controller\BlogController::show
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="blog_list" path="/blog/{page}" controller="App\Controller\BlogController::list">
-                <requirement key="page">\d+</requirement>
-            </route>
-
-            <route id="blog_show" path="/blog/{slug}"
-                   controller="App\Controller\BlogController::show"/>
-        </routes>
 
     .. code-block:: php
 
@@ -815,21 +706,6 @@ concise, but it can decrease route readability when requirements are complex:
             path:       /blog/{page<\d+>}
             controller: App\Controller\BlogController::list
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="blog_list" path="/blog/{page<\d+>}"
-                   controller="App\Controller\BlogController::list"/>
-
-            <!-- ... -->
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -888,24 +764,6 @@ other configuration formats they are defined with the ``defaults`` option:
 
         blog_show:
             # ...
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="blog_list" path="/blog/{page}" controller="App\Controller\BlogController::list">
-                <default key="page">1</default>
-
-                <requirement key="page">\d+</requirement>
-            </route>
-
-            <!-- ... -->
-        </routes>
 
     .. code-block:: php
 
@@ -971,21 +829,6 @@ parameter:
             path:       /blog/{page<\d+>?1}
             controller: App\Controller\BlogController::list
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="blog_list" path="/blog/{page<\d+>?1}"
-                   controller="App\Controller\BlogController::list"/>
-
-            <!-- ... -->
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -1010,10 +853,10 @@ Priority Parameter
 
 Symfony evaluates routes in the order they are defined. If the path of a route
 matches many different patterns, it might prevent other routes from being
-matched. In YAML and XML you can move the route definitions up or down in the
-configuration file to control their priority. In routes defined as PHP
-attributes this is much harder to do, so you can set the
-optional ``priority`` parameter in those routes to control their priority:
+matched. In YAML or PHP config files you can move the route definitions up or
+down in the configuration file to control their priority. In routes defined as
+PHP attributes this is much harder to do, so you can set the optional
+``priority`` parameter in those routes to control their priority:
 
 .. configuration-block::
 
@@ -1207,27 +1050,6 @@ and in route imports. Symfony defines some special attributes with the same name
               _locale: en|fr
               _format: html|xml
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="article_search"
-                path="/articles/{_locale}/search.{_format}"
-                controller="App\Controller\ArticleController::search"
-                locale="en"
-                format="html">
-
-                <requirement key="_locale">en|fr</requirement>
-                <requirement key="_format">html|xml</requirement>
-
-            </route>
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -1285,21 +1107,6 @@ the controllers of the routes:
                 page: 1
                 title: "Hello world!"
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="blog_index" path="/blog/{page}" controller="App\Controller\BlogController::index">
-                <default key="page">1</default>
-                <default key="title">Hello world!</default>
-            </route>
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -1356,20 +1163,6 @@ A possible solution is to change the parameter requirements to be more permissiv
             controller: App\Controller\DefaultController::share
             requirements:
                 token: .+
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="share" path="/share/{token}" controller="App\Controller\DefaultController::share">
-                <requirement key="token">.+</requirement>
-            </route>
-        </routes>
 
     .. code-block:: php
 
@@ -1438,18 +1231,6 @@ have been renamed. Let's say you have a route called ``product_show``:
             path: /product/{id}
             controller: App\Controller\ProductController::show
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="product_show" path="/product/{id}" controller="App\Controller\ProductController::show"/>
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -1497,20 +1278,6 @@ Instead of duplicating the original route, you can create an alias for it.
             # "alias" option refers to the name of the route declared above
             alias: product_show
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="product_show" path="/product/{id}" controller="App\Controller\ProductController::show"/>
-            <!-- "alias" attribute value refers to the name of the route declared above -->
-            <route id="product_details" alias="product_show"/>
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -1528,7 +1295,7 @@ be used in the application and will produce the same result.
 
 .. note::
 
-    YAML, XML, and PHP configuration formats are the only ways to define an alias
+    YAML and PHP configuration formats are the only ways to define an alias
     for a route that you do not own. You can't do this when using PHP attributes.
 
     This allows you for example to use your own route name for URL generation,
@@ -1616,32 +1383,6 @@ This way, the ``product_show`` alias could be deprecated.
                 package: 'acme/package'
                 version: '1.2'
                 message: 'The "%alias_id%" route alias is deprecated. Please use "product_details" instead.'
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <!-- Move the concrete route definition under ``product_details`` -->
-            <route id="product_details" path="/product/{id}" controller="App\Controller\ProductController::show"/>
-
-            <!-- Define the alias and the deprecation under the ``product_show`` definition -->
-            <route id="product_show" alias="product_details">
-                <!-- this outputs the following generic deprecation message:
-                     Since acme/package 1.2: The "product_show" route alias is deprecated. You should stop using it, as it will be removed in the future. -->
-                <deprecated package="acme/package" version="1.2"/>
-
-                <!-- or -->
-
-                <!-- you can define a custom deprecation message (%alias_id% placeholder is available) -->
-                <deprecated package="acme/package" version="1.2">
-                    The "%alias_id%" route alias is deprecated. Please use "product_details" instead.
-                </deprecated>
-            </route>
-        </routes>
 
     .. code-block:: php
 
@@ -1733,39 +1474,6 @@ when importing the routes.
             # (the value must be a string or an array of PHP glob patterns)
             # exclude: '../../src/Controller/{Debug*Controller.php}'
 
-    .. code-block:: xml
-
-        <!-- config/routes/attributes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <!--
-                the 'prefix' value is added to the beginning of all imported route URLs
-                the 'name-prefix' value is added to the beginning of all imported route names
-                the 'exclude' option defines the files or subdirectories ignored when loading attributes
-                (the value must be a PHP glob pattern and you can repeat this option any number of times)
-            -->
-            <import resource="../../src/Controller/"
-                type="attribute"
-                prefix="/blog"
-                name-prefix="blog_"
-                exclude="../../src/Controller/{Debug*Controller.php}">
-                <!-- these requirements are added to all imported routes -->
-                <requirement key="_locale">en|es|fr</requirement>
-            </import>
-
-            <!-- An imported route with an empty URL will become "/blog/"
-                 Uncomment this option to make that URL "/blog" instead -->
-            <import resource="../../src/Controller/" type="attribute"
-                    prefix="/blog"
-                    trailing-slash-on-root="false">
-                    <!-- ... -->
-            </import>
-        </routes>
-
     .. code-block:: php
 
         // config/routes/attributes.php
@@ -1827,25 +1535,6 @@ defined in the class attribute.
                 prefix:   '/blog'
                 trailing_slash_on_root: false
                 # ...
-
-        .. code-block:: xml
-
-            <!-- config/routes/attributes.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <routes xmlns="http://symfony.com/schema/routing"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/routing
-                    https://symfony.com/schema/routing/routing-1.0.xsd">
-
-                <import resource="../../src/Controller/"
-                    type="attribute"
-                    prefix="/blog"
-                    name-prefix="blog_"
-                    trailing-slash-on-root="false"
-                    exclude="../../src/Controller/{DebugEmailController}.php">
-                    <!-- ... -->
-                </import>
-            </routes>
 
         .. code-block:: php
 
@@ -1953,40 +1642,6 @@ Use the ``RedirectController`` to redirect to other routes and URLs:
                 # this value can be an absolute path or an absolute URL
                 path: 'https://legacy.example.com/doc'
                 permanent: true
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="doc_shortcut" path="/doc"
-                   controller="Symfony\Bundle\FrameworkBundle\Controller\RedirectController">
-                <default key="route">doc_page</default>
-                <!-- optionally you can define some arguments passed to the route -->
-                <default key="page">index</default>
-                <default key="version">current</default>
-                <!-- redirections are temporary by default (code 302) but you can make them permanent (code 301)-->
-                <default key="permanent">true</default>
-                <!-- add this to keep the original query string parameters when redirecting -->
-                <default key="keepQueryParams">true</default>
-                <!-- add this to keep the HTTP method when redirecting. The redirect status changes:
-                     * for temporary redirects, it uses the 307 status code instead of 302
-                     * for permanent redirects, it uses the 308 status code instead of 301 -->
-                <default key="keepRequestMethod">true</default>
-            </route>
-
-            <route id="legacy_doc" path="/legacy/doc"
-                   controller="Symfony\Bundle\FrameworkBundle\Controller\RedirectController">
-                <!-- this value can be an absolute path or an absolute URL -->
-                <default key="path">https://legacy.example.com/doc</default>
-                <!-- redirections are temporary by default (code 302) but you can make them permanent (code 301)-->
-                <default key="permanent">true</default>
-            </route>
-        </routes>
 
     .. code-block:: php
 
@@ -2097,23 +1752,6 @@ host name:
             path:       /
             controller: App\Controller\MainController::homepage
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="mobile_homepage"
-                path="/"
-                host="m.example.com"
-                controller="App\Controller\MainController::mobileHomepage"/>
-
-            <route id="homepage" path="/" controller="App\Controller\MainController::homepage"/>
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -2181,26 +1819,6 @@ multi-tenant applications) and these parameters can be validated too with
         homepage:
             path:       /
             controller: App\Controller\MainController::homepage
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="mobile_homepage"
-                path="/"
-                host="{subdomain}.example.com"
-                controller="App\Controller\MainController::mobileHomepage">
-                <default key="subdomain">m</default>
-                <requirement key="subdomain">m|mobile</requirement>
-            </route>
-
-            <route id="homepage" path="/" controller="App\Controller\MainController::homepage"/>
-        </routes>
 
     .. code-block:: php
 
@@ -2294,21 +1912,6 @@ avoids the need for duplicating routes, which also reduces the potential bugs:
                 nl: /over-ons
             controller: App\Controller\CompanyController::about
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="about_us" controller="App\Controller\CompanyController::about">
-                <path locale="en">/about-us</path>
-                <path locale="nl">/over-ons</path>
-            </route>
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -2354,22 +1957,6 @@ with a locale. This can be done by defining a different prefix for each locale
                 en: '' # don't prefix URLs for English, the default locale
                 nl: '/nl'
 
-    .. code-block:: xml
-
-        <!-- config/routes/attributes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <import resource="../../src/Controller/" type="attribute">
-                <!-- don't prefix URLs for English, the default locale -->
-                <prefix locale="en"></prefix>
-                <prefix locale="nl">/nl</prefix>
-            </import>
-        </routes>
-
     .. code-block:: php
 
         // config/routes/attributes.php
@@ -2410,20 +1997,6 @@ locale.
             host:
                 en: 'www.example.com'
                 nl: 'www.example.nl'
-
-    .. code-block:: xml
-
-        <!-- config/routes/attributes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-            <import resource="../../src/Controller/" type="attribute">
-                <host locale="en">www.example.com</host>
-                <host locale="nl">www.example.nl</host>
-            </import>
-        </routes>
 
     .. code-block:: php
 
@@ -2478,17 +2051,6 @@ session shouldn't be used when matching a request:
             controller: App\Controller\MainController::homepage
             path: /
             stateless: true
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-            <route id="homepage" controller="App\Controller\MainController::homepage" path="/" stateless="true"/>
-        </routes>
 
     .. code-block:: php
 
@@ -2708,25 +2270,6 @@ The solution is to configure the ``default_uri`` option to define the
                 # ...
                 default_uri: 'https://example.org/my/path/'
 
-    .. code-block:: xml
-
-        <!-- config/packages/routing.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:router default-uri="https://example.org/my/path/">
-                    <!-- ... -->
-                </framework:router>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/routing.php
@@ -2832,22 +2375,6 @@ method) or globally with these configuration parameters:
             router.request_context.scheme: 'https'
             asset.request_context.secure: true
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <parameters>
-                <parameter key="router.request_context.scheme">https</parameter>
-                <parameter key="asset.request_context.secure">true</parameter>
-            </parameters>
-
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -2886,19 +2413,6 @@ each route explicitly:
             path:       /login
             controller: App\Controller\SecurityController::login
             schemes:    [https]
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="login" path="/login" schemes="https"
-                   controller="App\Controller\SecurityController::login"/>
-        </routes>
 
     .. code-block:: php
 
@@ -2944,18 +2458,6 @@ defined as attributes:
             resource: '../../src/Controller/'
             type: attribute
             schemes: [https]
-
-    .. code-block:: xml
-
-        <!-- config/routes/attributes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <import resource="../../src/Controller/" type="attribute" schemes="https"/>
-        </routes>
 
     .. code-block:: php
 

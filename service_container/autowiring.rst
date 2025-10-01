@@ -80,25 +80,6 @@ both services:
             App\Util\Rot13Transformer:
                 autowire: true
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <defaults autowire="true" autoconfigure="true"/>
-                <!-- ... -->
-
-                <!-- autowire is redundant thanks to defaults, but value is overridable on each service -->
-                <service id="App\Service\TwitterClient" autowire="true"/>
-
-                <service id="App\Util\Rot13Transformer" autowire="true"/>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -215,22 +196,6 @@ adding a service alias:
             # an App\Util\Rot13Transformer type-hint is detected
             App\Util\Rot13Transformer: '@app.rot13.transformer'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="app.rot13.transformer" class="App\Util\Rot13Transformer" autowire="true"/>
-                <service id="App\Util\Rot13Transformer" alias="app.rot13.transformer"/>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -320,22 +285,6 @@ To fix that, add an :ref:`alias <service-autowiring-alias>`:
             # the App\Util\Rot13Transformer service will be injected when
             # an App\Util\TransformerInterface type-hint is detected
             App\Util\TransformerInterface: '@App\Util\Rot13Transformer'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-                <service id="App\Util\Rot13Transformer"/>
-
-                <service id="App\Util\TransformerInterface" alias="App\Util\Rot13Transformer"/>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -475,30 +424,6 @@ the injection::
                 # arguments:
                 #     $transformer: '@App\Util\UppercaseTransformer'
                 # ...
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-                <service id="App\Util\Rot13Transformer"/>
-                <service id="App\Util\UppercaseTransformer"/>
-
-                <service id="App\Util\TransformerInterface" alias="App\Util\Rot13Transformer"/>
-                <service
-                    id="App\Util\TransformerInterface $shoutyTransformer"
-                    alias="App\Util\UppercaseTransformer"/>
-
-                <service id="App\Service\TwitterClient" autowire="true">
-                    <!-- <argument key="$transformer" type="service" id="App\Util\UppercaseTransformer"/> -->
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

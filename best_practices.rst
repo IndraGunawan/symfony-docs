@@ -201,7 +201,7 @@ most services will be configured automatically. However, in some edge cases
 you'll need to configure services (or parts of them) manually.
 
 YAML is the format recommended configuring services because it's friendly to
-newcomers and concise, but Symfony also supports XML and PHP configuration.
+newcomers and concise, but Symfony also supports PHP configuration.
 
 Use Attributes to Define the Doctrine Entity Mapping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -238,7 +238,7 @@ Use Attributes to Configure Routing, Caching, and Security
 
 Using attributes for routing, caching, and security simplifies
 configuration. You don't need to browse several files created with different
-formats (YAML, XML, PHP): all the configuration is just where you  require it,
+formats (YAML, PHP): all the configuration is just where you  require it,
 and it only uses one format.
 
 Use Dependency Injection to Get Services

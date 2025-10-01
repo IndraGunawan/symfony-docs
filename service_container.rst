@@ -168,31 +168,6 @@ each time you ask for it.
 
                 # ...
 
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-                <services>
-                    <!-- Default configuration for services in *this* file -->
-                    <defaults autowire="true" autoconfigure="true"/>
-
-                    <!-- makes classes in src/ available to be used as services -->
-                    <!-- this creates a service per class whose id is the fully-qualified class name -->
-                    <prototype namespace="App\" resource="../src/"/>
-
-                    <!-- order is important in this file because service definitions
-                         always *replace* previous ones; add your own service configuration below -->
-
-                    <!-- ... -->
-
-                </services>
-            </container>
-
         .. code-block:: php
 
             // config/services.php
@@ -239,21 +214,6 @@ each time you ask for it.
                         - '../src/SomeDirectory/'
                         - '../src/AnotherDirectory/'
                         - '../src/SomeFile.php'
-
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-                <services>
-                    <prototype namespace="App\" resource="../src/" exclude="../src/{SomeDirectory,AnotherDirectory,Kernel.php}"/>
-                    <!-- ... -->
-                </services>
-            </container>
 
         .. code-block:: php
 
@@ -416,54 +376,6 @@ as arguments of other services:
                     -
                         first: !php/const true
                         second: 'Foo'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <services>
-                <service id="App\Service\SomeService">
-                    <!-- arguments without a type can be strings or numbers -->
-                    <argument>Foo</argument>
-                    <argument>7</argument>
-                    <argument>3.14</argument>
-                    <!-- explicitly declare a string argument -->
-                    <argument type="string">Foo</argument>
-                    <!-- booleans are passed as constants -->
-                    <argument type="constant">true</argument>
-
-                    <!-- constants can be built-in, user-defined, or Enums -->
-                    <argument type="constant">E_ALL</argument>
-                    <argument type="constant">PDO::FETCH_NUM</argument>
-                    <argument type="constant">Symfony\Component\HttpKernel\Kernel::VERSION</argument>
-                    <argument type="constant">App\Config\SomeEnum::SomeCase</argument>
-
-                    <!-- when not using autowiring, you can pass service arguments explicitly -->
-                    <argument type="service"
-                              id="some-service-id"
-                              on-invalid="dependency_injection-ignore"/>
-
-                    <!-- binary contents are passed encoded as base64 strings -->
-                    <argument type="binary">VGhpcyBpcyBhIEJlbGwgY2hhciAH</argument>
-
-                    <!-- collections (arrays) can include any type of argument -->
-                    <argument type="collection">
-                        <argument key="first" type="constant">true</argument>
-                        <argument key="second" type="string">Foo</argument>
-                    </argument>
-                </service>
-
-                <!-- ... -->
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -635,32 +547,6 @@ pass here. No problem! In your configuration, you can explicitly set this argume
                 arguments:
                     $adminEmail: 'manager@example.com'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ...  same as before -->
-
-                <!-- Same as before -->
-
-                <prototype namespace="App\"
-                    resource="../src/"
-                    exclude="../src/{DependencyInjection,Entity,Kernel.php}"
-                />
-
-                <!-- Explicitly configure the service -->
-                <service id="App\Service\SiteUpdateManager">
-                    <argument key="$adminEmail">manager@example.com</argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -700,8 +586,7 @@ all their types (string, boolean, array, binary and PHP constant parameters).
 
 However, there is another type of parameter related to services. In YAML config,
 any string which starts with ``@`` is considered as the ID of a service, instead
-of a regular string. In XML config, use the ``type="service"`` type for the
-parameter and in PHP config use the ``service()`` function:
+of a regular string:
 
 .. configuration-block::
 
@@ -718,22 +603,6 @@ parameter and in PHP config use the ``service()`` function:
                     # it by adding another '@' so Symfony doesn't consider it a service
                     # the following example would be parsed as the string '@securepassword'
                     # - '@@securepassword'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Service\MessageGenerator">
-                    <argument type="service" id="logger"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -819,25 +688,6 @@ But, you can control this and pass in a different logger:
                     # you want to pass the *service* whose id is 'monolog.logger.request',
                     # and not just the *string* 'monolog.logger.request'
                     $logger: '@monolog.logger.request'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... same code as before -->
-
-                <!-- Explicitly configure the service -->
-                <service id="App\Service\MessageGenerator">
-                    <argument key="$logger" type="service" id="monolog.logger.request"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -952,26 +802,6 @@ Our configuration looks like this:
                     $logger: '@monolog.logger.request'
                     $generateMessageHash: !closure '@App\Hash\MessageHashGenerator'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... same code as before -->
-
-                <!-- Explicitly configure the service -->
-                <service id="App\Service\MessageGenerator">
-                    <argument key="$logger" type="service" id="monolog.logger.request"/>
-                    <argument key="$generateMessageHash" type="closure" id="App\Hash\MessageHashGenerator"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -1027,43 +857,6 @@ You can also use the ``bind`` keyword to bind specific arguments by name or type
                     iterable $rules: !tagged_iterator app.foo.rule
 
             # ...
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <defaults autowire="true" autoconfigure="true" public="false">
-                    <bind key="$adminEmail">manager@example.com</bind>
-                    <bind key="$requestLogger"
-                        type="service"
-                        id="monolog.logger.request"
-                    />
-                    <bind key="Psr\Log\LoggerInterface"
-                        type="service"
-                        id="monolog.logger.request"
-                    />
-
-                    <!-- optionally you can define both the name and type of the argument to match -->
-                    <bind key="string $adminEmail">manager@example.com</bind>
-                    <bind key="Psr\Log\LoggerInterface $requestLogger"
-                        type="service"
-                        id="monolog.logger.request"
-                    />
-                    <bind key="iterable $rules"
-                        type="tagged_iterator"
-                        tag="app.foo.rule"
-                    />
-                </defaults>
-
-                <!-- ... -->
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1128,24 +921,6 @@ the name of the argument and some short description about its purpose:
                     $rootNamespace: !abstract 'should be defined by Pass'
 
             # ...
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Service\MyService" class="App\Service\MyService">
-                    <argument key="$rootNamespace" type="abstract">should be defined by Pass</argument>
-                </service>
-
-                <!-- ... -->
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1261,23 +1036,6 @@ setting:
             App\Service\PublicService:
                 public: true
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... same code as before -->
-
-                <!-- Explicitly configure the service -->
-                <service id="App\Service\PublicService" public="true"></service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -1330,22 +1088,6 @@ key. For example, the default Symfony configuration contains this:
             App\:
                 resource: '../src/'
                 exclude: '../src/{DependencyInjection,Entity,Kernel.php}'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... same as before -->
-
-                <prototype namespace="App\" resource="../src/" exclude="../src/{DependencyInjection,Entity,Kernel.php}"/>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1404,23 +1146,6 @@ for classes under the same namespace:
             App\Domain\:
                 resource: '../src/Domain/*'
                 # ...
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <prototype namespace="App\Domain"
-                    resource="../src/App/Domain/*"/>
-
-                <!-- ... -->
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1496,34 +1221,6 @@ admin email. In this case, each needs to have a unique service id:
             # Create an alias, so that - by default - if you type-hint SiteUpdateManager,
             # the site_update_manager.superadmin will be used
             App\Service\SiteUpdateManager: '@site_update_manager.superadmin'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="site_update_manager.superadmin" class="App\Service\SiteUpdateManager" autowire="false">
-                    <argument type="service" id="App\Service\MessageGenerator"/>
-                    <argument type="service" id="mailer"/>
-                    <argument>superadmin@example.com</argument>
-                </service>
-
-                <service id="site_update_manager.normal_users" class="App\Service\SiteUpdateManager" autowire="false">
-                    <argument type="service" id="App\Service\MessageGenerator"/>
-                    <argument type="service" id="mailer"/>
-                    <argument>contact@example.com</argument>
-                </service>
-
-                <service id="App\Service\SiteUpdateManager" alias="site_update_manager.superadmin"/>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1661,27 +1358,6 @@ an adapter for a functional interface through configuration:
             app.message_formatter:
                 class: App\Service\MessageFormatterInterface
                 from_callable: [!service {class: 'App\Service\MessageUtils'}, 'format']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="app.message_formatter" class="App\Service\MessageFormatterInterface">
-                    <from-callable method="format">
-                        <service class="App\Service\MessageUtils"/>
-                    </from-callable>
-                </service>
-
-            </services>
-        </container>
 
     .. code-block:: php
 

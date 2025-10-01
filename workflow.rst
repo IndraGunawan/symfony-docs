@@ -76,50 +76,6 @@ follows:
                             from: reviewed
                             to:   rejected
 
-    .. code-block:: xml
-
-        <!-- config/packages/workflow.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-            https://symfony.com/schema/dic/services/services-1.0.xsd
-            http://symfony.com/schema/dic/symfony
-            https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- or type="state_machine" -->
-                <framework:workflow name="blog_publishing" type="workflow">
-                    <framework:audit-trail enabled="true"/>
-                    <framework:marking-store type="single_state">
-                        <framework:argument>currentPlace</framework:argument>
-                    </framework:marking-store>
-                    <framework:support>App\Entity\BlogPost</framework:support>
-                    <framework:initial-marking>draft</framework:initial-marking>
-
-                    <!-- defining places manually is optional -->
-                    <framework:place>draft</framework:place>
-                    <framework:place>reviewed</framework:place>
-                    <framework:place>rejected</framework:place>
-                    <framework:place>published</framework:place>
-
-                    <framework:transition name="to_review">
-                        <framework:from>draft</framework:from>
-                        <framework:to>reviewed</framework:to>
-                    </framework:transition>
-                    <framework:transition name="publish">
-                        <framework:from>reviewed</framework:from>
-                        <framework:to>published</framework:to>
-                    </framework:transition>
-                    <framework:transition name="reject">
-                        <framework:from>reviewed</framework:from>
-                        <framework:to>rejected</framework:to>
-                    </framework:transition>
-                </framework:workflow>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/workflow.php
@@ -336,43 +292,6 @@ and transitions:
                             from: !php/enum App\Enumeration\BlogPostStatus::Reviewed
                             to:   !php/enum App\Enumeration\BlogPostStatus::Rejected
 
-    .. code-block:: xml
-
-        <!-- config/packages/workflow.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-            https://symfony.com/schema/dic/services/services-1.0.xsd
-            http://symfony.com/schema/dic/symfony
-            https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- or type="state_machine" -->
-                <framework:workflow name="blog_publishing" type="workflow" places="App\Enumeration\BlogPostStatus::*">
-                    <framework:marking-store type="single_state">
-                        <framework:argument>status</framework:argument>
-                    </framework:marking-store>
-                    <framework:support>App\Entity\BlogPost</framework:support>
-                    <framework:initial-marking>draft</framework:initial-marking>
-
-                    <framework:transition name="to_review">
-                        <framework:from>draft</framework:from>
-                        <framework:to>reviewed</framework:to>
-                    </framework:transition>
-                    <framework:transition name="publish">
-                        <framework:from>reviewed</framework:from>
-                        <framework:to>published</framework:to>
-                    </framework:transition>
-                    <framework:transition name="reject">
-                        <framework:from>reviewed</framework:from>
-                        <framework:to>rejected</framework:to>
-                    </framework:transition>
-                </framework:workflow>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/workflow.php
@@ -449,29 +368,6 @@ when needed and vice-versa when working with your objects::
                         places: !php/enum App\Workflow\Places
 
                         # ...
-
-        .. code-block:: xml
-
-            <!-- config/packages/workflow.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:framework="http://symfony.com/schema/dic/symfony"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-                <framework:config>
-                    <framework:workflow name="my_workflow_name" type="..."
-                        <!-- with constants: -->
-                        places="App\Workflow\MyWorkflow::PLACE_*"
-                        <!-- with enums:  -->
-                        places="App\Enumeration\BlogPostStatus::*">
-                        <!-- ... -->
-                    </framework:workflow>
-                </framework:config>
-            </container>
 
         .. code-block:: php
 
@@ -912,30 +808,6 @@ to :ref:`Guard events <workflow-usage-guard-events>`, which are always fired:
 
                     # ...
 
-    .. code-block:: xml
-
-        <!-- config/packages/workflow.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd"
-        >
-            <framework:config>
-                <framework:workflow name="blog_publishing">
-                    <!-- you can pass one or more event names -->
-                    <framework:event-to-dispatch>workflow.leave</framework:event-to-dispatch>
-                    <framework:event-to-dispatch>workflow.completed</framework:event-to-dispatch>
-
-                    <!-- pass an empty array to not dispatch any event -->
-                    <framework:event-to-dispatch></framework:event-to-dispatch>
-
-                    <!-- ... -->
-                </framework:workflow>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/workflow.php
@@ -1067,49 +939,6 @@ transition. The value of this option is any valid expression created with the
                             from: reviewed
                             to:   rejected
 
-    .. code-block:: xml
-
-        <!-- config/packages/workflow.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-            https://symfony.com/schema/dic/services/services-1.0.xsd
-            http://symfony.com/schema/dic/symfony
-            https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:workflow name="blog_publishing" type="workflow">
-
-                    <!-- ... previous configuration -->
-
-                    <framework:transition name="to_review">
-                        <!-- the transition is allowed only if the current user has the ROLE_REVIEWER role. -->
-                        <framework:guard>is_granted("ROLE_REVIEWER")</framework:guard>
-                        <framework:from>draft</framework:from>
-                        <framework:to>reviewed</framework:to>
-                    </framework:transition>
-
-                    <framework:transition name="publish">
-                        <!-- or "is_remember_me", "is_fully_authenticated", "is_granted" -->
-                        <framework:guard>is_authenticated</framework:guard>
-                        <framework:from>reviewed</framework:from>
-                        <framework:to>published</framework:to>
-                    </framework:transition>
-
-                    <framework:transition name="reject">
-                        <!-- or any valid expression language with "subject" referring to the post -->
-                        <framework:guard>is_granted("ROLE_ADMIN") and subject.isStatusReviewed()</framework:guard>
-                        <framework:from>reviewed</framework:from>
-                        <framework:to>rejected</framework:to>
-                    </framework:transition>
-
-                </framework:workflow>
-
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/workflow.php
@@ -1232,24 +1061,6 @@ it:
                     marking_store:
                         service: 'App\Workflow\MarkingStore\BlogPostMarkingStore'
 
-    .. code-block:: xml
-
-        <!-- config/packages/workflow.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd"
-        >
-            <framework:config>
-                <framework:workflow name="blog_publishing">
-                    <!-- ... -->
-                    <framework:marking-store service="App\Workflow\MarkingStore\BlogPostMarkingStore"/>
-                </framework:workflow>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/workflow.php
@@ -1364,47 +1175,6 @@ be only the title of the workflow or very complex objects:
                             metadata:
                                 hour_limit: 20
                                 explanation: 'You can not publish after 8 PM.'
-
-    .. code-block:: xml
-
-        <!-- config/packages/workflow.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd"
-        >
-            <framework:config>
-                <framework:workflow name="blog_publishing">
-                    <framework:metadata>
-                        <framework:title>Blog Publishing Workflow</framework:title>
-                    </framework:metadata>
-                    <!-- ... -->
-                    <framework:place name="draft">
-                        <framework:metadata>
-                            <framework:max-num-of-words>500</framework:max-num-of-words>
-                        </framework:metadata>
-                    </framework:place>
-                    <!-- ... -->
-                    <framework:transition name="to_review">
-                        <framework:from>draft</framework:from>
-                        <framework:to>review</framework:to>
-                        <framework:metadata>
-                            <framework:priority>0.5</framework:priority>
-                        </framework:metadata>
-                    </framework:transition>
-                    <framework:transition name="publish">
-                        <framework:from>reviewed</framework:from>
-                        <framework:to>published</framework:to>
-                        <framework:metadata>
-                            <framework:hour_limit>20</framework:hour_limit>
-                            <framework:explanation>You can not publish after 8 PM.</framework:explanation>
-                        </framework:metadata>
-                    </framework:transition>
-                </framework:workflow>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1576,24 +1346,6 @@ After implementing your validator, configure your workflow to use it:
 
                     definition_validators:
                         - App\Workflow\Validator\BlogPublishingValidator
-
-    .. code-block:: xml
-
-        <!-- config/packages/workflow.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd"
-        >
-            <framework:config>
-                <framework:workflow name="blog_publishing">
-                    <!-- ... -->
-                    <framework:definition-validators>App\Workflow\Validator\BlogPublishingValidator</framework:definition-validators>
-                </framework:workflow>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

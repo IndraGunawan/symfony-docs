@@ -35,22 +35,6 @@ over SMTP by configuring the DSN in your ``.env`` file (the ``user``,
             mailer:
                 dsn: '%env(MAILER_DSN)%'
 
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:mailer dsn="%env(MAILER_DSN)%"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/mailer.php
@@ -790,32 +774,6 @@ and headers.
                     Bcc: 'baz@example.com'
                     X-Custom-Header: 'foobar'
 
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-            <framework:config>
-                <framework:mailer>
-                    <framework:envelope>
-                        <framework:sender>fabien@example.com</framework:sender>
-                        <framework:recipients>foo@example.com</framework:recipients>
-                        <framework:recipients>bar@example.com</framework:recipients>
-                    </framework:envelope>
-                    <framework:header name="From">Fabien &lt;fabien@example.com&gt;</framework:header>
-                    <framework:header name="Bcc">baz@example.com</framework:header>
-                    <framework:header name="X-Custom-Header">foobar</framework:header>
-                </framework:mailer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/mailer.php
@@ -1045,24 +1003,6 @@ image files as usual. First, to simplify things, define a Twig namespace called
                 # point this wherever your images live
                 '%kernel.project_dir%/assets/images': images
 
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <!-- ... -->
-
-                <!-- point this wherever your images live -->
-                <twig:path namespace="images">%kernel.project_dir%/assets/images</twig:path>
-            </twig:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/twig.php
@@ -1161,24 +1101,6 @@ called ``styles`` that points to the directory where ``email.css`` lives:
             paths:
                 # point this wherever your css files live
                 '%kernel.project_dir%/assets/styles': styles
-
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <!-- ... -->
-
-                <!-- point this wherever your css files live -->
-                <twig:path namespace="styles">%kernel.project_dir%/assets/styles</twig:path>
-            </twig:config>
-        </container>
 
     .. code-block:: php
 
@@ -1414,34 +1336,6 @@ minimizes repetition and centralizes your configuration for DKIM and S/MIME sign
                     certificate: '%kernel.project_dir%/var/certificates/smime.crt'
                     passphrase: ''
 
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-            <framework:config>
-                <framework:mailer>
-                    <framework:dkim-signer>
-                        <framework:key>file://%kernel.project_dir%/var/certificates/dkim.pem</framework:key>
-                        <framework:domain>symfony.com</framework:domain>
-                        <framework:select>s1</framework:select>
-                    </framework:dkim-signer>
-                    <framework:smime-signer>
-                        <framework:key>%kernel.project_dir%/var/certificates/smime.pem</framework:key>
-                        <framework:certificate>%kernel.project_dir%/var/certificates/smime.crt</framework:certificate>
-                        <framework:passphrase></framework:passphrase>
-                    </framework:smime-signer>
-                </framework:mailer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/mailer.php
@@ -1519,27 +1413,6 @@ encrypter that automatically applies to all outgoing messages:
                 smime_encrypter:
                     repository: App\Security\LocalFileCertificateRepository
 
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-            <framework:config>
-                <framework:mailer>
-                    <framework:smime-encrypter>
-                        <framework:repository>App\Security\LocalFileCertificateRepository</framework:repository>
-                    </framework:smime-encrypter>
-                </framework:mailer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/mailer.php
@@ -1599,26 +1472,6 @@ This can be configured by replacing the ``dsn`` configuration entry with a
                     main: '%env(MAILER_DSN)%'
                     alternative: '%env(MAILER_DSN_IMPORTANT)%'
 
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-            <framework:config>
-                <framework:mailer>
-                    <framework:transport name="main">%env(MAILER_DSN)%</framework:transport>
-                    <framework:transport name="alternative">%env(MAILER_DSN_IMPORTANT)%</framework:transport>
-                </framework:mailer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/mailer.php
@@ -1670,28 +1523,6 @@ you have a transport called ``async``, you can route the message there:
 
                 routing:
                     'Symfony\Component\Mailer\Messenger\SendEmailMessage': async
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:transport name="async">%env(MESSENGER_TRANSPORT_DSN)%</framework:transport>
-                    <framework:routing message-class="Symfony\Component\Mailer\Messenger\SendEmailMessage">
-                        <framework:sender service="async"/>
-                    </framework:routing>
-                </framework:messenger>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1747,26 +1578,6 @@ disable asynchronous delivery.
         framework:
             mailer:
                 message_bus: app.another_bus
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:mailer
-                    message_bus="app.another_bus"
-                >
-                </framework:mailer>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -2036,23 +1847,6 @@ the mailer configuration file (e.g. in the ``dev`` or ``test`` environments):
                 mailer:
                     dsn: 'null://null'
 
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-            <framework:config>
-                <framework:mailer dsn="null://null"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/mailer.php
@@ -2086,27 +1880,6 @@ a specific address, instead of the *real* address:
                     envelope:
                         recipients: ['youremail@example.com']
 
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-            <framework:config>
-                <framework:mailer>
-                    <framework:envelope>
-                        <framework:recipient>youremail@example.com</framework:recipient>
-                    </framework:envelope>
-                </framework:mailer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/mailer.php
@@ -2138,30 +1911,6 @@ address(es) defined in ``recipients``, as with all other emails:
                             - 'internal@example.com'
                             # you can also use regular expression to define allowed recipients
                             - 'internal-.*@example.(com|fr)'
-
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-            <framework:config>
-                <framework:mailer>
-                    <framework:envelope>
-                        <framework:recipient>youremail@example.com</framework:recipient>
-                        <framework:allowed-recipient>internal@example.com</framework:allowed-recipient>
-                        <!-- you can also use regular expression to define allowed recipients -->
-                        <framework:allowed-recipient>internal-.*@example.(com|fr)</framework:allowed-recipient>
-                    </framework:envelope>
-                </framework:mailer>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

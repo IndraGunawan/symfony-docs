@@ -71,70 +71,6 @@ this behavior by using the ``lock`` key like:
                 invoice: ['semaphore', 'redis://r2.docker']
                 report: 'semaphore'
 
-    .. code-block:: xml
-
-        <!-- config/packages/lock.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:lock>
-                    <framework:resource>flock</framework:resource>
-
-                    <framework:resource>flock:///path/to/file</framework:resource>
-
-                    <framework:resource>semaphore</framework:resource>
-
-                    <framework:resource>memcached://m1.docker</framework:resource>
-
-                    <framework:resource>memcached://m1.docker</framework:resource>
-                    <framework:resource>memcached://m2.docker</framework:resource>
-
-                    <framework:resource>redis://r1.docker</framework:resource>
-
-                    <framework:resource>redis://r1.docker</framework:resource>
-                    <framework:resource>redis://r2.docker</framework:resource>
-
-                    <framework:resource>zookeeper://z1.docker</framework:resource>
-
-                    <framework:resource>zookeeper://z1.docker,z2.docker</framework:resource>
-
-                    <framework:resource>zookeeper://localhost01,localhost02:2181</framework:resource>
-
-                    <framework:resource>sqlite:///%kernel.project_dir%/var/lock.db</framework:resource>
-
-                    <framework:resource>mysql:host=127.0.0.1;dbname=app</framework:resource>
-
-                    <framework:resource>pgsql:host=127.0.0.1;dbname=app</framework:resource>
-
-                    <framework:resource>pgsql+advisory:host=127.0.0.1;dbname=app</framework:resource>
-
-                    <framework:resource>sqlsrv:server=127.0.0.1;Database=app</framework:resource>
-
-                    <framework:resource>oci:host=127.0.0.1;dbname=app</framework:resource>
-
-                    <framework:resource>mongodb://127.0.0.1/app?collection=lock</framework:resource>
-
-                    <framework:resource>dynamodb://127.0.0.1/lock</framework:resource>
-
-                    <framework:resource>%env(LOCK_DSN)%</framework:resource>
-
-                    <!-- using an existing service -->
-                    <framework:resource>snc_redis.default</framework:resource>
-
-                    <!-- named locks -->
-                    <framework:resource name="invoice">semaphore</framework:resource>
-                    <framework:resource name="invoice">redis://r2.docker</framework:resource>
-                    <framework:resource name="report">semaphore</framework:resource>
-                </framework:lock>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/lock.php
@@ -258,26 +194,6 @@ provides :ref:`named lock <reference-lock-resources-name>`:
             lock:
                 invoice: ['semaphore', 'redis://r2.docker']
                 report: 'semaphore'
-
-    .. code-block:: xml
-
-        <!-- config/packages/lock.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:lock>
-                    <framework:resource name="invoice">semaphore</framework:resource>
-                    <framework:resource name="invoice">redis://r2.docker</framework:resource>
-                    <framework:resource name="report">semaphore</framework:resource>
-                </framework:lock>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

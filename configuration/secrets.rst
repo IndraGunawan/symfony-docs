@@ -114,26 +114,6 @@ If you stored a ``DATABASE_PASSWORD`` secret, you can reference it by:
                 # ...
             # ...
 
-    .. code-block:: xml
-
-        <!-- config/packages/doctrine.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/doctrine
-                https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
-
-            <doctrine:config>
-                <doctrine:dbal
-                    password="%env(DATABASE_PASSWORD)%"
-                />
-            </doctrine:config>
-
-        </container>
-
     .. code-block:: php
 
         // config/packages/doctrine.php
@@ -296,25 +276,6 @@ The secrets system is enabled by default and some of its behavior can be configu
                 #vault_directory: '%kernel.project_dir%/config/secrets/%kernel.environment%'
                 #local_dotenv_file: '%kernel.project_dir%/.env.%kernel.environment%.local'
                 #decryption_env_var: 'base64:default::SYMFONY_DECRYPTION_SECRET'
-
-    .. code-block:: xml
-
-            <!-- config/packages/framework.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:framework="http://symfony.com/schema/dic/framework"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/framework https://symfony.com/schema/dic/framework/framework-1.0.xsd"
-            >
-                <framework:config>
-                    <framework:secrets
-                        vault_directory="%kernel.project_dir%/config/secrets/%kernel.environment%"
-                        local_dotenv_file="%kernel.project_dir%/.env.%kernel.environment%.local"
-                        decryption_env_var="base64:default::SYMFONY_DECRYPTION_SECRET"
-                    />
-                </framework:config>
-            </container>
 
     .. code-block:: php
 

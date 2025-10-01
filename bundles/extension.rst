@@ -33,8 +33,8 @@ method to load service definitions from configuration files::
     {
         public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
         {
-            // load an XML, PHP or YAML file
-            $container->import('../config/services.xml');
+            // load a PHP or YAML file
+            $container->import('../config/services.php');
 
             // you can also add or replace parameters and services
             $container->parameters()
@@ -143,25 +143,25 @@ container.
 
 In the ``load()`` method, you can use PHP code to register service definitions,
 but it is more common if you put these definitions in a configuration file
-(using the YAML, XML or PHP format).
+(using the YAML or PHP format).
 
-For instance, assume you have a file called ``services.xml`` in the
+For instance, assume you have a file called ``services.php`` in the
 ``config/`` directory of your bundle, your ``load()`` method looks like::
 
     use Symfony\Component\Config\FileLocator;
-    use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+    use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
     // ...
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader(
+        $loader = new PhpFileLoader(
             $container,
             new FileLocator(__DIR__.'/../../config')
         );
-        $loader->load('services.xml');
+        $loader->load('services.php');
     }
 
-The other available loaders are ``YamlFileLoader`` and ``PhpFileLoader``.
+The other available loader is ``YamlFileLoader``.
 
 Using Configuration to Change the Services
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

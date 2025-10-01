@@ -14,19 +14,13 @@ configuration.
     # displays the actual config values used by your application
     $ php bin/console debug:config doctrine
 
-.. note::
-
-    When using XML, you must use the ``http://symfony.com/schema/dic/doctrine``
-    namespace and the related XSD schema is available at:
-    ``https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd``
-
 .. _`reference-dbal-configuration`:
 
 Doctrine DBAL Configuration
 ---------------------------
 
 DoctrineBundle supports all parameters that default Doctrine drivers
-accept, converted to the XML or YAML naming standards that Symfony
+accept, converted to the YAML or PHP naming standards that Symfony
 enforces. See the Doctrine `DBAL documentation`_ for more information.
 The following block shows all possible configuration keys:
 
@@ -62,43 +56,6 @@ The following block shows all possible configuration keys:
                     enum: string
                 types:
                     custom: App\DBAL\MyCustomType
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/doctrine
-                https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
-
-            <doctrine:config>
-                <doctrine:dbal
-                    name="default"
-                    dbname="database"
-                    host="localhost"
-                    port="1234"
-                    user="user"
-                    password="secret"
-                    driver="pdo_mysql"
-                    driver-class="App\DBAL\MyDatabaseDriver"
-                    path="%kernel.project_dir%/var/data/data.sqlite"
-                    memory="true"
-                    unix-socket="/tmp/mysql.sock"
-                    wrapper-class="App\DBAL\MyConnectionWrapper"
-                    charset="utf8mb4"
-                    logging="%kernel.debug%"
-                    platform-service="App\DBAL\MyDatabasePlatformService"
-                    server-version="8.0.37">
-
-                    <doctrine:option key="foo">bar</doctrine:option>
-                    <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
-                    <doctrine:type name="custom">App\DBAL\MyCustomType</doctrine:type>
-                </doctrine:dbal>
-            </doctrine:config>
-        </container>
 
     .. code-block:: php
 
@@ -554,22 +511,6 @@ directory instead:
                         type: xml
                         dir: SomeResources/config/doctrine
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <doctrine:config>
-                <doctrine:orm auto-mapping="true">
-                    <mapping name="AppBundle" dir="SomeResources/config/doctrine" type="xml"/>
-                </doctrine:orm>
-            </doctrine:config>
-        </container>
-
     .. code-block:: php
 
         use Symfony\Config\DoctrineConfig;
@@ -607,28 +548,6 @@ namespace in the ``src/Entity`` directory and gives them an ``App`` alias
                             is_bundle: false
                             prefix: App\Entity
                             alias: App
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <doctrine:config>
-                <doctrine:orm>
-                    <mapping name="SomeEntityNamespace"
-                        type="attribute"
-                        dir="%kernel.project_dir%/src/Entity"
-                        is-bundle="false"
-                        prefix="App\Entity"
-                        alias="App"
-                    />
-                </doctrine:orm>
-            </doctrine:config>
-        </container>
 
     .. code-block:: php
 
@@ -702,30 +621,6 @@ set up the connection using environment variables for the certificate paths:
                     !php/const 'PDO::MYSQL_ATTR_SSL_CERT': '%env(MYSQL_SSL_CERT)%'
                     # SSL CA authority
                     !php/const 'PDO::MYSQL_ATTR_SSL_CA': '%env(MYSQL_SSL_CA)%'
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/doctrine
-                https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
-
-            <doctrine:config>
-                <doctrine:dbal
-                    url="%env(DATABASE_URL)%"
-                    server-version="8.0.31"
-                    driver="pdo_mysql">
-
-                    <doctrine:option key-type="constant" key="PDO::MYSQL_ATTR_SSL_KEY">%env(MYSQL_SSL_KEY)%</doctrine:option>
-                    <doctrine:option key-type="constant" key="PDO::MYSQL_ATTR_SSL_CERT">%env(MYSQL_SSL_CERT)%</doctrine:option>
-                    <doctrine:option key-type="constant" key="PDO::MYSQL_ATTR_SSL_CA">%env(MYSQL_SSL_CA)%</doctrine:option>
-                </doctrine:dbal>
-            </doctrine:config>
-        </container>
 
     .. code-block:: php
 

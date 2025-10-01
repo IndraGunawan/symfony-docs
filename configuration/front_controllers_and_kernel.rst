@@ -166,21 +166,6 @@ parameter used, for example, to turn Twig's debug mode on:
         twig:
             debug: '%kernel.debug%'
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig
-                https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config debug="%kernel.debug%"/>
-
-        </container>
-
     .. code-block:: php
 
         // config/packages/twig.php

@@ -41,23 +41,6 @@ configuration:
             app.synthetic_service:
                 synthetic: true
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-
-                <!-- synthetic services don't specify a class -->
-                <service id="app.synthetic_service" synthetic="true"/>
-
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php

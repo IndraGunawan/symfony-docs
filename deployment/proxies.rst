@@ -44,36 +44,6 @@ using the following configuration options:
             # or, if your proxy instead uses the "Forwarded" header
             trusted_headers: ['forwarded']
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- the IP address (or range) of your proxy -->
-                <framework:trusted-proxies>192.0.0.1,10.0.0.0/8</framework:trusted-proxies>
-                <!-- shortcut for private IP address ranges of your proxy -->
-                <framework:trusted-proxies>private_ranges</framework:trusted-proxies>
-
-                <!-- trust *all* "X-Forwarded-*" headers -->
-                <framework:trusted-header>x-forwarded-for</framework:trusted-header>
-                <framework:trusted-header>x-forwarded-host</framework:trusted-header>
-                <framework:trusted-header>x-forwarded-proto</framework:trusted-header>
-                <framework:trusted-header>x-forwarded-port</framework:trusted-header>
-                <framework:trusted-header>x-forwarded-prefix</framework:trusted-header>
-
-                <!-- or, if your proxy instead uses the "Forwarded" header -->
-                <framework:trusted-header>forwarded</framework:trusted-header>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php

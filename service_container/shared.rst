@@ -32,13 +32,6 @@ in your service definition:
                 shared: false
                 # ...
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <services>
-            <service id="App\SomeNonSharedService" shared="false"/>
-        </services>
-
     .. code-block:: php
 
         // config/services.php

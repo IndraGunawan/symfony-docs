@@ -44,24 +44,6 @@ service container configuration:
             App\Mail\NewsletterManager:
                 arguments: ['@mailer']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="App\Mail\NewsletterManager">
-                    <argument type="service" id="mailer"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -147,26 +129,6 @@ In order to use this type of injection, don't forget to configure it:
                 calls:
                     - withMailer: !returns_clone ['@mailer']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="app.newsletter_manager" class="App\Mail\NewsletterManager">
-                    <call method="withMailer" returns-clone="true">
-                        <argument type="service" id="mailer"/>
-                    </call>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -246,26 +208,6 @@ that accepts the dependency::
                 calls:
                     - setMailer: ['@mailer']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="app.newsletter_manager" class="App\Mail\NewsletterManager">
-                    <call method="setMailer">
-                        <argument type="service" id="mailer"/>
-                    </call>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -329,24 +271,6 @@ Another possibility is setting public fields of the class directly::
                 class: App\Mail\NewsletterManager
                 properties:
                     mailer: '@mailer'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="app.newsletter_manager" class="App\Mail\NewsletterManager">
-                    <property name="mailer" type="service" id="mailer"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

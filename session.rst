@@ -290,32 +290,6 @@ configuration <config-framework-session>` in
                 cookie_samesite: lax
                 storage_factory_id: session.storage.factory.native
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!--
-                    Enables session support. Note that the session will ONLY be started if you read or write from it.
-                    Remove or comment this section to explicitly disable session support.
-                    handler-id: ID of the service used for session storage
-                                NULL means that Symfony uses PHP default session mechanism
-                    cookie-secure and cookie-samesite: improves the security of the cookies used for sessions
-                -->
-                <framework:session handler-id="null"
-                                   cookie-secure="auto"
-                                   cookie-samesite="lax"
-                                   storage_factory_id="session.storage.factory.native"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -372,24 +346,6 @@ session metadata files:
                 # ...
                 handler_id: 'session.handler.native_file'
                 save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:session enabled="true"
-                                   handler-id="session.handler.native_file"
-                                   save-path="%kernel.project_dir%/var/sessions/%kernel.environment%"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -571,46 +527,6 @@ a Symfony service for the connection to the Redis server:
                     # - auth:
                     #     - ['%env(REDIS_USER)%','%env(REDIS_PASSWORD)%']
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- you can also use \RedisArray, \RedisCluster, \Relay\Relay or \Predis\Client classes -->
-                <service id="Redis" class="Redis">
-                    <call method="connect">
-                        <argument>%env(REDIS_HOST)%</argument>
-                        <argument>%env(int:REDIS_PORT)%</argument>
-                    </call>
-
-                    <!-- uncomment the following if your Redis server requires a password:
-                    <call method="auth">
-                        <argument>%env(REDIS_PASSWORD)%</argument>
-                    </call> -->
-
-                    <!-- uncomment the following if your Redis server requires a user and a password (when user is not default):
-                    <call method="auth">
-                        <argument>%env(REDIS_USER)%</argument>
-                        <argument>%env(REDIS_PASSWORD)%</argument>
-                    </call> -->
-                </service>
-
-                <service id="Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler">
-                    <argument type="service" id="Redis"/>
-                    <!-- you can optionally pass an array of options. The only options are 'prefix' and 'ttl',
-                         which define the prefix to use for the keys to avoid collision on the Redis server
-                         and the expiration time for any given entry (in seconds), defaults are 'sf_s' and null:
-                    <argument type="collection">
-                        <argument key="prefix">my_prefix</argument>
-                        <argument key="ttl">600</argument>
-                    </argument> -->
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -648,24 +564,6 @@ configuration option to tell Symfony to use this service as the session handler:
             # ...
             session:
                 handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- ... -->
-                <framework:session handler-id="Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -724,31 +622,6 @@ To use it, first register a new handler service with your database credentials:
                     # - 'mysql:dbname=mydatabase; host=myhost; port=myport'
                     # - { db_username: myuser, db_password: mypassword }
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <services>
-                <service id="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler">
-                    <argument>%env(DATABASE_URL)%</argument>
-
-                    <!-- you can also use PDO configuration, but requires passing two arguments: -->
-                    <!-- <argument>mysql:dbname=mydatabase; host=myhost; port=myport</argument>
-                        <argument type="collection">
-                            <argument key="db_username">myuser</argument>
-                            <argument key="db_password">mypassword</argument>
-                        </argument> -->
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -787,25 +660,6 @@ configuration option to tell Symfony to use this service as the session handler:
                 # ...
                 handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- ... -->
-                <framework:session
-                    handler-id="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -838,26 +692,6 @@ passed to the ``PdoSessionHandler`` service:
                 arguments:
                     - '%env(DATABASE_URL)%'
                     - { db_table: 'customer_session', db_id_col: 'guid' }
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler">
-                    <argument>%env(DATABASE_URL)%</argument>
-                    <argument type="collection">
-                        <argument key="db_table">customer_session</argument>
-                        <argument key="db_id_col">guid</argument>
-                    </argument>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1034,28 +868,6 @@ the MongoDB connection as argument, and the required parameters:
                     - '@doctrine_mongodb.odm.default_connection'
                     - { database: '%env(MONGODB_DB)%', collection: 'sessions' }
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <services>
-                <service id="Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler">
-                    <argument type="service">doctrine_mongodb.odm.default_connection</argument>
-                    <argument type="collection">
-                        <argument key="database">%env('MONGODB_DB')%</argument>
-                        <argument key="collection">sessions</argument>
-                    </argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -1086,25 +898,6 @@ configuration option to tell Symfony to use this service as the session handler:
             session:
                 # ...
                 handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- ... -->
-                <framework:session
-                    handler-id="Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1152,28 +945,6 @@ configure these values with the second argument passed to the
                         collection: 'sessions'
                         id_field: '_guid'
                         expiry_field: 'eol'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler">
-                    <argument type="service">doctrine_mongodb.odm.default_connection</argument>
-                    <argument type="collection">
-                        <argument key="database">%env('MONGODB_DB')%</argument>
-                        <argument key="collection">sessions</argument>
-                        <argument key="id_field">_guid</argument>
-                        <argument key="expiry_field">eol</argument>
-                    </argument>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1267,18 +1038,6 @@ You need to pass the TTL in the options array of the session handler you are usi
                     - '@Redis'
                     - { 'ttl': 600 }
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <services>
-            <service id="Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler">
-                <argument type="service" id="Redis"/>
-                <argument type="collection">
-                    <argument key="ttl">600</argument>
-                </argument>
-            </service>
-        </services>
-
     .. code-block:: php
 
         // config/services.php
@@ -1316,23 +1075,6 @@ has to return an integer which will be used as TTL.
                 arguments:
                     # Inject whatever dependencies you need to be able to resolve a TTL for the current session
                     - '@security'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <services>
-            <service id="Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler">
-                <argument type="service" id="Redis"/>
-                <argument type="collection">
-                    <argument key="ttl" type="closure" id="my.ttl.handler"/>
-                </argument>
-            </service>
-            <!-- some class with an __invoke() method -->
-            <service id="my.ttl.handler" class="Some\InvokableClass">
-                <!-- Inject whatever dependencies you need to be able to resolve a TTL for the current session -->
-                <argument type="service" id="security"/>
-            </service>
-        </services>
 
     .. code-block:: php
 
@@ -1433,25 +1175,6 @@ via some "Change Locale" route & controller), or create a route with the
                     arguments: ['%kernel.default_locale%']
                     # uncomment the next line if you are not using autoconfigure
                     # tags: [kernel.event_subscriber]
-
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-                <services>
-                    <service id="App\EventSubscriber\LocaleSubscriber">
-                        <argument>%kernel.default_locale%</argument>
-
-                        <!-- uncomment the next line if you are not using autoconfigure -->
-                        <!-- <tag name="kernel.event_subscriber"/> -->
-                    </service>
-                </services>
-            </container>
 
         .. code-block:: php
 
@@ -1563,21 +1286,6 @@ Symfony to use your session handler instead of the default one:
                 # ...
                 handler_id: App\Session\CustomSessionHandler
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <framework:config>
-                <framework:session handler-id="App\Session\CustomSessionHandler"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -1661,25 +1369,6 @@ Then, register the ``SodiumMarshaller`` service using this key:
                 arguments:
                     - ['%env(file:resolve:SESSION_DECRYPTION_FILE)%']
                     - '@.inner'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd"
-        >
-            <services>
-                <service id="Symfony\Component\Cache\Marshaller\SodiumMarshaller" decorates="session.marshaller">
-                    <argument type="collection">
-                        <argument>env(file:resolve:SESSION_DECRYPTION_FILE)</argument>
-                    </argument>
-                    <argument type="service" id=".inner"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1771,23 +1460,6 @@ for the ``handler_id``:
                 storage_factory_id: session.storage.factory.php_bridge
                 handler_id: ~
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <framework:config>
-                <framework:session storage-factory-id="session.storage.factory.php_bridge"
-                    handler-id="null"
-                />
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -1830,23 +1502,6 @@ the example below:
             session:
                 storage_factory_id: session.storage.factory.php_bridge
                 handler_id: session.handler.native_file
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <framework:config>
-                <framework:session storage-id="session.storage.factory.php_bridge"
-                    handler-id="session.handler.native_file"
-                />
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

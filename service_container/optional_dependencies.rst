@@ -13,24 +13,6 @@ if the service does not exist:
 
 .. configuration-block::
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="App\Newsletter\NewsletterManager">
-                    <argument type="service" id="logger" on-invalid="null"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -68,24 +50,6 @@ call if the service exists and remove the method call if it does not:
             App\Newsletter\NewsletterManager:
                 calls:
                     - setLogger: ['@?logger']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Newsletter\NewsletterManager">
-                    <call method="setLogger">
-                        <argument type="service" id="logger" on-invalid="ignore"/>
-                    </call>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

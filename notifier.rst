@@ -240,27 +240,6 @@ configure the ``texter_transports``:
                 texter_transports:
                     twilio: '%env(TWILIO_DSN)%'
 
-    .. code-block:: xml
-
-        <!-- config/packages/notifier.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:notifier>
-                    <framework:texter-transport name="twilio">
-                        %env(TWILIO_DSN)%
-                    </framework:texter-transport>
-                </framework:notifier>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/notifier.php
@@ -412,27 +391,6 @@ Chatters are configured using the ``chatter_transports`` setting:
                 chatter_transports:
                     slack: '%env(SLACK_DSN)%'
 
-    .. code-block:: xml
-
-        <!-- config/packages/notifier.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:notifier>
-                    <framework:chatter-transport name="slack">
-                        %env(SLACK_DSN)%
-                    </framework:chatter-transport>
-                </framework:notifier>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/notifier.php
@@ -508,29 +466,6 @@ notification emails:
                 envelope:
                     sender: 'notifications@example.com'
 
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:mailer
-                    dsn="%env(MAILER_DSN)%"
-                >
-                    <framework:envelope
-                        sender="notifications@example.com"
-                    />
-                </framework:mailer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/mailer.php
@@ -599,27 +534,6 @@ configure the ``texter_transports``:
                 texter_transports:
                     expo: '%env(EXPO_DSN)%'
 
-    .. code-block:: xml
-
-        <!-- config/packages/notifier.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:notifier>
-                    <framework:texter-transport name="expo">
-                        %env(EXPO_DSN)%
-                    </framework:texter-transport>
-                </framework:notifier>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/notifier.php
@@ -668,27 +582,6 @@ need to add the following manually:
             notifier:
                 texter_transports:
                     jolinotif: '%env(JOLINOTIF)%'
-
-    .. code-block:: xml
-
-        <!-- config/packages/notifier.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:notifier>
-                    <framework:texter-transport name="jolinotif">
-                        %env(JOLINOTIF)%
-                    </framework:texter-transport>
-                </framework:notifier>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -766,35 +659,6 @@ transport:
 
                     # Send notifications to the next scheduled transport calculated by round robin
                     roundrobin: '%env(SLACK_DSN)% && %env(TELEGRAM_DSN)%'
-
-    .. code-block:: xml
-
-        <!-- config/packages/notifier.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:notifier>
-                    <!-- Send notifications to Slack and use Telegram if
-                         Slack errored -->
-                    <framework:chatter-transport name="slack">
-                        %env(SLACK_DSN)% || %env(TELEGRAM_DSN)%
-                    </framework:chatter-transport>
-
-                    <!-- Send notifications to the next scheduled transport
-                         calculated by round robin -->
-                    <framework:chatter-transport name="slack"><![CDATA[
-                        %env(SLACK_DSN)% && %env(TELEGRAM_DSN)%
-                    ]]></framework:chatter-transport>
-                </framework:notifier>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -900,39 +764,6 @@ specify what channels should be used for specific levels (using
                     # Use browser for medium and low notifications
                     medium: ['browser']
                     low: ['browser']
-
-    .. code-block:: xml
-
-        <!-- config/packages/notifier.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:notifier>
-                    <!-- ... -->
-
-                    <framework:channel-policy>
-                        <!-- Use SMS, Slack and Email for urgent notifications -->
-                        <framework:urgent>sms</framework:urgent>
-                        <framework:urgent>chat/slack</framework:urgent>
-                        <framework:urgent>email</framework:urgent>
-
-                        <!-- Use Slack for highly important notifications -->
-                        <framework:high>chat/slack</framework:high>
-
-                        <!-- Use browser for medium and low notifications -->
-                        <framework:medium>browser</framework:medium>
-                        <framework:low>browser</framework:low>
-                    </framework:channel-policy>
-                </framework:notifier>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1079,19 +910,6 @@ typical alert levels, which you can implement immediately using:
         services:
             notifier.flash_message_importance_mapper:
                 class: Symfony\Component\Notifier\FlashMessage\BootstrapFlashMessageImportanceMapper
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="notifier.flash_message_importance_mapper" class="Symfony\Component\Notifier\FlashMessage\BootstrapFlashMessageImportanceMapper"/>
-            </services>
-        </container>
 
     .. code-block:: php
 

@@ -143,19 +143,6 @@ a service like: ``App\Controller\HelloController::index``:
             controller: App\Controller\HelloController::index
             methods:    GET
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="hello" path="/hello" controller="App\Controller\HelloController::index" methods="GET"/>
-
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -203,21 +190,6 @@ which is a common practice when following the `ADR pattern`_
         hello:
             path:       /hello/{name}
             controller: App\Controller\HelloController
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="hello" path="/hello/{name}">
-                <default key="_controller">App\Controller\HelloController</default>
-            </route>
-
-        </routes>
 
     .. code-block:: php
 

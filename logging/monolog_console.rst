@@ -92,29 +92,6 @@ The Monolog console handler is enabled by default:
                     # verbosity_levels:
                     #     VERBOSITY_NORMAL: NOTICE
 
-    .. code-block:: xml
-
-        <!-- config/packages/dev/monolog.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <monolog:config>
-                <!-- ... -->
-
-                <monolog:handler name="console" type="console" process-psr-3-messages="false">
-                    <monolog:channels>
-                        <monolog:channel>!event</monolog:channel>
-                        <monolog:channel>!doctrine</monolog:channel>
-                        <monolog:channel>!console</monolog:channel>
-                    </monolog:channels>
-                </monolog:handler>
-            </monolog:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/dev/monolog.php

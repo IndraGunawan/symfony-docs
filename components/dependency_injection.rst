@@ -210,22 +210,22 @@ Setting up the Container with Configuration Files
 -------------------------------------------------
 
 As well as setting up the services using PHP as above you can also use
-configuration files. This allows you to use XML or YAML to write the definitions
+configuration files. This allows you to use YAML or PHP to write the definitions
 for the services rather than using PHP to define the services as in the
 above examples. In anything but the smallest applications it makes sense
 to organize the service definitions by moving them into one or more configuration
 files. To do this you also need to install
 :doc:`the Config component </components/config>`.
 
-Loading an XML config file::
+Loading a PHP config file::
 
     use Symfony\Component\Config\FileLocator;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
-    use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+    use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
     $container = new ContainerBuilder();
-    $loader = new XmlFileLoader($container, new FileLocator(__DIR__));
-    $loader->load('services.xml');
+    $loader = new PhpFileLoader($container, new FileLocator(__DIR__));
+    $loader->load('services.php');
 
 Loading a YAML config file::
 
@@ -241,15 +241,6 @@ Loading a YAML config file::
 
     If you want to load YAML config files then you will also need to install
     :doc:`the Yaml component </components/yaml>`.
-
-.. tip::
-
-    If your application uses unconventional file extensions (for example, your
-    XML files have a ``.config`` extension) you can pass the file type as the
-    second optional parameter of the ``load()`` method::
-
-        // ...
-        $loader->load('services.config', 'xml');
 
 If you *do* want to use PHP to create the services then you can move this
 into a separate config file and load it in a similar way::
@@ -281,32 +272,6 @@ config files:
                 class:     NewsletterManager
                 calls:
                     - [setMailer, ['@mailer']]
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd"
-        >
-            <parameters>
-                <!-- ... -->
-                <parameter key="mailer.transport">sendmail</parameter>
-            </parameters>
-
-            <services>
-                <service id="mailer" class="Mailer">
-                    <argument>%mailer.transport%</argument>
-                </service>
-
-                <service id="newsletter_manager" class="NewsletterManager">
-                    <call method="setMailer">
-                        <argument type="service" id="mailer"/>
-                    </call>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

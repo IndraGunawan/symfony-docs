@@ -166,24 +166,6 @@ for multiple directories):
             # ...
             default_path: "%kernel.project_dir%/resources/views"
 
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig
-                https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <twig:default-path>%kernel.project_dir%/resources/views</twig:default-path>
-            </twig:config>
-
-        </container>
-
     .. code-block:: php
 
         // config/packages/twig.php
@@ -209,26 +191,6 @@ configuration option to define your own translations directory (use :ref:`framew
             translator:
                 # ...
                 default_path: "%kernel.project_dir%/i18n"
-
-    .. code-block:: xml
-
-        <!-- config/packages/translation.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig
-                https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <framework:config>
-                <framework:translator>
-                    <framework:default-path>%kernel.project_dir%/i18n</framework:default-path>
-                </framework:translator>
-            </framework:config>
-
-        </container>
 
     .. code-block:: php
 

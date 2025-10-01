@@ -35,27 +35,6 @@ and ``signature_properties`` (explained below):
                         check_route: login_check
                         signature_properties: ['id']
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <login-link check-route="login_check">
-                        <signature-property>id</signature-property>
-                    </login-link>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -105,19 +84,6 @@ intercept requests to this route:
         # ...
         login_check:
             path: /login_check
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <!-- ... -->
-            <route id="login_check" path="/login_check"/>
-        </routes>
 
     .. code-block:: php
 
@@ -338,28 +304,6 @@ seconds). You can customize this using the ``lifetime`` option:
                         # lifetime in seconds
                         lifetime: 300
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <!-- lifetime: lifetime in seconds -->
-                    <login-link check-route="login_check"
-                        lifetime="300"
-                    />
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -423,28 +367,6 @@ You can add more properties to the ``hash`` by using the
                         check_route: login_check
                         signature_properties: [id, email]
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <login-link check-route="login_check">
-                        <signature-property>id</signature-property>
-                        <signature-property>email</signature-property>
-                    </login-link>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -492,30 +414,6 @@ cache. Enable this support by setting the ``max_uses`` option:
 
                         # optionally, configure the cache pool
                         #used_link_cache: 'cache.redis'
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <!-- max-uses: only allow the link to be used 3 times
-                         used-link-cache: optionally, configure the cache pool -->
-                    <login-link check-route="login_check"
-                        max-uses="3"
-                        used-link-cache="cache.redis"
-                    />
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -567,28 +465,6 @@ the authenticator only handle HTTP POST methods:
                         check_route: login_check
                         check_post_only: true
                         max_uses: 1
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <login-link check-route="login_check"
-                        check-post-only="true"
-                        max-uses="1"
-                    />
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -712,30 +588,6 @@ Then, configure this service ID as the ``success_handler``:
                         lifetime: 600
                         max_uses: 1
                         success_handler: App\Security\Authentication\AuthenticationSuccessHandler
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <login-link check-route="login_check"
-                        check-post-only="true"
-                        max-uses="1"
-                        lifetime="600"
-                        success-handler="App\Security\Authentication\AuthenticationSuccessHandler"
-                    />
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
