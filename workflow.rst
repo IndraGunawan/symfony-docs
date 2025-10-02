@@ -530,10 +530,16 @@ if you are using Doctrine, the matching column definition should use the type ``
 Accessing the Workflow in a Class
 ---------------------------------
 
-You can use the workflow inside a class by using
-:doc:`service autowiring </service_container/autowiring>` and using
-``camelCased workflow name + Workflow`` as parameter name. If it is a state
-machine type, use ``camelCased workflow name + StateMachine``::
+Symfony creates a service for each workflow you define. You have two ways of
+injecting each workflow in any service or controller:
+
+**(1) Use a specific argument name**
+
+Type-hint your construtor/method argument with ``WorkflowInterface`` and name the
+argument using this pattern: "workflow name in camelCase" + ``Workflow`` suffix.
+If it is a state machine type, use the ``StateMachine`` suffix.
+
+For example, to inject the ``blog_publishing`` workflow defined earlier::
 
     use App\Entity\BlogPost;
     use Symfony\Component\Workflow\WorkflowInterface;
@@ -541,15 +547,14 @@ machine type, use ``camelCased workflow name + StateMachine``::
     class MyClass
     {
         public function __construct(
-            // Symfony will inject the 'blog_publishing' workflow configured before
             private WorkflowInterface $blogPublishingWorkflow,
         ) {
         }
 
         public function toReview(BlogPost $post): void
         {
-            // Update the currentState on the post
             try {
+                // update the currentState on the post
                 $this->blogPublishingWorkflow->apply($post, 'to_review');
             } catch (LogicException $exception) {
                 // ...
@@ -558,31 +563,30 @@ machine type, use ``camelCased workflow name + StateMachine``::
         }
     }
 
-To get the enabled transition of a Workflow, you can use
-:method:`Symfony\\Component\\Workflow\\WorkflowInterface::getEnabledTransition`
-method.
+**(2) Use the ``#[Target]`` attribute**
 
-Workflows can also be injected thanks to their name and the
-:class:`Symfony\\Component\\DependencyInjection\\Attribute\\Target`
-attribute::
+When :ref:`dealing with multiple implementations of the same type <autowiring-multiple-implementations-same-type>`
+the ``#[Target]`` attribute helps you select which one to inject. Symfony creates
+a target with the same name as each workflow.
 
-    use App\Entity\BlogPost;
+For example, to select the ``blog_publishing`` lock defined earlier::
+
     use Symfony\Component\DependencyInjection\Attribute\Target;
     use Symfony\Component\Workflow\WorkflowInterface;
 
     class MyClass
     {
         public function __construct(
-            #[Target('blog_publishing')]
-            private WorkflowInterface $workflow
+            #[Target('blog_publishing')] private WorkflowInterface $workflow,
         ) {
         }
 
         // ...
     }
 
-This allows you to decorrelate the argument name of any implementation
-name.
+To get the enabled transition of a Workflow, you can use
+:method:`Symfony\\Component\\Workflow\\WorkflowInterface::getEnabledTransition`
+method.
 
 .. tip::
 
@@ -603,6 +607,48 @@ name.
 
     You can find the list of available workflow services with the
     ``php bin/console debug:autowiring workflow`` command.
+
+Injecting Multiple Workflows
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the :ref:`AutowireLocator <service-locator_autowire-locator>` attribute to
+lazy-load all workflows and get the one you need::
+
+    use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
+    use Symfony\Component\DependencyInjection\ServiceLocator;
+
+    class MyClass
+    {
+        public function __construct(
+            // 'workflow' is the service tag name and injects both workflows and state machines;
+            // 'name' tells Symfony to index services using that tag property
+            #[AutowireLocator('workflow', 'name')]
+            private ServiceLocator $workflows,
+        ) {
+        }
+
+        public function someMethod(): void
+        {
+            // if you use the 'name' tag property to index services (see constructor above),
+            // you can get workflows by their name; otherwise, you must use the full
+            // service name with the 'workflow.' prefix (e.g. 'workflow.user_registration')
+            $workflow = $this->workflows->get('user_registration');
+
+            // ...
+        }
+    }
+
+.. tip::
+
+    You can also inject only workflows or only state machines::
+
+        public function __construct(
+            #[AutowireLocator('workflow.workflow', 'name')]
+            private ServiceLocator $workflows,
+            #[AutowireLocator('workflow.state_machine', 'name')]
+            private ServiceLocator $stateMachines,
+        ) {
+        }
 
 .. _workflow_using-events:
 
