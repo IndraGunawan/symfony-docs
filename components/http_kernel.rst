@@ -633,7 +633,7 @@ else that can be used to create a working example::
     $routes->add('hello', new Route('/hello/{name}', [
         '_controller' => function (Request $request): Response {
             return new Response(
-                sprintf("Hello %s", $request->get('name'))
+                sprintf("Hello %s", $request->attributes->get('name'))
             );
         }]
     ));
