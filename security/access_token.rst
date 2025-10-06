@@ -434,7 +434,8 @@ Next, configure the ``base_uri`` and ``discovery`` options:
                             oidc_user_info:
                                 base_uri: https://www.example.com/realms/demo/
                                 discovery:
-                                    cache: cache.app
+                                    cache:
+                                        id: cache.app
 
     .. code-block:: xml
 
@@ -473,12 +474,12 @@ Next, configure the ``base_uri`` and ``discovery`` options:
                         ->oidcUserInfo()
                             ->baseUri('https://www.example.com/realms/demo/')
                             ->discovery()
-                                ->cache('cache.app')
+                                ->cache(['id' => 'cache.app'])
             ;
         };
 
 Following the `OpenID Connect Specification`_, the ``sub`` claim is used as user
-identifier by default. To use another claim, specify it on the configuration:
+identifier by default. To use another claim, specify it using the ``claim`` option:
 
 .. configuration-block::
 
@@ -731,7 +732,8 @@ from the OpenID Connect Discovery), and configure the ``discovery`` option:
                                 issuers: ['https://oidc.example.com']
                                 discovery:
                                     base_uri: https://www.example.com/realms/demo/
-                                    cache: cache.app
+                                    cache:
+                                        id: cache.app
 
     .. code-block:: xml
 
@@ -777,7 +779,7 @@ from the OpenID Connect Discovery), and configure the ``discovery`` option:
                             ->issuers(['https://oidc.example.com'])
                             ->discovery()
                                 ->baseUri('https://www.example.com/realms/demo/')
-                                ->cache('cache.app')
+                                ->cache(['id' => 'cache.app'])
             ;
         };
 
