@@ -210,6 +210,12 @@ can also be applied to methods directly::
             // ...
         }
 
+        #[AsEventListener]
+        public function onMultipleCustomEvent(CustomEvent|AnotherCustomEvent $event): void
+        {
+            // ...
+        }
+
         #[AsEventListener(event: 'foo', priority: 42)]
         public function onFoo(): void
         {
@@ -227,6 +233,11 @@ can also be applied to methods directly::
 
     Note that the attribute doesn't require its ``event`` parameter to be set
     if the method already type-hints the expected event.
+
+.. versionadded:: 7.4
+
+    Support for union types in the ``$event`` argument of methods using the
+    ``#[AsEventListener]`` attribute was introduced in Symfony 7.4.
 
 .. _events-subscriber:
 
