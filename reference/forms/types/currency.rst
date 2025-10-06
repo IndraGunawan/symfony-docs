@@ -28,21 +28,86 @@ Field Options
 Overridden Options
 ------------------
 
+``active_at``
+~~~~~~~~~~~~~
+
+**type**: ``\DateTimeInterface::class`` or ``null`` **default**: ``null``
+
+An active currency is one that is still in use today as `legal tender`_
+somewhere. This option allows you to show only the currencies that are active
+at that date:
+
+    use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
+
+    $builder->add('currency', CurrencyType::class, [
+        'active_at' => new \DateTimeImmutable('2007-01-15', new \DateTimeZone('Etc/UTC')),
+    ]);
+
+In the previous example, the list of currences won't include items like the
+Slovenian Tolar, which stopped being used on January 14, 2007.
+
+.. versionadded:: 7.4
+
+    The ``active_at`` option was introduced in Symfony 7.4.
+
 ``choices``
 ~~~~~~~~~~~
 
 **default**: ``Symfony\Component\Intl\Currencies::getNames()``
 
-The choices option defaults to all currencies.
+The ``choices`` option defaults to all currencies that are `legal tender`_ at
+the moment of creating the form type.
 
 .. warning::
 
     If you want to override the built-in choices of the currency type, you
     will also have to set the ``choice_loader`` option to ``null``.
 
+.. versionadded:: 7.4
+
+    The default value of ``choices`` changed in Symfony 7.4. In previous versions,
+    this option contained all currencies, including those that were no longer legal
+    tender in their countries.
+
 .. include:: /reference/forms/types/options/choice_translation_domain_disabled.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+``legal_tender``
+~~~~~~~~~~~~~~~~
+
+**type**: ``boolean`` or ``null`` **default**: ``true``
+
+Set this option to ``false`` to only display the currencies that are no longer
+`legal tender`_ in their countries. Set it to ``null`` to include all curencies,
+regardless of their legal tender status.
+
+.. versionadded:: 7.4
+
+    The ``legal_tender`` option was introduced in Symfony 7.4.
+
+.. include:: /reference/forms/types/options/choice_translation_domain.rst.inc
+
+``not_active_at``
+~~~~~~~~~~~~~~~~~
+
+**type**: ``\DateTimeInterface::class`` or ``null`` **default**: ``null``
+
+An inactive currency is one that is a legacy currency, no longer in circulation.
+This option allows you to show only the currencies that are inactive at that date:
+
+    use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
+
+    $builder->add('currency', CurrencyType::class, [
+        'not_active_at' => new \DateTimeImmutable('2007-01-15', new \DateTimeZone('Etc/UTC')),
+    ]);
+
+In the previous example, the list of currencies will include items like the
+Slovenian Tolar, which stopped being used on January 14, 2007.
+
+.. versionadded:: 7.4
+
+    The ``not_active_at`` option was introduced in Symfony 7.4.
 
 Inherited Options
 -----------------
@@ -104,3 +169,4 @@ The actual default value of this option depends on other field options:
 .. include:: /reference/forms/types/options/row_attr.rst.inc
 
 .. _`3-letter ISO 4217`: https://en.wikipedia.org/wiki/ISO_4217
+.. _`legal tender`: https://en.wikipedia.org/wiki/Legal_tender
