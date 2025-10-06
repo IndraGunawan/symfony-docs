@@ -207,6 +207,17 @@ would look like this::
         }
     }
 
+.. tip::
+
+    Votes define an ``$extraData`` property that you can use to store any data
+    that you might need later::
+
+        $vote->extraData['key'] = 'value';  // values can be of any type
+
+    .. versionadded:: 7.4
+
+        The ``$extraData`` property was introduced in Symfony 7.4.
+
 That's it! The voter is done! Next, :ref:`configure it <declaring-the-voter-as-a-service>`.
 
 To recap, here's what's expected from the two abstract methods:
@@ -506,6 +517,60 @@ option to use a custom service (your service must implement the
                 // ...
             ;
         };
+
+When creating custom decision strategies, you can store additional data in votes
+to be used later when making a decision. For example, if not all votes should
+have the same weight, you could store a ``score`` value for each vote::
+
+    // src/Security/PostVoter.php
+    namespace App\Security;
+
+    use App\Entity\Post;
+    use App\Entity\User;
+    use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+    use Symfony\Component\Security\Core\Authorization\Voter\Vote;
+    use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+
+    class PostVoter extends Voter
+    {
+        // ...
+
+        protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
+        {
+            // ...
+            $vote->extraData['score'] = 10;
+
+            // ...
+        }
+    }
+
+Then, access that value when counting votes to make a decision::
+
+    // src/Security/MyCustomAccessDecisionStrategy.php
+    use Symfony\Component\Security\Core\Authorization\Strategy\AccessDecisionStrategyInterface;
+
+    class MyCustomAccessDecisionStrategy implements AccessDecisionStrategyInterface
+    {
+        public function decide(\Traversable $results, $accessDecision = null): bool
+        {
+            $score = 0;
+
+            foreach ($results as $key => $result) {
+                $vote = $accessDecision->votes[$key];
+                if (array_key_exists('score', $vote->extraData)) {
+                    $score += $vote->extraData['score'];
+                } else {
+                    $score += $vote->result;
+                }
+            }
+
+            // ...
+        }
+    }
+
+.. versionadded:: 7.4
+
+    The feature to store arbitrary data inside votes was introduced in Symfony 7.4.
 
 Custom Access Decision Manager
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
