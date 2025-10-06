@@ -236,7 +236,8 @@ can also be applied to methods directly::
 
 .. versionadded:: 7.4
 
-    The support for union types in the method type-hints was introduced in Symfony 7.4.
+    Support for union types in the ``$event`` argument of methods using the
+    ``#[AsEventListener]`` attribute was introduced in Symfony 7.4.
 
 .. _events-subscriber:
 
