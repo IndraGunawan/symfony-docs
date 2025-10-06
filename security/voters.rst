@@ -214,10 +214,6 @@ would look like this::
 
         $vote->extraData['key'] = 'value';  // values can be of any type
 
-    .. versionadded:: 7.4
-
-        The ``$extraData`` property was introduced in Symfony 7.4.
-
 That's it! The voter is done! Next, :ref:`configure it <declaring-the-voter-as-a-service>`.
 
 To recap, here's what's expected from the two abstract methods:
@@ -567,10 +563,6 @@ Then, access that value when counting votes to make a decision::
             // ...
         }
     }
-
-.. versionadded:: 7.4
-
-    The feature to store arbitrary data inside votes was introduced in Symfony 7.4.
 
 Custom Access Decision Manager
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
