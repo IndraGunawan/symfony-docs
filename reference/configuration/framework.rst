@@ -1883,6 +1883,8 @@ multiplier
 This value is multiplied to the delay each time a retry occurs, to distribute
 retries in time instead of making all of them sequentially.
 
+.. _reference-http-client-retry-retry-strategy:
+
 retry_strategy
 """"""""""""""
 
