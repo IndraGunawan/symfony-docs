@@ -423,10 +423,6 @@ of the UUID parameters::
 MockUuidFactory
 ===============
 
-.. versionadded:: 7.4
-
-    The :class:`Symfony\\Component\\Uid\\Factory\\MockUuidFactory` class was introduced in Symfony 7.4.
-
 The :class:`Symfony\\Component\\Uid\\Factory\\MockUuidFactory` class allows you to
 control the UUIDs generated during your tests, making them predictable and reproducible.
 
