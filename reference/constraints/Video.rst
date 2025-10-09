@@ -121,10 +121,18 @@ cannot be equal).
 If set, the height of the video file must be less than or equal to this value
 in pixels.
 
+``maxPixels``
+~~~~~~~~~~~~~
+
+**type**: ``integer`` | ``float``
+
+If set, the total number of pixels (``width * height``) of the video file must be less
+than or equal to this value.
+
 ``maxRatio``
 ~~~~~~~~~~~~
 
-**type**: ``float``
+**type**: ``integer`` | ``float``
 
 If set, the aspect ratio (``width / height``) of the video file must be less
 than or equal to this value. For example, a square video has a ratio of 1,
@@ -138,6 +146,14 @@ a 16:9 video has a ratio of 1.78, and a 4:3 video has a ratio of 1.33.
 If set, the width of the video file must be less than or equal to this value
 in pixels.
 
+``mimeTypes``
+~~~~~~~~~~~~~
+
+**type**: ``array`` or ``string`` **default**: ``video/*``
+
+See the :ref:`File mimeTypes option <reference-constraints-file-mime-types>` for a
+description of this option and a list of common video MIME types.
+
 ``minHeight``
 ~~~~~~~~~~~~~
 
@@ -149,23 +165,15 @@ value in pixels.
 ``minPixels``
 ~~~~~~~~~~~~~
 
-**type**: ``float``
+**type**: ``integer`` | ``float``
 
 If set, the total number of pixels (``width * height``) of the video file must be greater
-than or equal to this value.
-
-``maxPixels``
-~~~~~~~~~~~~~
-
-**type**: ``float``
-
-If set, the total number of pixels (``width * height``) of the video file must be less
 than or equal to this value.
 
 ``minRatio``
 ~~~~~~~~~~~~
 
-**type**: ``float``
+**type**: ``integer`` | ``float``
 
 If set, the aspect ratio (``width / height``) of the video file must be greater
 than or equal to this value.
@@ -177,14 +185,6 @@ than or equal to this value.
 
 If set, the width of the video file must be greater than or equal to this value
 in pixels.
-
-``mimeTypes``
-~~~~~~~~~~~~~
-
-**type**: ``array`` or ``string`` **default**: ``video/*``
-
-See the :ref:`File mimeTypes option <reference-constraints-file-mime-types>` for a
-description of this option and a list of common video MIME types.
 
 .. include:: /reference/constraints/_groups-option.rst.inc
 
