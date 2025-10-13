@@ -326,7 +326,7 @@ Parameter             Description
 ``maxPixels``
 ~~~~~~~~~~~~~
 
-**type**: ``integer``
+**type**: ``integer`` | ``float``
 
 If set, the amount of pixels of the image file must be less than or equal to this
 value.
@@ -353,7 +353,7 @@ Parameter             Description
 ``maxRatio``
 ~~~~~~~~~~~~
 
-**type**: ``float``
+**type**: ``integer`` | ``float``
 
 If set, the aspect ratio (``width / height``) of the image file must be less
 than or equal to this value.
@@ -445,7 +445,7 @@ Parameter             Description
 ``minPixels``
 ~~~~~~~~~~~~~
 
-**type**: ``integer``
+**type**: ``integer`` | ``float``
 
 If set, the amount of pixels of the image file must be greater than or equal to this
 value.
@@ -472,7 +472,7 @@ Parameter             Description
 ``minRatio``
 ~~~~~~~~~~~~
 
-**type**: ``float``
+**type**: ``integer`` | ``float``
 
 If set, the aspect ratio (``width / height``) of the image file must be greater
 than or equal to this value.
