@@ -864,6 +864,31 @@ create your own User from the claims, you must
         }
     }
 
+Creating a OIDC token from the command line
+-------------------------------------------
+
+.. versionadded:: 7.4
+
+    The ``security:oidc:generate-token`` command was introduced in Symfony 7.4.
+
+The ``security:oidc:generate-token`` command helps you generate JWTs. It's mostly
+useful when developing or testing applications that use OIDC authentication:
+
+.. code-block:: terminal
+
+    # generate a token using the default configuration
+    $ php bin/console security:oidc:generate-token john.doe@example.com
+
+    # specify the firewall, algorithm, and issuer if multiple are available
+    $ php bin/console security:oidc:generate-token john.doe@example.com \
+        --firewall="api" \
+        --algorithm="HS256" \
+        --issuer="https://example.com"
+
+.. note::
+
+    The JWK used for signing must have the appropriate `key operation flags`_ set.
+
 Using CAS 2.0
 -------------
 
@@ -1082,3 +1107,4 @@ for :ref:`stateless firewalls <reference-security-stateless>`.
 .. _`OpenID Connect Discovery`: https://openid.net/specs/openid-connect-discovery-1_0.html
 .. _`RFC6750`: https://datatracker.ietf.org/doc/html/rfc6750
 .. _`SAML2 (XML structures)`: https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html
+.. _`key operation flags`: https://www.iana.org/assignments/jose/jose.xhtml#web-key-operations
