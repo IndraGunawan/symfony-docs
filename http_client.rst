@@ -740,6 +740,8 @@ making a request. Use the ``max_redirects`` setting to configure this behavior
         'max_redirects' => 0,
     ]);
 
+.. _http-client-retry-failed-requests:
+
 Retry Failed Requests
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -1490,25 +1492,108 @@ Caching Requests and Responses
 ------------------------------
 
 This component provides a :class:`Symfony\\Component\\HttpClient\\CachingHttpClient`
-decorator that allows caching responses and serving them from the local storage
-for next requests. The implementation leverages the
-:class:`Symfony\\Component\\HttpKernel\\HttpCache\\HttpCache` class under the hood
-so that the :doc:`HttpKernel component </components/http_kernel>` needs to be
-installed in your application::
+decorator that allows caching responses and serving them from the cache storage
+for next requests as described in `RFC 9111`_.
 
-    use Symfony\Component\HttpClient\CachingHttpClient;
-    use Symfony\Component\HttpClient\HttpClient;
-    use Symfony\Component\HttpKernel\HttpCache\Store;
+The implementation leverages a
+:class:`tag aware cache <Symfony\\Contracts\\Cache\\TagAwareCacheInterface>` under the hood
+so the :doc:`Cache component </components/cache>` needs to be
+installed in your application.
 
-    $store = new Store('/path/to/cache/storage/');
-    $client = HttpClient::create();
-    $client = new CachingHttpClient($client, $store);
+.. tip::
 
-    // this won't hit the network if the resource is already in the cache
-    $response = $client->request('GET', 'https://example.com/cacheable-resource');
+    The implementation is asynchronous, so the response must be consumed
+    (e.g., via getContent() or streaming) for caching to occur.
 
-:class:`Symfony\\Component\\HttpClient\\CachingHttpClient` accepts a third argument
-to set the options of the :class:`Symfony\\Component\\HttpKernel\\HttpCache\\HttpCache`.
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # config/packages/framework.yaml
+        framework:
+            http_client:
+                scoped_clients:
+                    example.client:
+                        base_uri: 'https://example.com'
+                        caching:
+                            cache_pool: example_cache_pool
+
+            cache:
+                pools:
+                    example_cache_pool:
+                        adapter: cache.adapter.redis_tag_aware
+                        tags: true
+
+    .. code-block:: xml
+
+        <!-- config/packages/framework.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                https://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config>
+                <framework:http-client>
+                    <framework:scoped-client name="example.client"
+                        base-uri="https://example.com"
+                    >
+                        <framework:caching cache-pool="example_cache_pool"/>
+                    </framework:scoped-client>
+                </framework:http-client>
+
+                <framework:cache>
+                    <framework:pool name="example_cache_pool"
+                        adapter="cache.adapter.redis_tag_aware"
+                        tags="true"
+                    />
+                </framework:cache>
+            </framework:config>
+        </container>
+
+    .. code-block:: php
+
+        // config/packages/framework.php
+        use Symfony\Config\FrameworkConfig;
+
+        return static function (FrameworkConfig $framework): void {
+            $framework->httpClient()->scopedClient('example.client')
+                ->baseUri('https://example.com')
+                ->caching()
+                    ->cachePool('example_cache_pool')
+                // ...
+            ;
+
+            $framework->cache()
+                ->pool('example_cache_pool')
+                    ->adapter('cache.adapter.redis_tag_aware')
+                    ->tags(true)
+                ;
+        };
+
+    .. code-block:: php-standalone
+
+        use Symfony\Component\Cache\Adapter\FilesystemTagAwareAdapter;
+        use Symfony\Component\HttpClient\CachingHttpClient;
+        use Symfony\Component\HttpClient\HttpClient;
+
+        $cache = new FilesystemTagAwareAdapter();
+
+        $client = HttpClient::createForBaseUri('https://example.com');
+        $cachingClient = new CachingHttpClient($client, $cache);
+
+.. tip::
+
+    It is also highly recommended to configure a :ref:`retry strategy <http-client-retry-failed-requests>`
+    to gracefully handle cache inconsistency.
+
+.. versionadded:: 7.4
+
+    Compliance with `RFC 9111`_ and leveraging the
+    :doc:`Cache component </components/cache>` was introduced in Symfony 7.4.
+    Prior to this, it used ``HttpCache`` from the HttpKernel component.
 
 Limit the Number of Requests
 ----------------------------
@@ -2494,5 +2579,6 @@ body::
 .. _`idempotent method`: https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Idempotent_methods
 .. _`SSRF`: https://portswigger.net/web-security/ssrf
 .. _`RFC 6570`: https://www.rfc-editor.org/rfc/rfc6570
+.. _`RFC 9111`: https://www.rfc-editor.org/rfc/rfc9111
 .. _`HAR`: https://w3c.github.io/web-performance/specs/HAR/Overview.html
 .. _`the Cookie HTTP request header`: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie
