@@ -884,18 +884,15 @@ Creating a OIDC token from the command line
 
     The ``security:oidc:generate-token`` command was introduced in Symfony 7.4.
 
-The ``security:oidc:generate-token`` command helps you generate JWTs. This is
-particularly useful when developing or testing applications that use OIDC
-authentication.
-
-To generate a token using the default configuration:
+The ``security:oidc:generate-token`` command helps you generate JWTs. It's mostly
+useful when developing or testing applications that use OIDC authentication:
 
 .. code-block:: terminal
 
-    # generate a token for the user named "john.doe@example.com"
+    # generate a token using the default configuration
     $ php bin/console security:oidc:generate-token john.doe@example.com
 
-    # generate a token when multiple firewall, algorithm or issuer are available
+    # specify the firewall, algorithm, and issuer if multiple are available
     $ php bin/console security:oidc:generate-token john.doe@example.com \
         --firewall="api" \
         --algorithm="HS256" \
