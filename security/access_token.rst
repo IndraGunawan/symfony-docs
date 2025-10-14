@@ -717,6 +717,10 @@ it, and retrieves the user information from it. Optionally, the token can be enc
 
     Support for encryption algorithms to decrypt JWEs was introduced in Symfony 7.3.
 
+.. versionadded:: 7.4
+
+    Support for multiple OIDC discovery endpoints was introduced in Symfony 7.4.
+
 To enable `OpenID Connect Discovery`_, the ``OidcTokenHandler`` requires the
 ``symfony/cache`` package to store the OIDC configuration in the cache. If you
 haven't installed it yet, run the following command:
@@ -795,6 +799,91 @@ from the OpenID Connect Discovery), and configure the ``discovery`` option:
                                 ->cache(['id' => 'cache.app'])
             ;
         };
+
+Configuring Multiple OIDC Discovery Endpoints
+.............................................
+
+The ``OidcTokenHandler`` supports multiple OIDC discovery endpoints. This allows
+validating tokens from multiple identity providers:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # config/packages/security.yaml
+        security:
+            firewalls:
+                main:
+                    access_token:
+                        token_handler:
+                            oidc:
+                                algorithms: ['ES256', 'RS256']
+                                audience: 'api-example'
+                                issuers: ['https://oidc1.example.com', 'https://oidc2.example.com']
+                                discovery:
+                                    base_uri:
+                                        - https://idp1.example.com/realms/demo/
+                                        - https://idp2.example.com/realms/demo/
+                                    cache:
+                                        id: cache.app
+
+    .. code-block:: xml
+
+        <!-- config/packages/security.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                https://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/security
+                https://symfony.com/schema/dic/security/security-1.0.xsd">
+
+            <config>
+                <firewall name="main">
+                    <access-token>
+                        <token-handler>
+                            <oidc audience="api-example">
+                                <algorithm>ES256</algorithm>
+                                <algorithm>RS256</algorithm>
+                                <issuer>https://oidc1.example.com</issuer>
+                                <issuer>https://oidc2.example.com</issuer>
+                                <discovery cache="cache.app">
+                                    <base-uri>https://idp1.example.com/realms/demo/</base-uri>
+                                    <base-uri>https://idp2.example.com/realms/demo/</base-uri>
+                                </discovery>
+                            </oidc>
+                        </token-handler>
+                    </access-token>
+                </firewall>
+            </config>
+        </srv:container>
+
+    .. code-block:: php
+
+        // config/packages/security.php
+        use Symfony\Config\SecurityConfig;
+
+        return static function (SecurityConfig $security) {
+            $security->firewall('main')
+                ->accessToken()
+                    ->tokenHandler()
+                        ->oidc()
+                            ->algorithms(['ES256', 'RS256'])
+                            ->audience('api-example')
+                            ->issuers(['https://oidc1.example.com', 'https://oidc2.example.com'])
+                            ->discovery()
+                                ->baseUri([
+                                    'https://idp1.example.com/realms/demo/',
+                                    'https://idp2.example.com/realms/demo/',
+                                ])
+                                ->cache(['id' => 'cache.app'])
+            ;
+        };
+
+The token handler fetches the JWK sets from all configured discovery endpoints
+and builds a combined JWK set for token validation. This enables your application
+to accept and validate tokens from multiple identity providers in a single firewall.
 
 Following the `OpenID Connect Specification`_, the ``sub`` claim is used by
 default as user identifier. To use another claim, specify it on the
