@@ -1783,6 +1783,28 @@ You can also pass a set of default options to your client thanks to the
 
     // ...
 
+.. _auto-upgrade-http-version:
+
+You can use the ``auto_upgrade_http_version`` option to control whether the HTTP
+protocol version is automatically upgraded::
+
+    $client = (new Psr18Client())
+        ->withOptions([
+            // set to false to always use the HTTP version defined in your request;
+            // set to true to allow the server to upgrade the HTTP version in its response
+            'auto_upgrade_http_version' => false
+            // ...
+        ]);
+
+.. note::
+
+    The ``auto_upgrade_http_version`` option is ignored for HTTP/1.0 requests,
+    which always keep that protocol version.
+
+.. versionadded:: 7.4
+
+    The ``auto_upgrade_http_version`` option was introduced in Symfony 7.4.
+
 HTTPlug
 ~~~~~~~
 
@@ -1883,6 +1905,10 @@ You can also pass a set of default options to your client thanks to the
     $request = $httpClient->createRequest('GET', '/');
 
     // ...
+
+
+See the :ref:`auto_upgrade_http_version <auto-upgrade-http-version>` option for
+details about how the HTTP protocol version selection works.
 
 Native PHP Streams
 ~~~~~~~~~~~~~~~~~~
