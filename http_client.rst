@@ -1789,6 +1789,17 @@ You can also pass a set of default options to your client thanks to the
 
     // ...
 
+.. _auto-upgrade-http-version:
+
+.. versionadded:: 7.4
+
+    Starting in Symfony 7.4, the option `auto_upgrade_http_version` can
+    be set to false to disable automatic HTTP protocol version upgrade when
+    desired.
+
+    The automatic HTTP version upgrade is always disabled for HTTP/1.0 requests,
+    regardless of the option value.
+
 HTTPlug
 ~~~~~~~
 
@@ -1889,6 +1900,9 @@ You can also pass a set of default options to your client thanks to the
     $request = $httpClient->createRequest('GET', '/');
 
     // ...
+
+
+See :ref:`auto_upgrade_http_version <auto-upgrade-http-version>` option for details about how the HTTP protocol version selection works.
 
 Native PHP Streams
 ~~~~~~~~~~~~~~~~~~
