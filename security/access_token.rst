@@ -864,6 +864,95 @@ create your own User from the claims, you must
         }
     }
 
+Configuring Multiple OIDC Discovery Endpoints
+.............................................
+
+.. versionadded:: 7.4
+
+    Support for multiple OIDC discovery endpoints was introduced in Symfony 7.4.
+
+The ``OidcTokenHandler`` supports multiple OIDC discovery endpoints, allowing it
+to validate tokens from different identity providers:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # config/packages/security.yaml
+        security:
+            firewalls:
+                main:
+                    access_token:
+                        token_handler:
+                            oidc:
+                                algorithms: ['ES256', 'RS256']
+                                audience: 'api-example'
+                                issuers: ['https://oidc1.example.com', 'https://oidc2.example.com']
+                                discovery:
+                                    base_uri:
+                                        - https://idp1.example.com/realms/demo/
+                                        - https://idp2.example.com/realms/demo/
+                                    cache:
+                                        id: cache.app
+
+    .. code-block:: xml
+
+        <!-- config/packages/security.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                https://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/security
+                https://symfony.com/schema/dic/security/security-1.0.xsd">
+
+            <config>
+                <firewall name="main">
+                    <access-token>
+                        <token-handler>
+                            <oidc audience="api-example">
+                                <algorithm>ES256</algorithm>
+                                <algorithm>RS256</algorithm>
+                                <issuer>https://oidc1.example.com</issuer>
+                                <issuer>https://oidc2.example.com</issuer>
+                                <discovery cache="cache.app">
+                                    <base-uri>https://idp1.example.com/realms/demo/</base-uri>
+                                    <base-uri>https://idp2.example.com/realms/demo/</base-uri>
+                                </discovery>
+                            </oidc>
+                        </token-handler>
+                    </access-token>
+                </firewall>
+            </config>
+        </srv:container>
+
+    .. code-block:: php
+
+        // config/packages/security.php
+        use Symfony\Config\SecurityConfig;
+
+        return static function (SecurityConfig $security) {
+            $security->firewall('main')
+                ->accessToken()
+                    ->tokenHandler()
+                        ->oidc()
+                            ->algorithms(['ES256', 'RS256'])
+                            ->audience('api-example')
+                            ->issuers(['https://oidc1.example.com', 'https://oidc2.example.com'])
+                            ->discovery()
+                                ->baseUri([
+                                    'https://idp1.example.com/realms/demo/',
+                                    'https://idp2.example.com/realms/demo/',
+                                ])
+                                ->cache(['id' => 'cache.app'])
+            ;
+        };
+
+The token handler fetches the JWK sets from all configured discovery endpoints
+and builds a combined JWK set for token validation. This lets your application
+accept and validate tokens from multiple identity providers within a single firewall.
+
 Creating a OIDC token from the command line
 -------------------------------------------
 
