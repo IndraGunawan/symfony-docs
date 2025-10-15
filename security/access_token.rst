@@ -867,10 +867,6 @@ create your own User from the claims, you must
 Configuring Multiple OIDC Discovery Endpoints
 .............................................
 
-.. versionadded:: 7.4
-
-    Support for multiple OIDC discovery endpoints was introduced in Symfony 7.4.
-
 The ``OidcTokenHandler`` supports multiple OIDC discovery endpoints, allowing it
 to validate tokens from different identity providers:
 
@@ -955,10 +951,6 @@ accept and validate tokens from multiple identity providers within a single fire
 
 Creating a OIDC token from the command line
 -------------------------------------------
-
-.. versionadded:: 7.4
-
-    The ``security:oidc:generate-token`` command was introduced in Symfony 7.4.
 
 The ``security:oidc:generate-token`` command helps you generate JWTs. It's mostly
 useful when developing or testing applications that use OIDC authentication:

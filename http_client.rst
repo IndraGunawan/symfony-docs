@@ -1801,10 +1801,6 @@ protocol version is automatically upgraded::
     The ``auto_upgrade_http_version`` option is ignored for HTTP/1.0 requests,
     which always keep that protocol version.
 
-.. versionadded:: 7.4
-
-    The ``auto_upgrade_http_version`` option was introduced in Symfony 7.4.
-
 HTTPlug
 ~~~~~~~
 
