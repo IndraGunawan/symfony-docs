@@ -55,8 +55,13 @@ a ``$lockFactory`` property with your own lock factory::
     {
         use LockableTrait;
 
-        public function __construct(private LockFactory $lockFactory)
+        // don't use PHP constructor property promotion here because the
+        // LockableTrait already defines the `$lockFactory` property in this class
+        public function __construct(LockFactory $lockFactory)
         {
+            $this->lockFactory = $lockFactory;
+
+            parent::__construct();
         }
 
         // ...
