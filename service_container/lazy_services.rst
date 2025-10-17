@@ -42,20 +42,6 @@ You can mark the service as ``lazy`` by manipulating its definition:
             App\Twig\AppExtension:
                 lazy: true
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Twig\AppExtension" lazy="true"/>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -160,24 +146,6 @@ specific interfaces.
                 lazy: true
                 tags:
                     - { name: 'proxy', interface: 'Twig\Extension\ExtensionInterface' }
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Twig\AppExtension" lazy="Twig\Extension\ExtensionInterface"/>
-                <!-- or a complete definition: -->
-                <service id="App\Twig\AppExtension" lazy="true">
-                    <tag name="proxy" interface="Twig\Extension\ExtensionInterface"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

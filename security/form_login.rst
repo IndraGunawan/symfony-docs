@@ -39,27 +39,6 @@ a relative/absolute URL or a Symfony route name:
                         # ...
                         default_target_path: after_login_route_name
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <form-login default-target-path="after_login_route_name"/>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -95,28 +74,6 @@ previously requested URL and always redirect to the default page:
                     form_login:
                         # ...
                         always_use_default_target_path: true
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-                    <form-login always-use-default-target-path="true"/>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -184,28 +141,6 @@ parameter is included in the request, you may use the value of the
                         # ...
                         use_referer: true
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-                    <form-login use-referer="true"/>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -250,28 +185,6 @@ option to define a new target via a relative/absolute URL or a Symfony route nam
                     form_login:
                         # ...
                         failure_path: login_failure_route_name
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-                    <form-login failure-path="login_failure_route_name"/>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -326,29 +239,6 @@ redirects can be customized using the  ``target_path_parameter`` and
                     form_login:
                         target_path_parameter: go_to
                         failure_path_parameter: back_to
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-                    <form-login target-path-parameter="go_to"/>
-                    <form-login failure-path-parameter="back_to"/>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 

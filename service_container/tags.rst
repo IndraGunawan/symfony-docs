@@ -14,22 +14,6 @@ example:
             App\Twig\AppExtension:
                 tags: ['twig.extension']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Twig\AppExtension">
-                    <tag name="twig.extension"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -80,20 +64,6 @@ If you want to apply tags automatically for your own services, use the
                 App\Security\CustomInterface:
                     tags: ['app.custom_tag']
             # ...
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-            <services>
-                <!-- this config only applies to the services created by this file -->
-                <instanceof id="App\Security\CustomInterface" autowire="true">
-                    <!-- services whose classes are instances of CustomInterface will be tagged automatically -->
-                    <tag name="app.custom_tag"/>
-                </instanceof>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -307,20 +277,6 @@ Then, define the chain as a service:
         services:
             App\Mail\TransportChain: ~
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Mail\TransportChain"/>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -353,28 +309,6 @@ For example, you may add the following transports as services:
 
             MailerSendmailTransport:
                 tags: ['app.mail_transport']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="MailerSmtpTransport">
-                    <argument>%mailer_host%</argument>
-
-                    <tag name="app.mail_transport"/>
-                </service>
-
-                <service id="MailerSendmailTransport">
-                    <tag name="app.mail_transport"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -513,33 +447,6 @@ To answer this, change the service declaration:
                 tags:
                     - { name: 'app.mail_transport', alias: ['sendmail', 'anotherAlias']}
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="MailerSmtpTransport">
-                    <argument>%mailer_host%</argument>
-
-                    <tag name="app.mail_transport" alias="smtp"/>
-                </service>
-
-                <service id="MailerSendmailTransport">
-                    <tag name="app.mail_transport">
-                        <attribute name="alias">
-                            <attribute name="0">sendmail</attribute>
-                            <attribute name="1">anotherAlias</attribute>
-                        </attribute>
-                    </tag>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -561,7 +468,7 @@ To answer this, change the service declaration:
 .. tip::
 
     The ``name`` attribute is used by default to define the name of the tag.
-    If you want to add a ``name`` attribute to some tag in XML or YAML formats,
+    If you want to add a ``name`` attribute to some tag in YAML format,
     you need to use this special syntax:
 
     .. configuration-block::
@@ -577,26 +484,6 @@ To answer this, change the service declaration:
                         - { name: 'app.mail_transport', alias: 'smtp' }
                         # this is a tag called 'app.mail_transport' with two attributes ('name' and 'alias')
                         - app.mail_transport: { name: 'arbitrary-value', alias: 'smtp' }
-
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-                <services>
-                    <service id="MailerSmtpTransport">
-                        <argument>%mailer_host%</argument>
-                        <!-- this is a tag called 'app.mail_transport' -->
-                        <tag name="app.mail_transport" alias="sendmail"/>
-                        <!-- this is a tag called 'app.mail_transport' with two attributes ('name' and 'alias') -->
-                        <tag name="arbitrary-value" alias="smtp">app.mail_transport</tag>
-                    </service>
-                </services>
-            </container>
 
 .. tip::
 
@@ -672,7 +559,7 @@ all services tagged with ``app.handler`` into its constructor argument::
         }
     }
 
-Symfony allows you to inject the services using YAML/XML/PHP configuration or
+Symfony allows you to inject the services using YAML or PHP configuration or
 directly via PHP attributes:
 
 .. configuration-block::
@@ -708,31 +595,6 @@ directly via PHP attributes:
                 # inject all services tagged with app.handler as first argument
                 arguments:
                     - !tagged_iterator app.handler
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Handler\One">
-                    <tag name="app.handler"/>
-                </service>
-
-                <service id="App\Handler\Two">
-                    <tag name="app.handler"/>
-                </service>
-
-                <service id="App\HandlerCollection">
-                    <!-- inject all services tagged with app.handler as first argument -->
-                    <argument type="tagged_iterator" tag="app.handler"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -799,32 +661,6 @@ iterator, add the ``exclude`` option:
                 arguments:
                     - !tagged_iterator { tag: app.handler, exclude: ['App\Handler\Three'] }
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <!-- This is the service we want to exclude, even if the 'app.handler' tag is attached -->
-                <service id="App\Handler\Three">
-                    <tag name="app.handler"/>
-                </service>
-
-                <service id="App\HandlerCollection">
-                    <!-- inject all services tagged with app.handler as first argument -->
-                    <argument type="tagged_iterator" tag="app.handler">
-                        <exclude>App\Handler\Three</exclude>
-                    </argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -882,32 +718,6 @@ disabled by setting the ``exclude_self`` option to ``false``:
                 arguments:
                     - !tagged_iterator { tag: app.handler, exclude: ['App\Handler\Three'], exclude_self: false }
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <!-- This is the service we want to exclude, even if the 'app.handler' tag is attached -->
-                <service id="App\Handler\Three">
-                    <tag name="app.handler"/>
-                </service>
-
-                <service id="App\HandlerCollection">
-                    <!-- inject all services tagged with app.handler as first argument -->
-                    <argument type="tagged_iterator" tag="app.handler" exclude-self="false">
-                        <exclude>App\Handler\Three</exclude>
-                    </argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -949,22 +759,6 @@ the number, the earlier the tagged service will be located in the collection:
             App\Handler\One:
                 tags:
                     - { name: 'app.handler', priority: 20 }
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Handler\One">
-                    <tag name="app.handler" priority="20"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1026,21 +820,6 @@ you can define it in the configuration of the collecting service:
                 # inject all services tagged with app.handler as first argument
                 arguments:
                     - !tagged_iterator { tag: app.handler, default_priority_method: getPriority }
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-            <services>
-                <service id="App\HandlerCollection">
-                    <argument type="tagged_iterator" tag="app.handler" default-priority-method="getPriority"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1104,30 +883,6 @@ to index the services:
 
             App\HandlerCollection:
                 arguments: [!tagged_iterator { tag: 'app.handler', index_by: 'key' }]
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Handler\One">
-                    <tag name="app.handler" key="handler_one"/>
-                </service>
-
-                <service id="App\Handler\Two">
-                    <tag name="app.handler" key="handler_two"/>
-                </service>
-
-                <service id="App\HandlerCollection">
-                    <argument type="tagged_iterator" tag="app.handler" index-by="key"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1211,27 +966,6 @@ get the value used to index the services:
 
             App\HandlerCollection:
                 arguments: [!tagged_iterator { tag: 'app.handler', default_index_method: 'getIndex' }]
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="App\HandlerCollection">
-                    <argument type="tagged_iterator"
-                        tag="app.handler"
-                        default-index-method="getIndex"
-                    />
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

@@ -204,28 +204,6 @@ You can configure these default values::
                 time_based_uuid_version: 6
                 time_based_uuid_node: 121212121212
 
-    .. code-block:: xml
-
-        <!-- config/packages/uid.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xmlns:framework="http://symfony.com/schema/dic/symfony"
-                   xsi:schemaLocation="http://symfony.com/schema/dic/services
-                        https://symfony.com/schema/dic/services/services-1.0.xsd
-                        http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:uid
-                    default_uuid_version="6"
-                    name_based_uuid_version="6"
-                    name_based_uuid_namespace="6ba7b810-9dad-11d1-80b4-00c04fd430c8"
-                    time_based_uuid_version="6"
-                    time_based_uuid_node="121212121212"
-                />
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/uid.php
@@ -680,25 +658,6 @@ configuration in your application before using these commands:
             Symfony\Component\Uid\Command\GenerateUuidCommand: ~
             Symfony\Component\Uid\Command\InspectUlidCommand: ~
             Symfony\Component\Uid\Command\InspectUuidCommand: ~
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="Symfony\Component\Uid\Command\GenerateUlidCommand"/>
-                <service id="Symfony\Component\Uid\Command\GenerateUuidCommand"/>
-                <service id="Symfony\Component\Uid\Command\InspectUlidCommand"/>
-                <service id="Symfony\Component\Uid\Command\InspectUuidCommand"/>
-            </services>
-        </container>
 
     .. code-block:: php
 

@@ -40,25 +40,6 @@ To configure the container to call the ``setLogger`` method, use the ``calls`` k
                 calls:
                     - setLogger: ['@logger']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Service\MessageGenerator">
-                    <!-- ... -->
-                    <call method="setLogger">
-                        <argument type="service" id="logger"/>
-                    </call>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -111,25 +92,6 @@ The configuration to tell the container it should do so would be like:
                 # ...
                 calls:
                     - withLogger: !returns_clone ['@logger']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Service\MessageGenerator">
-                    <!-- ... -->
-                    <call method="withLogger" returns-clone="true">
-                        <argument type="service" id="logger"/>
-                    </call>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

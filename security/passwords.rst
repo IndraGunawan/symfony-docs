@@ -35,35 +35,6 @@ optionally some *algorithm options*:
                     algorithm: 'auto'
                     cost:      15
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-                <!-- auto hasher with default options for the User class (and children) -->
-                <security:password-hasher
-                    class="App\Entity\User"
-                    algorithm="auto"
-                />
-
-                <!-- auto hasher with custom options for all PasswordAuthenticatedUserInterface instances -->
-                <security:password-hasher
-                    class="Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface"
-                    algorithm="auto"
-                    cost="15"
-                />
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -353,40 +324,6 @@ on the new hasher to point to the old, legacy hasher(s):
                         - bcrypt # uses the "bcrypt" hasher with the default options
                         - legacy # uses the "legacy" hasher configured above
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:security="http://symfony.com/schema/dic/security"
-            xsi:schemaLocation="http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <security:config>
-                <!-- ... -->
-
-                <security:password-hasher class="legacy"
-                    algorithm="sha256"
-                    encode-as-base64="false"
-                    iterations="1"
-                />
-
-                <!-- algorithm: the new hasher, along with its options -->
-                <security:password-hasher class="App\Entity\User"
-                    algorithm="sodium"
-                >
-                    <!-- uses the bcrypt hasher with the default options -->
-                    <security:migrate-from>bcrypt</security:migrate-from>
-
-                    <!-- uses the legacy hasher configured above -->
-                    <security:migrate-from>legacy</security:migrate-from>
-                </security:password-hasher>
-            </security:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -586,27 +523,6 @@ cost. This can be done with named hashers:
                     algorithm: auto
                     cost: 15
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd"
-        >
-
-            <config>
-                <!-- ... -->
-                <security:password-hasher class="harsh"
-                    algorithm="auto"
-                    cost="15"/>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -682,26 +598,6 @@ you must register a service for it in order to use it as a named hasher:
             password_hashers:
                 app_hasher:
                     id: 'App\Security\Hasher\MyCustomPasswordHasher'
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd"
-        >
-
-            <config>
-                <!-- ... -->
-                <security:password_hasher class="app_hasher"
-                    id="App\Security\Hasher\MyCustomPasswordHasher"/>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -899,27 +795,6 @@ Now, define a password hasher using the ``id`` setting:
                 app_hasher:
                     # the service ID of your custom hasher (the FQCN using the default services.yaml)
                     id: 'App\Security\Hasher\MyCustomPasswordHasher'
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd"
-        >
-
-            <config>
-                <!-- ... -->
-                <!-- id: the service ID of your custom hasher (the FQCN using the default services.yaml) -->
-                <security:password_hasher class="app_hasher"
-                    id="App\Security\Hasher\CustomVerySecureHasher"/>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 

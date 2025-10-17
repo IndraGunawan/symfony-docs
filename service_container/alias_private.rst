@@ -35,19 +35,6 @@ You can also control the ``public`` option on a service-by-service basis:
             App\Service\Foo:
                 public: true
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Service\Foo" public="true"/>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -132,22 +119,6 @@ services.
             app.mailer:
                 alias: App\Mail\PhpMailer
                 public: true
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Mail\PhpMailer" public="false"/>
-
-                <service id="app.mailer" alias="App\Mail\PhpMailer"/>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -247,27 +218,6 @@ or you decided not to maintain it anymore), you can deprecate its definition:
                 version: '1.2'
                 message: 'The "%alias_id%" alias is deprecated. Do not use it anymore.'
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="app.mailer" alias="App\Mail\PhpMailer">
-                    <!-- this outputs the following generic deprecation message:
-                         Since acme/package 1.2: The "app.mailer" service alias is deprecated. You should stop using it, as it will be removed in the future -->
-                    <deprecated package="acme/package" version="1.2"/>
-
-                    <!-- you can also define a custom deprecation message (%alias_id% placeholder is available) -->
-                    <deprecated package="acme/package" version="1.2">
-                        The "%alias_id%" service alias is deprecated. Don't use it anymore.
-                    </deprecated>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         $container
@@ -313,24 +263,6 @@ The following example shows how to inject an anonymous service into another serv
                     - !service
                         class: App\AnonymousBar
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="foo" class="App\Foo">
-                    <argument type="service">
-                        <service class="App\AnonymousBar"/>
-                    </argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -364,24 +296,6 @@ Using an anonymous service as a factory looks like this:
             App\Foo:
                 factory: [ !service { class: App\FooFactory }, 'constructFoo' ]
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="foo" class="App\Foo">
-                    <factory method="constructFoo">
-                        <service class="App\FooFactory"/>
-                    </factory>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -413,21 +327,6 @@ or you decided not to maintain it anymore), you can deprecate its definition:
                 package: 'vendor-name/package-name'
                 version: '2.8'
                 message: The "%service_id%" service is deprecated since vendor-name/package-name 2.8 and will be removed in 3.0.
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Service\OldService">
-                    <deprecated package="vendor-name/package-name" version="2.8">The "%service_id%" service is deprecated since vendor-name/package-name 2.8 and will be removed in 3.0.</deprecated>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

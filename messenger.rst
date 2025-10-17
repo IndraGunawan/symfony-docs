@@ -151,32 +151,6 @@ that uses this configuration:
                     #    dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
                     #    options: []
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:transport name="async">%env(MESSENGER_TRANSPORT_DSN)%</framework:transport>
-
-                    <!-- or expanded to configure more options -->
-                    <framework:transport name="async"
-                        dsn="%env(MESSENGER_TRANSPORT_DSN)%"
-                    >
-                        <option key="...">...</option>
-                    </framework:transport>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -232,28 +206,6 @@ you can configure them to be sent to a transport:
                     # async is whatever name you gave your transport above
                     'App\Message\SmsNotification': async
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:routing message-class="App\Message\SmsNotification">
-                        <!-- async is whatever name you gave your transport above -->
-                        <framework:sender service="async"/>
-                    </framework:routing>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -272,13 +224,13 @@ matched under ``routing`` will still be handled immediately, i.e. synchronously.
 
 .. note::
 
-    If you configure routing with both YAML/XML/PHP configuration files and
+    If you configure routing with both YAML/PHP configuration files and
     PHP attributes, the configuration always takes precedence over the class
     attribute. This behavior allows you to override routing on a per-environment basis.
 
 .. note::
 
-    When configuring the routing in separate YAML/XML/PHP files, you can use a partial
+    When configuring the routing in separate YAML/PHP files, you can use a partial
     PHP namespace like ``'App\Message\*'`` to match all the messages within the
     matching namespace. The only requirement is that the ``'*'`` wildcard has to
     be placed at the end of the namespace.
@@ -329,35 +281,6 @@ to multiple transports:
                     'App\Message\AsyncMessageInterface': async
 
                     'My\Message\ToBeSentToTwoSenders': [async, audit]
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <!-- route all messages that extend this example base class or interface -->
-                    <framework:routing message-class="App\Message\AbstractAsyncMessage">
-                        <framework:sender service="async"/>
-                    </framework:routing>
-                    <framework:routing message-class="App\Message\AsyncMessageInterface">
-                        <framework:sender service="async"/>
-                    </framework:routing>
-                    <framework:routing message-class="My\Message\ToBeSentToTwoSenders">
-                        <framework:sender service="async"/>
-                        <framework:sender service="audit"/>
-                    </framework:routing>
-                </framework:messenger>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -463,31 +386,6 @@ transport and "sending" messages there to be handled immediately:
 
                 routing:
                     App\Message\SmsNotification: sync
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <!-- ... other transports -->
-
-                    <framework:transport name="sync" dsn="sync://"/>
-
-                    <framework:routing message-class="App\Message\SmsNotification">
-                        <framework:sender service="sync"/>
-                    </framework:routing>
-                </framework:messenger>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -647,41 +545,6 @@ different messages to them. For example:
                 routing:
                     'App\Message\SmsNotification': async_priority_low
                     'App\Message\NewUserWelcomeEmail': async_priority_high
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:transport name="async_priority_high" dsn="%env(MESSENGER_TRANSPORT_DSN)%">
-                        <framework:options>
-                            <framework:queue>
-                                <framework:name>Queue</framework:name>
-                            </framework:queue>
-                        </framework:options>
-                    </framework:transport>
-                    <framework:transport name="async_priority_low" dsn="%env(MESSENGER_TRANSPORT_DSN)%">
-                        <option key="queue_name">low</option>
-                    </framework:transport>
-
-                    <framework:routing message-class="App\Message\SmsNotification">
-                        <framework:sender service="async_priority_low"/>
-                    </framework:routing>
-                    <framework:routing message-class="App\Message\NewUserWelcomeEmail">
-                        <framework:sender service="async_priority_high"/>
-                    </framework:routing>
-                </framework:messenger>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -859,27 +722,6 @@ configuration option:
                     - SIGINT
                     - SIGUSR1
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xmlns:framework="http://symfony.com/schema/dic/symfony"
-                   xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <!-- ... -->
-                    <framework:stop-worker-on-signal>SIGTERM</framework:stop-worker-on-signal>
-                    <framework:stop-worker-on-signal>SIGINT</framework:stop-worker-on-signal>
-                    <framework:stop-worker-on-signal>SIGUSR1</framework:stop-worker-on-signal>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -1031,27 +873,6 @@ by setting its ``rate_limiter`` option:
                     async:
                         rate_limiter: your_rate_limiter_name
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:transport name="async">
-                        <option key="rate_limiter">your_rate_limiter_name</option>
-                    </framework:transport>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -1106,27 +927,6 @@ this is configurable for each transport:
                             # override all of this with a service that
                             # implements Symfony\Component\Messenger\Retry\RetryStrategyInterface
                             # service: null
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:transport name="async_priority_high" dsn="%env(MESSENGER_TRANSPORT_DSN)%?queue_name=high_priority">
-                        <framework:retry-strategy max-retries="3" delay="1000" multiplier="2" max-delay="0" jitter="0.1"/>
-                    </framework:transport>
-                </framework:messenger>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1215,28 +1015,6 @@ be discarded. To avoid this happening, you can instead configure a ``failure_tra
                     # ... other transports
 
                     failed: 'doctrine://default?queue_name=failed'
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- after retrying, messages will be sent to the "failed" transport -->
-                <framework:messenger failure-transport="failed">
-                    <!-- ... other transports -->
-
-                    <framework:transport name="failed" dsn="doctrine://default?queue_name=failed"/>
-                </framework:messenger>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1331,33 +1109,6 @@ override the failure transport for only specific transports:
                     failed_default: 'doctrine://default?queue_name=failed_default'
                     failed_high_priority: 'doctrine://default?queue_name=failed_high_priority'
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- after retrying, messages will be sent to the "failed" transport
-                by default if no "failed-transport" is configured inside a transport -->
-                <framework:messenger failure-transport="failed_default">
-                    <framework:transport name="async_priority_high" dsn="%env(MESSENGER_TRANSPORT_DSN)%" failure-transport="failed_high_priority"/>
-                    <!-- since no "failed_transport" is configured, the one used will be
-                    the global "failed_transport" set -->
-                    <framework:transport name="async_priority_low" dsn="doctrine://default?queue_name=async_priority_low"/>
-
-                    <framework:transport name="failed_default" dsn="doctrine://default?queue_name=failed_default"/>
-                    <framework:transport name="failed_high_priority" dsn="doctrine://default?queue_name=failed_high_priority"/>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -1428,27 +1179,6 @@ options. Options can be passed to the transport via a DSN string or configuratio
                         dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
                         options:
                             auto_setup: false
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:transport name="my_transport" dsn="%env(MESSENGER_TRANSPORT_DSN)%">
-                        <framework:options auto-setup="false"/>
-                    </framework:transport>
-                </framework:messenger>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1943,25 +1673,6 @@ override it in the ``test`` environment to use this transport:
                 transports:
                     async_priority_normal: 'in-memory://'
 
-    .. code-block:: xml
-
-        <!-- config/packages/test/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:transport name="async_priority_normal" dsn="in-memory://"/>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/test/messenger.php
@@ -2148,31 +1859,6 @@ this globally (or for each transport) to a service that implements
                     async_priority_normal:
                         dsn: # ...
                         serializer: messenger.transport.symfony_serializer
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:serializer default-serializer="messenger.transport.symfony_serializer">
-                        <framework:symfony-serializer format="json">
-                            <framework:context/>
-                        </framework:symfony-serializer>
-                    </framework:serializer>
-
-                    <framework:transport name="async_priority_normal" dsn="..." serializer="messenger.transport.symfony_serializer"/>
-                </framework:messenger>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -2507,24 +2193,6 @@ with ``messenger.message_handler``.
                         # only needed if can't be guessed by type-hint
                         handles: App\Message\SmsNotification
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\MessageHandler\SmsNotificationHandler">
-                     <!-- handles is only needed if it can't be guessed by type-hint -->
-                     <tag name="messenger.message_handler"
-                          handles="App\Message\SmsNotification"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -2775,31 +2443,6 @@ Then, make sure to "route" your message to *both* transports:
                     # ...
                     'App\Message\UploadedImage': [image_transport, async_priority_normal]
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:transport name="async_priority_normal" dsn="..."/>
-                    <framework:transport name="image_transport" dsn="..."/>
-
-                    <framework:routing message-class="App\Message\UploadedImage">
-                        <framework:sender service="image_transport"/>
-                        <framework:sender service="async_priority_normal"/>
-                    </framework:routing>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -2984,36 +2627,6 @@ and a different instance will be created per bus.
                             - 'App\Middleware\MyMiddleware'
                             - 'App\Middleware\AnotherMiddleware'
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <!-- default-middleware: disable the default middleware -->
-                    <framework:bus name="messenger.bus.default" default-middleware="false">
-
-                        <!-- use and configure parts of the default middleware you want -->
-                        <framework:middleware id="add_bus_name_stamp_middleware">
-                            <framework:argument>messenger.bus.default</framework:argument>
-                        </framework:middleware>
-
-                        <!-- add your own services that implement Symfony\Component\Messenger\Middleware\MiddlewareInterface -->
-                        <framework:middleware id="App\Middleware\MyMiddleware"/>
-                        <framework:middleware id="App\Middleware\AnotherMiddleware"/>
-                    </framework:bus>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -3078,37 +2691,6 @@ may want to use:
                             # or pass a different entity manager to any
                             #- doctrine_transaction: ['custom']
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:bus name="command_bus">
-                        <framework:middleware id="doctrine_transaction"/>
-                        <framework:middleware id="doctrine_ping_connection"/>
-                        <framework:middleware id="doctrine_close_connection"/>
-                        <framework:middleware id="doctrine_open_transaction_logger"/>
-
-                        <!-- or pass a different entity manager to any -->
-                        <!--
-                        <framework:middleware id="doctrine_transaction">
-                            <framework:argument>custom</framework:argument>
-                        </framework:middleware>
-                        -->
-                    </framework:bus>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -3153,28 +2735,6 @@ to configure the validation groups.
                         middleware:
                             - router_context
                             - validation
-
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:bus name="command_bus">
-                        <framework:middleware id="router_context"/>
-                        <framework:middleware id="validation"/>
-                    </framework:bus>
-                </framework:messenger>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -3310,27 +2870,6 @@ transports:
                         dsn: '%env(MY_TRANSPORT_DSN)%'
                         serializer: 'App\Messenger\Serializer\MessageWithTokenDecoder'
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:messenger>
-                    <framework:transport name="my_transport" dsn="%env(MY_TRANSPORT_DSN)%" serializer="App\Messenger\Serializer\MessageWithTokenDecoder">
-                        <!-- ... -->
-                    </framework:transport>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -3395,40 +2934,6 @@ an **event bus**. The event bus could have zero or more subscribers.
                         middleware:
                             - validation
 
-    .. code-block:: xml
-
-        <!-- config/packages/messenger.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- The bus that is going to be injected when injecting MessageBusInterface -->
-                <framework:messenger default-bus="command.bus">
-                    <framework:bus name="command.bus">
-                        <framework:middleware id="validation"/>
-                        <framework:middleware id="doctrine_transaction"/>
-                    </framework:bus>
-                    <framework:bus name="query.bus">
-                        <framework:middleware id="validation"/>
-                    </framework:bus>
-                    <framework:bus name="event.bus">
-                        <!-- set "allow-no-handlers" to true (default is false) to allow having
-                              no handler configured for this bus without throwing an exception -->
-                        <!-- set "allow-no-senders" to false (default is true) to throw an exception
-                             if no sender is configured for this bus -->
-                        <framework:default-middleware enabled="true" allow-no-handlers="false" allow-no-senders="true"/>
-                        <framework:middleware id="validation"/>
-                    </framework:bus>
-                </framework:messenger>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/messenger.php
@@ -3483,22 +2988,6 @@ you can restrict each handler to a specific bus using the ``messenger.message_ha
             App\MessageHandler\SomeCommandHandler:
                 tags: [{ name: messenger.message_handler, bus: command.bus }]
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\MessageHandler\SomeCommandHandler">
-                    <tag name="messenger.message_handler" bus="command.bus"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -3533,32 +3022,6 @@ you can determine the message bus based on an implemented interface:
                 App\MessageHandler\QueryHandlerInterface:
                     tags:
                         - { name: messenger.message_handler, bus: query.bus }
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <!-- all services implementing the CommandHandlerInterface
-                     will be registered on the command.bus bus -->
-                <instanceof id="App\MessageHandler\CommandHandlerInterface">
-                    <tag name="messenger.message_handler" bus="command.bus"/>
-                </instanceof>
-
-                <!-- while those implementing QueryHandlerInterface will be
-                     registered on the query.bus bus -->
-                <instanceof id="App\MessageHandler\QueryHandlerInterface">
-                    <tag name="messenger.message_handler" bus="query.bus"/>
-                </instanceof>
-            </services>
-        </container>
 
     .. code-block:: php
 

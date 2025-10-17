@@ -78,37 +78,6 @@ avoid duplicated service definitions:
 
             # ...
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Repository\BaseDoctrineRepository" abstract="true">
-                    <argument type="service" id="doctrine.orm.entity_manager"/>
-
-                    <call method="setLogger">
-                        <argument type="service" id="logger"/>
-                    </call>
-                </service>
-
-                <!-- extends the App\Repository\BaseDoctrineRepository service -->
-                <service id="App\Repository\DoctrineUserRepository"
-                    parent="App\Repository\BaseDoctrineRepository"
-                />
-
-                <service id="App\Repository\DoctrinePostRepository"
-                    parent="App\Repository\BaseDoctrineRepository"
-                />
-
-                <!-- ... -->
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -183,39 +152,6 @@ the child class:
                 # overrides the first argument (using the special index_N key)
                 arguments:
                     index_0: '@doctrine.custom_entity_manager'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <!-- overrides the private setting of the parent service -->
-                <service id="App\Repository\DoctrineUserRepository"
-                    parent="App\Repository\BaseDoctrineRepository"
-                    public="true"
-                >
-                    <!-- appends the '@app.username_checker' argument to the parent
-                         argument list -->
-                    <argument type="service" id="app.username_checker"/>
-                </service>
-
-                <service id="App\Repository\DoctrinePostRepository"
-                    parent="App\Repository\BaseDoctrineRepository"
-                >
-                    <!-- overrides the first argument (using the index attribute) -->
-                    <argument index="0" type="service" id="doctrine.custom_entity_manager"/>
-                </service>
-
-                <!-- ... -->
-            </services>
-        </container>
 
     .. code-block:: php
 

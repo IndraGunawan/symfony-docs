@@ -169,25 +169,6 @@ The default translation domain can be changed globally using the
             validation:
                 translation_domain: validation_errors
 
-    .. code-block:: xml
-
-        <!-- config/packages/validator.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:validation
-                    translation-domain="validation_errors"
-                />
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/validator.php

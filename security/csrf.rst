@@ -61,23 +61,6 @@ for more information):
             # ...
             csrf_protection: ~
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:csrf-protection enabled="true"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -134,25 +117,6 @@ Globally, you can configure it under the ``framework.form`` option:
                 csrf_protection:
                     enabled: true
                     field_name: 'custom_token_name'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:form>
-                    <framework:csrf-protection enabled="true" field-name="custom_token_name"/>
-                </framework:form>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -371,27 +335,6 @@ in applications using :ref:`Symfony Flex <symfony-flex>`.
             csrf_protection:
                 stateless_token_ids: ['submit', 'authenticate', 'logout']
 
-    .. code-block:: xml
-
-        <!-- config/packages/csrf.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:csrf-protection>
-                    <framework:stateless-token-id>submit</framework:stateless-token-id>
-                    <framework:stateless-token-id>authenticate</framework:stateless-token-id>
-                    <framework:stateless-token-id>logout</framework:stateless-token-id>
-                </framework:csrf-protection>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/csrf.php
@@ -438,25 +381,6 @@ own services), and it sets ``submit`` as their default token identifier:
             form:
                 csrf_protection:
                     token_id: 'submit'
-
-    .. code-block:: xml
-
-        <!-- config/packages/csrf.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:form>
-                    <framework:csrf-protection token-id="submit"/>
-                </framework:form>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

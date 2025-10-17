@@ -13,12 +13,6 @@ configured under the ``framework`` key in your application configuration.
     # displays the actual config values used by your application
     $ php bin/console debug:config framework
 
-.. note::
-
-    When using XML, you must use the ``http://symfony.com/schema/dic/symfony``
-    namespace and the related XSD schema is available at:
-    ``https://symfony.com/schema/dic/symfony/symfony-1.0.xsd``
-
 .. _reference-assets:
 
 assets
@@ -45,22 +39,6 @@ This option allows you to prepend a base path to the URLs generated for assets:
             # ...
             assets:
                 base_path: '/images'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:assets base-path="/images"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -98,22 +76,6 @@ collection each time it generates an asset's path:
             assets:
                 base_urls:
                     - 'http://cdn.example.com/'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:assets base-url="http://cdn.example.com/"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -170,34 +132,6 @@ package:
                     bar_package:
                         # this package uses the global manifest (the default file is used)
                         base_path: '/images'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- this manifest is applied to every asset (including packages) -->
-                <framework:assets json-manifest-path="%kernel.project_dir%/public/build/manifest.json">
-                <!-- you can use absolute URLs too and Symfony will download them automatically -->
-                <!-- <framework:assets json-manifest-path="https://cdn.example.com/manifest.json"> -->
-                    <!-- this package uses its own manifest (the default file is ignored) -->
-                    <!-- Throws an exception when an asset is not found in the manifest -->
-                    <framework:package
-                        name="foo_package"
-                        json-manifest-path="%kernel.project_dir%/public/build/a_different_manifest.json" strict-mode="%kernel.debug%"/>
-                    <!-- this package uses the global manifest (the default file is used) -->
-                    <framework:package
-                        name="bar_package"
-                        base-path="/images"/>
-                </framework:assets>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -298,26 +232,6 @@ You can group assets into packages, to specify different base URLs for them:
                     avatars:
                         base_urls: 'http://static_cdn.example.com/avatars'
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:assets>
-                    <framework:package
-                        name="avatars"
-                        base-url="http://static_cdn.example.com/avatars"/>
-                </framework:assets>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -388,22 +302,6 @@ Now, activate the ``version`` option:
             # ...
             assets:
                 version: 'v2'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:assets version="v2"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -504,34 +402,6 @@ individually for each asset package:
                     baz_package:
                         # this package inherits the default strategy
                         base_path: '/images'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:assets version-strategy="app.asset.my_versioning_strategy">
-                    <!-- this package removes any versioning (its assets won't be versioned) -->
-                    <framework:package
-                        name="foo_package"
-                        version="null"/>
-                    <!-- this package uses its own strategy (the default strategy is ignored) -->
-                    <framework:package
-                        name="bar_package"
-                        version-strategy="app.asset.another_version_strategy"/>
-                    <!-- this package inherits the default strategy -->
-                    <framework:package
-                        name="baz_package"
-                        base_path="/images"/>
-                </framework:assets>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -662,29 +532,6 @@ To configure a Redis cache pool with a default lifetime of 1 hour, do the follow
                     cache.mycache:
                         adapter: cache.adapter.redis
                         default_lifetime: 3600
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:cache>
-                    <framework:pool
-                        name="cache.mycache"
-                        adapter="cache.adapter.redis"
-                        default-lifetime="3600"
-                    />
-                </framework:cache>
-                <!-- ... -->
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -832,22 +679,6 @@ can also :ref:`disable CSRF protection on individual forms <form-csrf-customizat
             # ...
             csrf_protection: true
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-            <framework:config>
-                <framework:csrf-protection enabled="true"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -925,23 +756,6 @@ performance a bit:
         # config/packages/translation.yaml
         framework:
             enabled_locales: ['en', 'es']
-
-    .. code-block:: xml
-
-        <!-- config/packages/translation.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <enabled-locale>en</enabled-locale>
-                <enabled-locale>es</enabled-locale>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1027,22 +841,6 @@ You can also set ``esi`` to ``true`` to enable it:
         framework:
             esi: true
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:esi/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -1073,28 +871,6 @@ and HTTP status code applied to the exceptions that match the given exception cl
                     log_level: 'debug'
                     status_code: 422
                     log_channel: 'custom_channel'
-
-    .. code-block:: xml
-
-        <!-- config/packages/exceptions.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:exception
-                    class="Symfony\Component\HttpKernel\Exception\BadRequestHttpException"
-                    log-level="debug"
-                    status-code="422"
-                    log-channel="custom_channel"
-                />
-                <!-- ... -->
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1405,26 +1181,6 @@ This service can be configured using ``framework.http_client.default_options``:
                     headers: { 'X-Powered-By': 'ACME App' }
                     max_redirects: 7
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client max-host-connections="10">
-                    <framework:default-options max-redirects="7">
-                        <framework:header name="X-Powered-By">ACME App</framework:header>
-                    </framework:default-options>
-                </framework:http-client>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -1468,24 +1224,6 @@ these options and can define a few others:
                     my_api.client:
                         auth_bearer: secret_bearer_token
                         # ...
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:http-client>
-                    <framework:scoped-client name="my_api.client" auth-bearer="secret_bearer_token"/>
-                </framework:http-client>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -2002,20 +1740,6 @@ doubling them to prevent Symfony from interpreting them as container parameters)
         framework:
             ide: 'myide://open?url=file://%%f&line=%%l'
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config ide="myide://open?url=file://%%f&line=%%l"/>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -2111,24 +1835,6 @@ the name as key and DSN or service id as value:
         framework:
             lock: '%env(LOCK_DSN)%'
 
-    .. code-block:: xml
-
-        <!-- config/packages/lock.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:lock>
-                    <framework:resource name="default">%env(LOCK_DSN)%</framework:resource>
-                </framework:lock>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/lock.php
@@ -2186,26 +1892,6 @@ the `SMTP session`_. This value overrides any other recipient set in the code.
                 dsn: 'smtp://localhost:25'
                 envelope:
                     recipients: ['admin@symfony.com', 'lead@symfony.com']
-
-    .. code-block:: xml
-
-        <!-- config/packages/mailer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-            <framework:config>
-                <framework:mailer dsn="smtp://localhost:25">
-                    <framework:envelope>
-                        <framework:recipient>admin@symfony.com</framework:recipient>
-                        <framework:recipient>lead@symfony.com</framework:recipient>
-                    </framework:envelope>
-                </framework:mailer>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -2320,27 +2006,6 @@ This option also accepts a map of PHP errors to log levels:
                     !php/const \E_PARSE: !php/const Psr\Log\LogLevel::CRITICAL
                     !php/const \E_ERROR: !php/const Psr\Log\LogLevel::CRITICAL
                     !php/const \E_CORE_ERROR: !php/const Psr\Log\LogLevel::CRITICAL
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- in XML configuration you cannot use PHP constants as the value of
-                     the 'type' attribute, which makes this format way less readable.
-                     Consider using YAML or PHP for this configuration -->
-                <framework:log type="8" logLevel="error"/>
-                <framework:log type="2" logLevel="error"/>
-                <!-- ... -->
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -2565,28 +2230,6 @@ To configure a ``jsonp`` format:
                 formats:
                     jsonp: 'application/javascript'
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:request>
-                    <framework:format name="jsonp">
-                        <framework:mime-type>application/javascript</framework:mime-type>
-                    </framework:format>
-                </framework:request>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -2777,24 +2420,6 @@ the name as key and DSN or service id as value:
         framework:
             semaphore: '%env(SEMAPHORE_DSN)%'
 
-    .. code-block:: xml
-
-        <!-- config/packages/semaphore.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:semaphore>
-                    <framework:resource name="default">%env(SEMAPHORE_DSN)%</framework:resource>
-                </framework:semaphore>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/semaphore.php
@@ -2926,22 +2551,6 @@ Unlike the other session options, ``cache_limiter`` is set as a regular
             session.storage.options:
                 cache_limiter: 0
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <parameters>
-                <parameter key="session.storage.options" type="collection">
-                    <parameter key="cache_limiter">0</parameter>
-                </parameter>
-            </parameters>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -3049,22 +2658,6 @@ Whether to enable the session support in the framework.
             session:
                 enabled: true
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:session enabled="true"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -3135,26 +2728,6 @@ and also to configure the session handler with a DSN:
                 handler_id: '%env(REDIS_URL)%'
                 handler_id: '%env(DATABASE_URL)%'
                 handler_id: 'file://%kernel.project_dir%/var/sessions'
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-            <framework:config>
-                <!-- a few possible examples -->
-                <framework:session enabled="true"
-                    handler-id="redis://localhost"
-                    handler-id="%env(REDIS_URL)%"
-                    handler-id="%env(DATABASE_URL)%"
-                    handler-id="file://%kernel.project_dir%/var/sessions"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -3232,22 +2805,6 @@ If ``null``, ``php.ini``'s `session.save_path`_ directive will be relied on:
         framework:
             session:
                 save_path: ~
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:session save-path="null"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -3460,24 +3017,6 @@ the application won't respond and the user will receive a 400 response.
         framework:
             trusted_hosts:  ['^example\.com$', '^example\.org$']
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:trusted-host>^example\.com$</framework:trusted-host>
-                <framework:trusted-host>^example\.org$</framework:trusted-host>
-                <!-- ... -->
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -3538,29 +3077,6 @@ Defines the Doctrine entities that will be introspected to add
                     # namespace will add automatic validation
                     'App\Entity\': []
                     'Foo\': ['Foo\Some\Entity', 'Foo\Another\Entity']
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:validation>
-                    <framework:auto-mapping>
-                        <framework:service namespace="App\Entity\"/>
-
-                        <framework:service namespace="Foo\">Foo\Some\Entity</framework:service>
-                        <framework:service namespace="Foo\">Foo\Another\Entity</framework:service>
-                    </framework:auto-mapping>
-                </framework:validation>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -3644,26 +3160,6 @@ the component will look for additional validation files:
                 mapping:
                     paths:
                         - "%kernel.project_dir%/config/validation/"
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:validation>
-                    <framework:mapping>
-                        <framework:path>%kernel.project_dir%/config/validation/</framework:path>
-                    </framework:mapping>
-                </framework:validation>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -3758,26 +3254,6 @@ A list of workflows to be created by the framework extension:
             workflows:
                 my_workflow:
                     # ...
-
-    .. code-block:: xml
-
-        <!-- config/packages/workflow.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:workflows>
-                    <framework:workflow
-                        name="my_workflow"/>
-                </framework:workflows>
-                <!-- ... -->
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

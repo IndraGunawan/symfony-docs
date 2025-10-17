@@ -71,22 +71,6 @@ notify Symfony that it is an event listener by using a special "tag":
             App\EventListener\ExceptionListener:
                 tags: [kernel.event_listener]
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\EventListener\ExceptionListener">
-                    <tag name="kernel.event_listener"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -482,23 +466,6 @@ First, define some token configuration as parameters:
             tokens:
                 client1: pass1
                 client2: pass2
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <parameters>
-                <parameter key="tokens" type="collection">
-                    <parameter key="client1">pass1</parameter>
-                    <parameter key="client2">pass2</parameter>
-                </parameter>
-            </parameters>
-        </container>
 
     .. code-block:: php
 

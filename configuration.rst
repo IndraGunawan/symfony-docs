@@ -53,7 +53,7 @@ Configuration Formats
 ~~~~~~~~~~~~~~~~~~~~~
 
 Unlike other frameworks, Symfony doesn't impose a specific format on you to
-configure your applications, but lets you choose between YAML, XML and PHP.
+configure your applications, but lets you choose between YAML and PHP.
 Throughout the Symfony documentation, all configuration examples will be
 shown in these three formats.
 
@@ -66,20 +66,8 @@ readable. These are the main advantages and disadvantages of each format:
 
 * **YAML**: simple, clean and readable, but not all IDEs support autocompletion
   and validation for it. :doc:`Learn the YAML syntax </reference/formats/yaml>`;
-* **XML**: autocompleted/validated by most IDEs and is parsed natively by PHP,
-  but sometimes it generates configuration considered too verbose. `Learn the XML syntax`_;
 * **PHP**: very powerful and it allows you to create dynamic configuration with
   arrays or a :ref:`ConfigBuilder <config-config-builder>`.
-
-.. note::
-
-    By default Symfony loads the configuration files defined in YAML and PHP
-    formats. If you define configuration in XML format, update the
-    :method:`Symfony\\Bundle\\FrameworkBundle\\Kernel\\MicroKernelTrait::configureContainer`
-    and/or
-    :method:`Symfony\\Bundle\\FrameworkBundle\\Kernel\\MicroKernelTrait::configureRoutes`
-    methods in the ``src/Kernel.php`` file to add support for the ``.xml`` file
-    extension.
 
 Importing Configuration Files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,31 +93,6 @@ configuration files, even if they use a different format:
             - { resource: 'my_other_config_file.xml', ignore_errors: true }
 
         # ...
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <imports>
-                <import resource="legacy_config.php"/>
-                <!-- glob expressions are also supported to load multiple files -->
-                <import resource="/etc/myapp/*.yaml"/>
-
-                <!-- ignore-errors="not_found" silently discards errors if the loaded file doesn't exist -->
-                <import resource="my_config_file.yaml" ignore-errors="not_found"/>
-                <!-- ignore-errors="true" silently discards all errors (including invalid code and not found) -->
-                <import resource="my_other_config_file.yaml" ignore-errors="true"/>
-            </imports>
-
-            <!-- ... -->
-        </container>
 
     .. code-block:: php
 
@@ -191,49 +154,6 @@ reusable configuration value. By convention, parameters are defined under the
 
         # ...
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <parameters>
-                <!-- the parameter name is an arbitrary string (the 'app.' prefix is recommended
-                     to better differentiate your parameters from Symfony parameters). -->
-                <parameter key="app.admin_email">something@example.com</parameter>
-
-                <!-- boolean parameters -->
-                <parameter key="app.enable_v2_protocol">true</parameter>
-                <!-- if you prefer to store the boolean value as a string in the parameter -->
-                <parameter key="app.enable_v2_protocol" type="string">true</parameter>
-
-                <!-- array/collection parameters -->
-                <parameter key="app.supported_locales" type="collection">
-                    <parameter>en</parameter>
-                    <parameter>es</parameter>
-                    <parameter>fr</parameter>
-                </parameter>
-
-                <!-- binary content parameters (encode the contents with base64_encode()) -->
-                <parameter key="app.some_parameter" type="binary">VGhpcyBpcyBhIEJlbGwgY2hhciAH</parameter>
-
-                <!-- PHP constants as parameter values -->
-                <parameter key="app.some_constant" type="constant">GLOBAL_CONSTANT</parameter>
-                <parameter key="app.another_constant" type="constant">App\Entity\BlogPost::MAX_ITEMS</parameter>
-
-                <!-- Enum case as parameter values -->
-                <parameter key="app.some_enum" type="constant">App\Enum\PostState::Published</parameter>
-            </parameters>
-
-            <!-- ... -->
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -267,27 +187,6 @@ reusable configuration value. By convention, parameters are defined under the
 
         // ...
 
-.. warning::
-
-    By default and when using XML configuration, the values between ``<parameter>``
-    tags are not trimmed. This means that the value of the following parameter will be
-    ``'\n    something@example.com\n'``:
-
-    .. code-block:: xml
-
-        <parameter key="app.admin_email">
-            something@example.com
-        </parameter>
-
-    If you want to trim the value of your parameter, use the ``trim`` attribute.
-    When using it, the value of the following parameter will be ``something@example.com``:
-
-    .. code-block:: xml
-
-        <parameter key="app.admin_email" trim="true">
-            something@example.com
-        </parameter>
-
 Once defined, you can reference this parameter value from any other
 configuration file using a special syntax: wrap the parameter name in two ``%``
 (e.g. ``%app.admin_email%``):
@@ -301,24 +200,6 @@ configuration file using a special syntax: wrap the parameter name in two ``%``
             # any string surrounded by two % is replaced by that parameter value
             email_address: '%app.admin_email%'
 
-    .. code-block:: xml
-
-        <!-- config/packages/some_package.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- any string surrounded by two % is replaced by that parameter value -->
-            <some-package:config email-address="%app.admin_email%">
-                <!-- ... -->
-            </some-package:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/some_package.php
@@ -331,7 +212,7 @@ configuration file using a special syntax: wrap the parameter name in two ``%``
                 'email_address' => param('app.admin_email'),
 
                 // ... but if you prefer it, you can also pass the name as a string
-                // surrounded by two % (same as in YAML and XML formats) and Symfony will
+                // surrounded by two % (same as in YAML format) and Symfony will
                 // replace it by that parameter value
                 'email_address' => '%app.admin_email%',
             ]);
@@ -351,13 +232,6 @@ configuration file using a special syntax: wrap the parameter name in two ``%``
             parameters:
                 # Parsed as 'https://symfony.com/?foo=%s&amp;bar=%d'
                 url_pattern: 'https://symfony.com/?foo=%%s&amp;bar=%%d'
-
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <parameters>
-                <parameter key="url_pattern">http://symfony.com/?foo=%%s&amp;bar=%%d</parameter>
-            </parameters>
 
         .. code-block:: php
 
@@ -479,33 +353,6 @@ files directly in the ``config/packages/`` directory.
                     # ...
             when@test: *webpack_prod
 
-        .. code-block:: xml
-
-            <!-- config/packages/webpack_encore.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/symfony
-                    https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-                <webpack-encore:config
-                    output-path="%kernel.project_dir%/public/build"
-                    strict-mode="true"
-                    cache="false"
-                />
-
-                <!-- cache is enabled only in the "test" environment -->
-                <when env="prod">
-                    <webpack-encore:config cache="true"/>
-                </when>
-
-                <!-- disable strict mode only in the "test" environment -->
-                <when env="test">
-                    <webpack-encore:config strict-mode="false"/>
-                </when>
-            </container>
-
         .. code-block:: php
 
             // config/packages/framework.php
@@ -626,23 +473,6 @@ This example shows how you could configure the application secret using an env v
             secret: '%env(APP_SECRET)%'
             # ...
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/framework"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- by convention the env var names are always uppercase -->
-            <framework:config secret="%env(APP_SECRET)%"/>
-
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -692,26 +522,6 @@ To do so, define a parameter with the same name as the env var using this syntax
             env(SECRET): 'some_secret'
 
         # ...
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <parameters>
-                <!-- if the SECRET env var value is not defined anywhere, Symfony uses this value -->
-                <parameter key="env(SECRET)">some_secret</parameter>
-            </parameters>
-
-            <!-- ... -->
-        </container>
 
     .. code-block:: php
 
@@ -1169,26 +979,6 @@ doesn't work for parameters:
                 arguments:
                     $contentsDir: '%app.contents_dir%'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <parameters>
-                <parameter key="app.contents_dir">...</parameter>
-            </parameters>
-
-            <services>
-                <service id="App\Service\MessageGenerator">
-                    <argument key="$contentsDir">%app.contents_dir%</argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -1225,26 +1015,6 @@ whenever a service/controller defines a ``$projectDir`` argument, use this:
                     $projectDir: '%kernel.project_dir%'
 
             # ...
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <defaults autowire="true" autoconfigure="true" public="false">
-                    <!-- pass this value to any $projectDir argument for any service
-                         that's created in this file (including controller arguments) -->
-                    <bind key="$projectDir">%kernel.project_dir%</bind>
-                </defaults>
-
-                <!-- ... -->
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1360,7 +1130,6 @@ And all the other topics related to configuration:
 
     configuration/*
 
-.. _`Learn the XML syntax`: https://en.wikipedia.org/wiki/XML
 .. _`environment variables`: https://en.wikipedia.org/wiki/Environment_variable
 .. _`symbolic links`: https://en.wikipedia.org/wiki/Symbolic_link
 .. _`utilities to manage env vars`: https://symfony.com/doc/current/cloud/env.html

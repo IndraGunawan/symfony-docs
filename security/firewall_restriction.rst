@@ -38,26 +38,6 @@ if the request path matches the configured ``pattern``.
                     pattern: ^/admin
                     # ...
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-                <firewall name="secured_area" pattern="^/admin">
-                    <!-- ... -->
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -96,26 +76,6 @@ only initialize if the host from the request matches against the configuration.
                 secured_area:
                     host: ^admin\.example\.com$
                     # ...
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-                <firewall name="secured_area" host="^admin\.example\.com$">
-                    <!-- ... -->
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -157,26 +117,6 @@ the provided HTTP methods.
                     methods: [GET, POST]
                     # ...
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-                <firewall name="secured_area" methods="GET,POST">
-                    <!-- ... -->
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -214,26 +154,6 @@ If the above options don't fit your needs you can configure any service implemen
                 secured_area:
                     request_matcher: App\Security\CustomRequestMatcher
                     # ...
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-                <firewall name="secured_area" request-matcher="App\Security\CustomRequestMatcher">
-                    <!-- ... -->
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 

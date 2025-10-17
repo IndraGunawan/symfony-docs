@@ -13,12 +13,6 @@ key in your application configuration.
     # displays the actual config values used by your application
     $ php bin/console debug:config security
 
-.. note::
-
-    When using XML, you must use the ``http://symfony.com/schema/dic/security``
-    namespace and the related XSD schema is available at:
-    ``https://symfony.com/schema/dic/services/services-1.0.xsd``
-
 **Basic Options**:
 
 * `access_denied_url`_
@@ -113,30 +107,6 @@ application:
                     pattern: ^/admin
                     # the rest of options depend on the authentication mechanism
                     # ...
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <!-- 'pattern' is a regular expression matched against the incoming
-                     request URL. If there's a match, authentication is triggered -->
-                <firewall name="main" pattern="^/admin">
-                    <!-- the rest of options depend on the authentication mechanism -->
-                    <!-- ... -->
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -375,30 +345,6 @@ user logs out:
                                 path: null
                                 domain: example.com
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-                    <logout path="...">
-                        <delete-cookie name="cookie1-name"/>
-                        <delete-cookie name="cookie2-name" path="/"/>
-                        <delete-cookie name="cookie3-name" domain="example.com"/>
-                    </logout>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -445,29 +391,6 @@ It's also possible to use ``*`` as a wildcard for all directives:
                         clear_site_data:
                             - cookies
                             - storage
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-                    <logout>
-                        <clear-site-data>cookies</clear-site-data>
-                        <clear-site-data>storage</clear-site-data>
-                    </logout>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -599,27 +522,6 @@ The security configuration should be:
                         username_path: security.credentials.login
                         password_path: security.credentials.password
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main" lazy="true">
-                    <json-login check-path="login"
-                        username-path="security.credentials.login"
-                        password-path="security.credentials.password"/>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -721,32 +623,6 @@ X.509 Authentication
                         credentials:     SSL_CLIENT_S_DN
                         user_identifier: emailAddress
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <firewall name="main">
-                    <!-- ... -->
-                    <x509 provider="your_user_provider"
-                        user="SSL_CLIENT_S_DN_Email"
-                        credentials="SSL_CLIENT_S_DN"
-                        user_identifier="emailAddress"
-                    />
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -812,26 +688,6 @@ Remote User Authentication
                         provider: your_user_provider
                         user:     REMOTE_USER
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <remote-user provider="your_user_provider"
-                        user="REMOTE_USER"/>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -891,28 +747,6 @@ multiple firewalls, the "context" could actually be shared:
                     # ...
                     context: my_context
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="somename" context="my_context">
-                    <!-- ... -->
-                </firewall>
-                <firewall name="othername" context="my_context">
-                    <!-- ... -->
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -958,25 +792,6 @@ the session must not be used when authenticating users:
                     # ...
                     stateless: true
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main" stateless="true">
-                    <!-- ... -->
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -1009,25 +824,6 @@ session only if the application actually accesses the User object, (e.g. calling
                 main:
                     # ...
                     lazy: true
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main" lazy="true">
-                    <!-- ... -->
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 
@@ -1066,27 +862,6 @@ Firewalls can configure a list of required badges that must be present on the au
                 main:
                     # ...
                     required_badges: ['CsrfTokenBadge', 'My\Badge']
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <firewall name="main">
-                    <!-- ... -->
-                    <required_badge>CsrfTokenBadge</required_badge>
-                    <required_badge>My\Badge</required_badge>
-                </firewall>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 

@@ -143,39 +143,6 @@ enforce different levels of service (free or paid):
                     limit: 5000
                     rate: { interval: '15 minutes', amount: 500 }
 
-    .. code-block:: xml
-
-        <!-- config/packages/rate_limiter.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:rate-limiter>
-                    <!-- policy: use 'sliding_window' if you prefer that policy -->
-                    <framework:limiter name="anonymous_api"
-                        policy="fixed_window"
-                        limit="100"
-                        interval="60 minutes"
-                    />
-
-                    <framework:limiter name="authenticated_api"
-                        policy="token_bucket"
-                        limit="5000"
-                    >
-                        <framework:rate interval="15 minutes"
-                            amount="500"
-                        />
-                    </framework:limiter>
-                </framework:rate-limiter>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/rate_limiter.php
@@ -451,33 +418,6 @@ You can use the ``cache_pool`` option to override the cache used by a specific l
                     # use the "cache.anonymous_rate_limiter" cache pool
                     cache_pool: 'cache.anonymous_rate_limiter'
 
-    .. code-block:: xml
-
-        <!-- config/packages/rate_limiter.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:rate-limiter>
-                    <!-- cache-pool: use the "cache.anonymous_rate_limiter" cache pool -->
-                    <framework:limiter name="anonymous_api"
-                        policy="fixed_window"
-                        limit="100"
-                        interval="60 minutes"
-                        cache-pool="cache.anonymous_rate_limiter"
-                    />
-
-                    <!-- ... -->
-                </framework:rate-limiter>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/rate_limiter.php
@@ -530,41 +470,6 @@ at all):
                     # or don't use any lock mechanism
                     lock_factory: null
 
-    .. code-block:: xml
-
-        <!-- config/packages/rate_limiter.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:rate-limiter>
-                    <!-- limiter-factory: use the "lock.rate_limiter.factory" for this limiter -->
-                    <framework:limiter name="anonymous_api"
-                        policy="fixed_window"
-                        limit="100"
-                        interval="60 minutes"
-                        lock-factory="lock.rate_limiter.factory"
-                    />
-
-                    <!-- limiter-factory: or don't use any lock mechanism -->
-                    <framework:limiter name="anonymous_api"
-                        policy="fixed_window"
-                        limit="100"
-                        interval="60 minutes"
-                        lock-factory="null"
-                    />
-
-                    <!-- ... -->
-                </framework:rate-limiter>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/rate_limiter.php
@@ -606,42 +511,6 @@ You can configure multiple rate limiters to work together:
                 contact_form:
                     policy: 'compound'
                     limiters: [two_per_minute, five_per_hour]
-
-    .. code-block:: xml
-
-        <!-- config/packages/rate_limiter.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:rate-limiter>
-                    <framework:limiter name="two_per_minute"
-                        policy="fixed_window"
-                        limit="2"
-                        interval="1 minute"
-                    />
-
-                    <framework:limiter name="five_per_hour"
-                        policy="fixed_window"
-                        limit="5"
-                        interval="1 hour"
-                    />
-
-                    <framework:limiter name="contact_form"
-                        policy="compound"
-                    >
-                        <limiter>two_per_minute</limiter>
-                        <limiter>five_per_hour</limiter>
-                    </framework:limiter>
-                </framework:rate-limiter>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

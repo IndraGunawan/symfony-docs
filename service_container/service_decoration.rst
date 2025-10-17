@@ -16,23 +16,6 @@ When overriding an existing definition, the original service is lost:
             App\Mailer:
                 class: App\NewMailer
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
-            xsd:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Mailer"/>
-
-                <!-- this replaces the old App\Mailer definition with the new
-                     one, the old definition is lost -->
-                <service id="App\Mailer" class="App\NewMailer"/>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -83,26 +66,6 @@ but keeps a reference of the old one as ``.inner``:
                 # overrides the App\Mailer service
                 # but that service is still available as ".inner"
                 decorates: App\Mailer
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
-            xsd:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Mailer"/>
-
-                <!-- overrides the App\Mailer service
-                     but that service is still available as ".inner" -->
-                <service id="App\DecoratingMailer"
-                    decorates="App\Mailer"
-                />
-
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -173,26 +136,6 @@ automatically changed to ``'.inner'``):
                 # pass the old service as an argument
                 arguments: ['@.inner']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
-            xsd:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Mailer"/>
-
-                <service id="App\DecoratingMailer"
-                    decorates="App\Mailer"
-                >
-                    <!-- pass the old service as an argument -->
-                    <argument type="service" id=".inner"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -243,29 +186,6 @@ automatically changed to ``'.inner'``):
                     # ...
                     decoration_inner_name: App\DecoratingMailer.wooz
                     arguments: ['@App\DecoratingMailer.wooz']
-
-        .. code-block:: xml
-
-            <!-- config/services.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
-                xsd:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-                <services>
-                    <!-- ... -->
-
-                    <service
-                        id="App\DecoratingMailer"
-                        decorates="App\Mailer"
-                        decoration-inner-name="App\DecoratingMailer.wooz"
-                        public="false"
-                    >
-                        <argument type="service" id="App\DecoratingMailer.wooz"/>
-                    </service>
-
-                </services>
-            </container>
 
         .. code-block:: php
 
@@ -339,28 +259,6 @@ the ``decoration_priority`` option. Its value is an integer that defaults to
                 decoration_priority: 1
                 arguments: ['@.inner']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="Foo"/>
-
-                <service id="Bar" decorates="Foo" decoration-priority="5">
-                    <argument type="service" id=".inner"/>
-                </service>
-
-                <service id="Baz" decorates="Foo" decoration-priority="1">
-                    <argument type="service" id=".inner"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -418,35 +316,6 @@ ordered services, each one decorating the next:
                     - Bar: ~
                     - Foo: ~
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd"
-        >
-            <services>
-                <stack id="decorated_foo_stack">
-                    <service class="Baz">
-                        <argument type="service" id=".inner"/>
-                    </service>
-                    <service class="Bar">
-                        <argument type="service" id=".inner"/>
-                    </service>
-                    <service class="Foo"/>
-                </stack>
-
-                <!-- can be simplified when autowiring is enabled: -->
-                <stack id="decorated_foo_stack">
-                    <service class="Baz"/>
-                    <service class="Bar"/>
-                    <service class="Foo"/>
-                </stack>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -501,32 +370,6 @@ advanced example of composition:
                     - Bar: ~
                     - Foo: ~
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd"
-        >
-            <services>
-                <service id="some_decorator" class="App\Decorator"/>
-
-                <stack id="embedded_stack">
-                    <service alias="some_decorator"/>
-                    <service class="App\Decorated"/>
-                </stack>
-
-                <stack id="decorated_foo_stack">
-                    <service parent="embedded_stack"/>
-                    <service class="Baz"/>
-                    <service class="Bar"/>
-                    <service class="Foo"/>
-                </stack>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -580,15 +423,6 @@ The result will be::
                         Baz: ~
                     # ...
 
-        .. code-block:: xml
-
-            <!-- ... -->
-            <stack id="decorated_foo_stack">
-                <service id="first" parent="embedded_stack"/>
-                <service id="second" class="Baz"/>
-                <!-- ... -->
-            </stack>
-
         .. code-block:: php
 
             // ...
@@ -641,24 +475,6 @@ Three different behaviors are available:
             decorates: Foo
             decoration_on_invalid: ignore
             arguments: ['@.inner']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="Foo"/>
-
-                <service id="Bar" decorates="Foo" decoration-on-invalid="ignore">
-                    <argument type="service" id=".inner"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

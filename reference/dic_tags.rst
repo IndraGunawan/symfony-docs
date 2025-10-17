@@ -41,21 +41,6 @@ The name of the package is set in this order:
                 tags:
                     - { name: assets.package, package: avatars }
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Assets\AvatarPackage">
-                    <tag name="assets.package" package="avatars"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use App\Assets\AvatarPackage;
@@ -90,24 +75,6 @@ services:
                 class: App\Lock\PostgresqlLock
             app.sqlite_lock:
                 class: App\Lock\SqliteLock
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="app.mysql_lock"
-                    class="App\Lock\MysqlLock"/>
-                <service id="app.postgresql_lock"
-                    class="App\Lock\PostgresqlLock"/>
-                <service id="app.sqlite_lock"
-                    class="App\Lock\SqliteLock"/>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -148,28 +115,6 @@ the generic ``app.lock`` service can be defined as follows:
             app.lock:
                 tags:
                     - { name: auto_alias, format: "app.%database_type%_lock" }
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="app.mysql_lock"
-                    class="App\Lock\MysqlLock"/>
-                <service id="app.postgresql_lock"
-                    class="App\Lock\PostgresqlLock"/>
-                <service id="app.sqlite_lock"
-                    class="App\Lock\SqliteLock"/>
-
-                <service id="app.lock">
-                    <tag name="auto_alias" format="app.%database_type%_lock"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -246,21 +191,6 @@ Add this tag to a service and its class won't be preloaded when using
             App\SomeNamespace\SomeService:
                 tags: ['container.no_preload']
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\SomeNamespace\SomeService">
-                    <tag name="container.no_preload"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use App\SomeNamespace\SomeService;
@@ -296,23 +226,6 @@ is restarted):
                     - { name: 'container.preload', class: 'App\SomeClass' }
                     - { name: 'container.preload', class: 'App\Some\OtherClass' }
                     # ...
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\SomeNamespace\SomeService">
-                    <tag name="container.preload" class="App\SomeClass"/>
-                    <tag name="container.preload" class="App\Some\OtherClass"/>
-                    <!-- ... -->
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -434,21 +347,6 @@ can also register it manually:
             App\Cache\MyClearer:
                 tags: [kernel.cache_clearer]
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Cache\MyClearer">
-                    <tag name="kernel.cache_clearer"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use App\Cache\MyClearer;
@@ -529,21 +427,6 @@ can also register it manually:
             App\Cache\MyCustomWarmer:
                 tags:
                     - { name: kernel.cache_warmer, priority: 0 }
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Cache\MyCustomWarmer">
-                    <tag name="kernel.cache_warmer" priority="0"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -660,21 +543,6 @@ can also register it manually:
             App\Locale\MyCustomLocaleHandler:
                 tags: [kernel.locale_aware]
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Locale\MyCustomLocaleHandler">
-                    <tag name="kernel.locale_aware"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use App\Locale\MyCustomLocaleHandler;
@@ -731,22 +599,6 @@ channel when injecting the logger in a service.
                 tags:
                     - { name: monolog.logger, channel: app }
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Log\CustomLogger">
-                    <argument type="service" id="logger"/>
-                    <tag name="monolog.logger" channel="app"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use App\Log\CustomLogger;
@@ -786,21 +638,6 @@ You can add a processor globally:
             Monolog\Processor\IntrospectionProcessor:
                 tags: [monolog.processor]
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="Monolog\Processor\IntrospectionProcessor">
-                    <tag name="monolog.processor"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use Monolog\Processor\IntrospectionProcessor;
@@ -827,21 +664,6 @@ attribute:
                 tags:
                     - { name: monolog.processor, handler: firephp }
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="Monolog\Processor\IntrospectionProcessor">
-                    <tag name="monolog.processor" handler="firephp"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use Monolog\Processor\IntrospectionProcessor;
@@ -863,21 +685,6 @@ You can also add a processor for a specific logging channel by using the
             Monolog\Processor\IntrospectionProcessor:
                 tags:
                     - { name: monolog.processor, channel: security }
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="Monolog\Processor\IntrospectionProcessor">
-                    <tag name="monolog.processor" channel="security"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -908,21 +715,6 @@ of your configuration and tag it with ``routing.loader``:
         services:
             App\Routing\CustomLoader:
                 tags: [routing.loader]
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Routing\CustomLoader">
-                    <tag name="routing.loader"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1017,21 +809,6 @@ Now, register your loader as a service and tag it with ``translation.loader``:
                 tags:
                     - { name: translation.loader, alias: bin }
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Translation\MyCustomLoader">
-                    <tag name="translation.loader" alias="bin"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use App\Translation\MyCustomLoader;
@@ -1117,21 +894,6 @@ required option: ``alias``, which defines the name of the extractor::
                 tags:
                     - { name: translation.extractor, alias: foo }
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Translation\CustomExtractor">
-                    <tag name="translation.extractor" alias="foo"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use App\Translation\CustomExtractor;
@@ -1174,21 +936,6 @@ This is the name that's used to determine which dumper should be used.
                 tags:
                     - { name: translation.dumper, alias: json }
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Translation\JsonFileDumper">
-                    <tag name="translation.dumper" alias="json"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use App\Translation\JsonFileDumper;
@@ -1214,21 +961,6 @@ must register your factory as a service and tag it with ``translation.provider_f
             App\Translation\CustomProviderFactory:
                 tags:
                     - { name: translation.provider_factory }
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Translation\CustomProviderFactory">
-                    <tag name="translation.provider_factory"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1264,25 +996,6 @@ the service is auto-registered and auto-tagged. But, you can also register it ma
             # useful to register late extensions that override other extensions.
             App\Twig\AnotherExtension:
                 tags: [{ name: twig.extension, priority: -100 }]
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Twig\AppExtension">
-                    <tag name="twig.extension"/>
-                </service>
-
-                <service id="App\Twig\AnotherExtension">
-                    <tag name="twig.extension" priority="-100"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -1324,21 +1037,6 @@ also register it manually:
                 tags:
                     - { name: twig.loader, priority: 0 }
 
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Twig\CustomLoader">
-                    <tag name="twig.loader" priority="0"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         use App\Twig\CustomLoader;
@@ -1372,21 +1070,6 @@ the service is auto-registered and auto-tagged. But, you can also register it ma
         services:
             App\Twig\AppExtension:
                 tags: [twig.runtime]
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Twig\AppExtension">
-                    <tag name="twig.runtime"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

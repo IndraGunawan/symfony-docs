@@ -230,24 +230,6 @@ Consider the following routing configuration:
             path:       /article/{slug}
             controller: App\Controller\BlogController::show
 
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="blog_index"
-                path="/"
-                controller="App\Controller\BlogController::index"/>
-
-            <route id="blog_post"
-                path="/article/{slug}"
-                controller="App\Controller\BlogController::show"/>
-        </routes>
-
     .. code-block:: php
 
         // config/routes.php
@@ -416,24 +398,6 @@ inside the main Twig configuration file:
             globals:
                 ga_tracking: 'UA-xxxxx-x'
 
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig
-                https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <!-- ... -->
-                <twig:global key="ga_tracking">UA-xxxxx-x</twig:global>
-            </twig:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/twig.php
@@ -473,24 +437,6 @@ in container parameters <service-container-parameters>`:
             globals:
                 # the value is the service's id
                 uuid: '@App\Generator\UuidGenerator'
-
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig
-                https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <!-- ... -->
-                <twig:global key="uuid" id="App\Generator\UuidGenerator" type="service"/>
-            </twig:config>
-        </container>
 
     .. code-block:: php
 
@@ -738,43 +684,6 @@ provided by Symfony:
                 headers:
                     Content-Type: 'text/html'
                     foo: 'bar'
-
-    .. code-block:: xml
-
-        <!-- config/routes.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="acme_privacy"
-                path="/privacy"
-                controller="Symfony\Bundle\FrameworkBundle\Controller\TemplateController">
-                <!-- the path of the template to render -->
-                <default key="template">static/privacy.html.twig</default>
-
-                <!-- the response status code (default: 200) -->
-                <default key="statusCode">200</default>
-
-                <!-- special options defined by Symfony to set the page cache -->
-                <default key="maxAge">86400</default>
-                <default key="sharedAge">86400</default>
-
-                <!-- whether or not caching should apply for client caches only -->
-                <default key="private">true</default>
-
-                <!-- optionally you can define some arguments passed to the template -->
-                <default key="context">
-                    <default key="site_name">ACME</default>
-                    <default key="theme">dark</default>
-                </default>
-
-                <!-- optionally you can define HTTP headers to add to the response -->
-                <default key="headers">
-                    <default key="Content-Type">text/html</default>
-                </default>
-            </route>
-        </routes>
 
     .. code-block:: php
 
@@ -1073,23 +982,6 @@ template fragments. Configure that special URL in the ``fragments`` option:
             # ...
             fragments: { path: /_fragment }
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-            <framework:config>
-                <framework:fragment path="/_fragment"/>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -1145,23 +1037,6 @@ default content rendering some template:
             # ...
             fragments:
                 hinclude_default_template: hinclude.html.twig
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-            <framework:config>
-                <framework:fragments hinclude-default-template="hinclude.html.twig"/>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -1392,25 +1267,6 @@ the ``value`` is the Twig namespace, which is explained later:
                 'email/default/templates': ~
                 'backend/templates': ~
 
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <!-- ... -->
-                <!-- directories are relative to the project root dir (but you
-                     can also use absolute directories -->
-                <twig:path>email/default/templates</twig:path>
-                <twig:path>backend/templates</twig:path>
-            </twig:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/twig.php
@@ -1449,23 +1305,6 @@ configuration to define a namespace for each template directory:
             paths:
                 'email/default/templates': 'email'
                 'backend/templates': 'admin'
-
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <!-- ... -->
-                <twig:path namespace="email">email/default/templates</twig:path>
-                <twig:path namespace="admin">backend/templates</twig:path>
-            </twig:config>
-        </container>
 
     .. code-block:: php
 

@@ -28,33 +28,6 @@ To use it, declare it as a service:
                     $bubble: true
                     $elasticsearchVersion: '1.0.0'
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/monolog
-                https://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
-
-            <services>
-                <service id="Symfony\Bridge\Monolog\Handler\ElasticsearchLogstashHandler"/>
-
-                <!-- optionally, configure the handler using the constructor arguments (shown values are default) -->
-                <service id="Symfony\Bridge\Monolog\Handler\ElasticsearchLogstashHandler">
-                    <argument key="endpoint">http://127.0.0.1:9200</argument>
-                    <argument key="index">monolog</argument>
-                    <argument key="client"/>
-                    <argument key="level" type="enum">Monolog\Level::Debug</argument>
-                    <argument key="bubble">true</argument>
-                    <argument key="elasticsearchVersion">1.0.0</argument>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -91,27 +64,6 @@ each log, an HTTP request will be made to push the log to Elasticsearch:
                     type: service
                     id: Symfony\Bridge\Monolog\Handler\ElasticsearchLogstashHandler
 
-    .. code-block:: xml
-
-        <!-- config/packages/prod/monolog.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/monolog
-                https://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
-
-            <monolog:config>
-                <monolog:handler
-                    name="es"
-                    type="service"
-                    id="Symfony\Bridge\Monolog\Handler\ElasticsearchLogstashHandler"
-                />
-            </monolog:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/prod/monolog.php
@@ -144,32 +96,6 @@ even better performance and fault tolerance, a proper `ELK stack`_ is recommende
                 es:
                     type: service
                     id: Symfony\Bridge\Monolog\Handler\ElasticsearchLogstashHandler
-
-    .. code-block:: xml
-
-        <!-- config/packages/prod/monolog.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/monolog
-                https://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
-
-            <monolog:config>
-                <monolog:handler
-                    name="main"
-                    type="fingers_crossed"
-                    handler="es"
-                />
-                <monolog:handler
-                    name="es"
-                    type="service"
-                    id="Symfony\Bridge\Monolog\Handler\ElasticsearchLogstashHandler"
-                />
-            </monolog:config>
-        </container>
 
     .. code-block:: php
 

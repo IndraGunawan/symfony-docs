@@ -59,26 +59,6 @@ argument of type ``service_closure``:
                 # the shortcut also works for optional dependencies
                 # arguments: ['@>?mailer']
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Service\MyService">
-                    <argument type="service_closure" id="mailer"/>
-
-                    <!--
-                    In case the dependency is optional
-                    <argument type="service_closure" id="mailer" on-invalid="ignore"/>
-                    -->
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php

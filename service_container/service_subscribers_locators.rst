@@ -221,23 +221,6 @@ service type to a service.
                 tags:
                     - { name: 'container.service_subscriber', key: 'logger', id: 'monolog.logger.event' }
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-
-                <service id="App\CommandBus">
-                    <tag name="container.service_subscriber" key="logger" id="monolog.logger.event"/>
-                </service>
-
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -446,7 +429,7 @@ some services into it via a service locator::
         }
     }
 
-Symfony allows you to inject the service locator using YAML/XML/PHP configuration
+Symfony allows you to inject the service locator using YAML or PHP configuration
 or directly via PHP attributes:
 
 .. configuration-block::
@@ -478,24 +461,6 @@ or directly via PHP attributes:
                   - !service_locator
                       App\FooCommand: '@app.command_handler.foo'
                       App\BarCommand: '@app.command_handler.bar'
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\CommandBus">
-                    <argument type="service_locator">
-                        <argument key="App\FooCommand" type="service" id="app.command_handler.foo"/>
-                        <argument key="App\BarCommand" type="service" id="app.command_handler.bar"/>
-                    </argument>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -541,31 +506,6 @@ other services. To do so, create a new service definition using the
                 # if you are not using the default service autoconfiguration,
                 # add the following tag to the service definition:
                 # tags: ['container.service_locator']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-
-                <service id="app.command_handler_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
-                    <argument type="collection">
-                        <argument key="App\FooCommand" type="service" id="app.command_handler.foo"/>
-                        <argument key="App\BarCommand" type="service" id="app.command_handler.bar"/>
-                    </argument>
-                    <!--
-                        if you are not using the default service autoconfiguration,
-                        add the following tag to the service definition:
-                        <tag name="container.service_locator"/>
-                    -->
-                </service>
-
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -620,23 +560,6 @@ Now you can inject the service locator in any other services:
         services:
             App\CommandBus:
                 arguments: ['@app.command_handler_locator']
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-
-                <service id="App\CommandBus">
-                    <argument type="service" id="app.command_handler_locator"/>
-                </service>
-
-            </services>
-        </container>
 
     .. code-block:: php
 
@@ -726,31 +649,6 @@ to index the services:
                 # inject all services tagged with app.handler as first argument
                 arguments: [!tagged_locator { tag: 'app.handler', index_by: 'key' }]
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="App\Handler\One">
-                    <tag name="app.handler" key="handler_one"/>
-                </service>
-
-                <service id="App\Handler\Two">
-                    <tag name="app.handler" key="handler_two"/>
-                </service>
-
-                <service id="App\HandlerCollection">
-                    <!-- inject all services tagged with app.handler as first argument -->
-                    <argument type="tagged_locator" tag="app.handler" index-by="key"/>
-                </service>
-            </services>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -834,25 +732,6 @@ get the value used to index the services:
             App\Handler\HandlerCollection:
                 # inject all services tagged with app.handler as first argument
                 arguments: [!tagged_locator { tag: 'app.handler', default_index_method: 'getLocatorKey' }]
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <!-- ... -->
-
-                <service id="App\HandlerCollection">
-                    <!-- inject all services tagged with app.handler as first argument -->
-                    <argument type="tagged_locator" tag="app.handler" default-index-method="getLocatorKey"/>
-                </service>
-            </services>
-        </container>
 
     .. code-block:: php
 

@@ -168,26 +168,6 @@ You can do this by defining a new HTML sanitizer in the configuration:
                         block_elements:
                             - h1
 
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:html-sanitizer>
-                    <framework:sanitizer name="app.post_sanitizer">
-                        <framework:block-element name="h1"/>
-                    </framework:sanitizer>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -281,30 +261,6 @@ Safe elements
                         allow_safe_elements: true
                         allow_static_elements: true
 
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:html-sanitizer>
-                    <!-- allow-safe-elements/allow-static-elements:
-                         enable either of these -->
-                    <framework:sanitizer
-                        name="app.post_sanitizer"
-                        allow-safe-elements="true"
-                        allow-static-elements="true"
-                    />
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -357,45 +313,6 @@ attributes from the `W3C Standard Proposal`_ are allowed.
                             h1: '*'
                             # allow the <div> element with no attributes
                             div: []
-
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:html-sanitizer>
-                    <!-- allow-safe-elements/allow-static-elements:
-                         enable either of these -->
-                    <framework:sanitizer name="app.post_sanitizer">
-                        <!-- allow the <article> element and 2 attributes -->
-                        <framework:allow-element name="article">
-                            <framework:attribute>class</framework:attribute>
-                            <framework:attribute>data-attr</framework:attribute>
-                        </framework:allow-element>
-
-                        <!-- allow the <img> element and preserve the src attribute -->
-                        <framework:allow-element name="img">
-                            <framework:attribute>src</framework:attribute>
-                        </framework:allow-element>
-
-                        <!-- allow the <h1> element with all safe attributes -->
-                        <framework:allow-element name="h1">
-                            <framework:attribute>*</framework:attribute>
-                        </framework:allow-element>
-
-                        <!-- allow the <div> element with no attributes -->
-                        <framework:allow-element name="div"/>
-                    </framework:sanitizer>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -464,28 +381,6 @@ This can also be used to remove elements from the allow list.
                         # remove <figure> and its children
                         drop_elements: ['figure']
 
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:html-sanitizer>
-                    <!-- remove <div>, but process the children -->
-                    <framework:block-element>div</framework:block-element>
-
-                    <!-- remove <figure> and its children -->
-                    <framework:drop-element>figure</framework:drop-element>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -537,32 +432,6 @@ on all elements allowed *before this setting*.
 
                             # allow "data-attr" on all elements currently allowed
                             data-attr: '*'
-
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:html-sanitizer>
-                    <!-- allow "src' on <iframe> elements -->
-                    <framework:allow-attribute name="src">
-                        <framework:element>iframe</framework:element>
-                    </framework:allow-attribute>
-
-                    <!-- allow "data-attr" on all elements currently allowed -->
-                    <framework:allow-attribute name="data-attr">
-                        <framework:element>*</framework:element>
-                    </framework:allow-attribute>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -618,37 +487,6 @@ This option allows you to disallow attributes that were allowed before.
                             data-attr: ['section']
                             # disallows "style' on any allowed element
                             style: '*'
-
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:html-sanitizer>
-                    <!-- allow the "data-attr" on all safe elements... -->
-                    <framework:allow-attribute name="data-attr">
-                        <framework:element>*</framework:element>
-                    </framework:allow-attribute>
-
-                    <!-- ...except for the <section> element -->
-                    <framework:drop-attribute name="data-attr">
-                        <framework:element>section</framework:element>
-                    </framework:drop-attribute>
-
-                    <!-- disallows "style' on any allowed element -->
-                    <framework:drop-attribute name="style">
-                        <framework:element>*</framework:element>
-                    </framework:drop-attribute>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -707,26 +545,6 @@ element (even if the original one didn't contain a ``rel`` attribute):
                             a:
                                 rel: noopener noreferrer
 
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:html-sanitizer>
-                    <framework:force-attribute name="a">
-                        <framework:attribute name="rel">noopener noreferrer</framework:attribute>
-                    </framework:force-attribute>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -784,41 +602,6 @@ URLs of ``<a>`` elements:
 
                         # whether to allow relative links (i.e. URLs without scheme and host)
                         allow_relative_links: true
-
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- force-https-urls: if `true`, all URLs using the `http://` scheme will be
-                                       converted to use the `https://` scheme instead.
-                                       `http` still needs to be allowed in `allowed-link-scheme` -->
-                <!-- allow-relative-links: whether to allow relative links (i.e. URLs without
-                                           scheme and host) -->
-                <framework:html-sanitizer
-                    force-https-urls="true"
-                    allow-relative-links="true"
-                >
-                    <!-- specifies the allowed URL schemes. If the URL has a different scheme,
-                         the attribute will be dropped -->
-                    <allowed-link-scheme>http</allowed-link-scheme>
-                    <allowed-link-scheme>https</allowed-link-scheme>
-                    <allowed-link-scheme>mailto</allowed-link-scheme>
-
-                    <!-- specifies the allowed hosts, the attribute will be dropped if the
-                         URL contains a different host. Subdomains are allowed: e.g. the following
-                         config would also allow 'www.symfony.com', 'live.symfony.com', etc. -->
-                    <allowed-link-host>symfony.com</allowed-link-host>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 
@@ -905,41 +688,6 @@ the HTML sanitizer: ``src``, ``href``, ``lowsrc``, ``background`` and ``ping``.
                         # whether to allow relative URLs (i.e. URLs without scheme and host)
                         allow_relative_medias: true
 
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <!-- force-https-urls: if `true`, all URLs using the `http://` scheme will be
-                                       converted to use the `https://` scheme instead. `http`
-                                       still needs to be allowed in `allowed-media-scheme` -->
-                <!-- allow-relative-medias: whether to allow relative URLs (i.e. URLs without
-                                           scheme and host) -->
-                <framework:html-sanitizer
-                    force-https-urls="true"
-                    allow-relative-medias="true"
-                >
-                    <!-- specifies the allowed URL schemes. If the URL has a different scheme,
-                         the attribute will be dropped -->
-                    <allowed-media-scheme>http</allowed-media-scheme>
-                    <allowed-media-scheme>https</allowed-media-scheme>
-                    <allowed-media-scheme>mailto</allowed-media-scheme>
-
-                    <!-- specifies the allowed hosts, the attribute will be dropped if the URL
-                         contains a different host which is not a subdomain of the allowed host.
-                         Also allows any subdomain (i.e. www.symfony.com) -->
-                    <allowed-media-host>symfony.com</allowed-media-host>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -1012,27 +760,6 @@ increase or decrease this limit:
                         # inputs longer (in characters) than this value will be truncated
                         max_input_length: 30000 # default: 20000
 
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:html-sanitizer>
-                    <framework:sanitizer name="app.post_sanitizer">
-                        <!-- inputs longer (in characters) than this value will be truncated (default: 20000) -->
-                        <framework:max-input-length>20000</framework:max-input-length>
-                    </framework:sanitizer>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
@@ -1087,27 +814,6 @@ to enable it for an HTML sanitizer:
                         # you can also disable previously enabled custom attribute sanitizers
                         #without_attribute_sanitizers:
                         #    - App\Sanitizer\CustomAttributeSanitizer
-
-    .. code-block:: xml
-
-        <!-- config/packages/html_sanitizer.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config>
-                <framework:html-sanitizer>
-                    <with-attribute-sanitizer>App\Sanitizer\CustomAttributeSanitizer</with-attribute-sanitizer>
-
-                    <!-- you can also disable previously enabled attribute sanitizers -->
-                    <without-attribute-sanitizer>Symfony\Component\HtmlSanitizer\Visitor\AttributeSanitizer\UrlAttributeSanitizer</without-attribute-sanitizer>
-                </framework:html-sanitizer>
-            </framework:config>
-        </container>
 
     .. code-block:: php
 

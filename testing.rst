@@ -170,21 +170,6 @@ code to production:
         twig:
             strict_variables: true
 
-    .. code-block:: xml
-
-        <!-- config/packages/test/twig.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig
-                https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <framework:config strict-variables="true"/>
-        </container>
-
     .. code-block:: php
 
         // config/packages/test/twig.php

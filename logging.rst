@@ -133,31 +133,6 @@ to write logs using the :phpfunction:`syslog` function:
                     # log error-level messages and higher
                     level: error
 
-    .. code-block:: xml
-
-        <!-- config/packages/prod/monolog.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/monolog
-                https://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
-
-            <monolog:config>
-                <!-- this "file_log" key could be anything -->
-                <monolog:handler name="file_log"
-                    type="stream"
-                    path="%kernel.logs_dir%/%kernel.environment%.log"
-                    level="debug"/><!-- log *all* messages (debug is lowest level) -->
-
-                <monolog:handler name="syslog_handler"
-                    type="syslog"
-                    level="error"/><!-- log error-level messages and higher -->
-            </monolog:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/prod/monolog.php
@@ -198,32 +173,6 @@ which they are defined:
                 syslog_handler:
                     type: syslog
                     priority: 10 # called first
-
-    .. code-block:: xml
-
-        <!-- config/packages/prod/monolog.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/monolog
-                https://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
-
-            <monolog:config>
-                <monolog:handler name="file_log"
-                    type="stream"
-                    path="%kernel.logs_dir%/%kernel.environment%.log"
-                />
-
-                <!-- called first -->
-                <monolog:handler name="syslog_handler"
-                    type="syslog"
-                    priority="10"
-                />
-            </monolog:config>
-        </container>
 
     .. code-block:: php
 
@@ -281,41 +230,6 @@ one of the messages reaches an ``action_level``. Take this example:
                 syslog_handler:
                     type: syslog
                     level: error
-
-    .. code-block:: xml
-
-        <!-- config/packages/prod/monolog.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/monolog
-                https://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
-
-            <monolog:config>
-                <!-- if *one* log is error or higher, pass *all* to file_log -->
-                <monolog:handler name="filter_for_errors"
-                    type="fingers_crossed"
-                    action-level="error"
-                    handler="file_log"
-                />
-
-                <!-- now passed *all* logs, but only if one log is error or higher -->
-                <monolog:handler name="file_log"
-                    type="stream"
-                    path="%kernel.logs_dir%/%kernel.environment%.log"
-                    level="debug"
-                />
-
-                <!-- still passed *all* logs, and still only logs error or higher -->
-                <monolog:handler name="syslog_handler"
-                    type="syslog"
-                    level="error"
-                />
-            </monolog:config>
-        </container>
 
     .. code-block:: php
 
@@ -388,30 +302,6 @@ option of your handler to ``rotating_file``:
                     # max number of log files to keep
                     # defaults to zero, which means infinite files
                     max_files: 10
-
-    .. code-block:: xml
-
-        <!-- config/packages/prod/monolog.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:monolog="http://symfony.com/schema/dic/monolog"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/monolog
-                https://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
-
-            <monolog:config>
-                <!-- "max-files": max number of log files to keep
-                     defaults to zero, which means infinite files -->
-                <monolog:handler name="main"
-                    type="rotating_file"
-                    path="%kernel.logs_dir%/%kernel.environment%.log"
-                    level="debug"
-                    max-files="10"
-                />
-            </monolog:config>
-        </container>
 
     .. code-block:: php
 

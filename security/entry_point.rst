@@ -30,33 +30,6 @@ You can configure this using the ``entry_point`` setting:
                     # configure the form authentication as the entry point for unauthenticated users
                     entry_point: form_login
 
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8"?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-
-                <!-- entry-point: configure the form authentication as the entry
-                                  point for unauthenticated users -->
-                <firewall name="main"
-                    entry-point="form_login"
-                >
-                    <!-- allow authentication using a form or a custom authenticator -->
-                    <form-login/>
-                    <custom-authenticator>App\Security\SocialConnectAuthenticator</custom-authenticator>
-                </firewall>
-            </config>
-        </srv:container>
-
     .. code-block:: php
 
         // config/packages/security.php
@@ -117,34 +90,6 @@ split the configuration into two separate firewalls:
                 - { path: '^/login', roles: PUBLIC_ACCESS }
                 - { path: '^/api', roles: ROLE_API_USER }
                 - { path: '^/', roles: ROLE_USER }
-
-    .. code-block:: xml
-
-        <!-- config/packages/security.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <srv:container xmlns="http://symfony.com/schema/dic/security"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/security
-                https://symfony.com/schema/dic/security/security-1.0.xsd">
-
-            <config>
-                <!-- ... -->
-                <firewall name="api" pattern="^/api/">
-                    <custom-authenticator>App\Security\ApiTokenAuthenticator</custom-authenticator>
-                </firewall>
-
-                <firewall name="main" anonymous="true" lazy="true">
-                    <form-login/>
-                </firewall>
-
-                <rule path="^/login" role="PUBLIC_ACCESS"/>
-                <rule path="^/api" role="ROLE_API_USER"/>
-                <rule path="^/" role="ROLE_USER"/>
-            </config>
-        </srv:container>
 
     .. code-block:: php
 

@@ -23,30 +23,6 @@ In Symfony, you can register your custom DQL functions as follows:
                     datetime_functions:
                         test_datetime: App\DQL\DatetimeFunction
 
-    .. code-block:: xml
-
-        <!-- config/packages/doctrine.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/doctrine
-                https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
-
-            <doctrine:config>
-                <doctrine:orm>
-                    <!-- ... -->
-                    <doctrine:dql>
-                        <doctrine:string-function name="test_string">App\DQL\StringFunction</doctrine:string-function>
-                        <doctrine:string-function name="second_string">App\DQL\SecondStringFunction</doctrine:string-function>
-                        <doctrine:numeric-function name="test_numeric">App\DQL\NumericFunction</doctrine:numeric-function>
-                        <doctrine:datetime-function name="test_datetime">App\DQL\DatetimeFunction</doctrine:datetime-function>
-                    </doctrine:dql>
-                </doctrine:orm>
-            </doctrine:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/doctrine.php
@@ -88,34 +64,6 @@ In Symfony, you can register your custom DQL functions as follows:
                             dql:
                                 datetime_functions:
                                     test_datetime: App\DQL\DatetimeFunction
-
-        .. code-block:: xml
-
-            <!-- config/packages/doctrine.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    https://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/doctrine
-                    https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
-
-                <doctrine:config>
-                    <doctrine:orm>
-                        <!-- ... -->
-
-                        <doctrine:entity-manager name="example_manager">
-                            <!-- place your functions here -->
-                            <doctrine:dql>
-                                <doctrine:datetime-function name="test_datetime">
-                                    App\DQL\DatetimeFunction
-                                </doctrine:datetime-function>
-                            </doctrine:dql>
-                        </doctrine:entity-manager>
-                    </doctrine:orm>
-                </doctrine:config>
-            </container>
 
         .. code-block:: php
 

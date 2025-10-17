@@ -62,20 +62,6 @@ container into a single file, which could improve performance when using
             # ...
             .container.dumper.inline_factories: true
 
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <parameters>
-                <!-- ... -->
-                <parameter key=".container.dumper.inline_factories">true</parameter>
-            </parameters>
-        </container>
-
     .. code-block:: php
 
         // config/services.php
@@ -241,20 +227,6 @@ in performance, you can stop generating the file as follows:
         parameters:
             # ...
             debug.container.dump: false
-
-    .. code-block:: xml
-
-        <!-- config/services.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <parameters>
-                <!-- ... -->
-                <parameter key="debug.container.dump">false</parameter>
-            </parameters>
-        </container>
 
     .. code-block:: php
 

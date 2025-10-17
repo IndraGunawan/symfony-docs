@@ -142,31 +142,6 @@ MercureBundle provides a more advanced configuration:
                         factory: 'My\Factory'
                         value: 'my.jwt'
 
-    .. code-block:: xml
-
-        <!-- config/packages/mercure.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <config>
-            <hub
-                name="default"
-                url="%env(string:MERCURE_URL)%"
-                public_url="%env(string:MERCURE_PUBLIC_URL)%"
-            > <!-- public_url defaults to url -->
-                <jwt
-                    secret="%env(string:MERCURE_JWT_SECRET)%"
-                    algorithm="hmac.sha256"
-                    provider="My\Provider"
-                    factory="My\Factory"
-                    value="my.jwt"
-                >
-                    <publish>https://example.com/foo1</publish>
-                    <publish>https://example.com/foo2</publish>
-                    <subscribe>https://example.com/bar1</subscribe>
-                    <subscribe>https://example.com/bar2</subscribe>
-                </jwt>
-            </hub>
-        </config>
-
     .. code-block:: php
 
         // config/packages/mercure.php
@@ -551,19 +526,6 @@ Then, reference this service in the bundle configuration:
                     url: https://mercure-hub.example.com/.well-known/mercure
                     jwt:
                         provider: App\Mercure\MyTokenProvider
-
-    .. code-block:: xml
-
-        <!-- config/packages/mercure.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <config>
-            <hub
-                name="default"
-                url="https://mercure-hub.example.com/.well-known/mercure"
-            >
-                <jwt provider="App\Mercure\MyTokenProvider"/>
-            </hub>
-        </config>
 
     .. code-block:: php
 

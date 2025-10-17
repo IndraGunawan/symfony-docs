@@ -13,12 +13,6 @@ under the ``twig`` key in your application configuration.
     # displays the actual config values used by your application
     $ php bin/console debug:config twig
 
-.. note::
-
-    When using XML, you must use the ``http://symfony.com/schema/dic/twig``
-    namespace and the related XSD schema is available at:
-    ``https://symfony.com/schema/dic/twig/twig-1.0.xsd``
-
 auto_reload
 ~~~~~~~~~~~
 
@@ -163,24 +157,6 @@ The value of this option can be a regular expression, a glob, or a string:
             file_name_pattern: ['*.twig', 'specific_file.html']
             # ...
 
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <twig:file-name-pattern>*.twig</twig:file-name-pattern>
-                <twig:file-name-pattern>specific_file.html</twig:file-name-pattern>
-                <!-- ... -->
-            </twig:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/twig.php
@@ -213,24 +189,6 @@ all the forms of the application:
         twig:
             form_themes: ['bootstrap_5_layout.html.twig', 'form/my_theme.html.twig']
             # ...
-
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <twig:form-theme>bootstrap_5_layout.html.twig</twig:form-theme>
-                <twig:form-theme>form/my_theme.html.twig</twig:form-theme>
-                <!-- ... -->
-            </twig:config>
-        </container>
 
     .. code-block:: php
 
@@ -345,23 +303,6 @@ the directory defined in the :ref:`default_path option <config-twig-default-path
             paths:
                 'email/default/templates': ~
                 'backend/templates': 'admin'
-
-    .. code-block:: xml
-
-        <!-- config/packages/twig.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/twig https://symfony.com/schema/dic/twig/twig-1.0.xsd">
-
-            <twig:config>
-                <!-- ... -->
-                <twig:path>email/default/templates</twig:path>
-                <twig:path namespace="admin">backend/templates</twig:path>
-            </twig:config>
-        </container>
 
     .. code-block:: php
 

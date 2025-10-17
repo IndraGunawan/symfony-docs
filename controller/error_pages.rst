@@ -158,20 +158,6 @@ automatically when installing ``symfony/framework-bundle``):
                 type:     php
                 prefix:   /_error
 
-    .. code-block:: xml
-
-        <!-- config/routes/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                https://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <when env="dev">
-                <import resource="@FrameworkBundle/Resources/config/routing/errors.php" type="php" prefix="/_error"/>
-            </when>
-        </routes>
-
     .. code-block:: php
 
         // config/routes/framework.php
@@ -255,21 +241,6 @@ configuration option to point to it:
         # config/packages/framework.yaml
         framework:
             error_controller: App\Controller\ErrorController::show
-
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <framework:config>
-                <framework:error-controller>App\Controller\ErrorController::show</framework:error-controller>
-            </framework:config>
-
-        </container>
 
     .. code-block:: php
 
