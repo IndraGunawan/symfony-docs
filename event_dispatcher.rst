@@ -739,7 +739,7 @@ this::
             return $this->subject;
         }
 
-        public function setSubject(string $subject): string
+        public function setSubject(string $subject): void
         {
             $this->subject = $subject;
         }
