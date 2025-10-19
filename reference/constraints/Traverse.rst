@@ -167,7 +167,8 @@ disable validating:
         # config/validator/validation.yaml
         App\Entity\BookCollection:
             constraints:
-                - Traverse: false
+                - Traverse:
+                    traverse: false
 
     .. code-block:: xml
 
@@ -178,7 +179,9 @@ disable validating:
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
             <class name="App\Entity\BookCollection">
-                <constraint name="Traverse">false</constraint>
+                <constraint name="Traverse">
+                    <option name="traverse">false</option>
+                </constraint>
             </class>
         </constraint-mapping>
 

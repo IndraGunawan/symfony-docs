@@ -513,7 +513,8 @@ object.
                     - NotBlank: ~
                 dueDate:
                     - NotBlank: ~
-                    - Type: \DateTimeInterface
+                    - Type:
+                        type: \DateTimeInterface
 
     .. code-block:: xml
 
@@ -530,7 +531,9 @@ object.
                 </property>
                 <property name="dueDate">
                     <constraint name="NotBlank"/>
-                    <constraint name="Type">\DateTimeInterface</constraint>
+                    <constraint name="Type">
+                        <option name="type">\DateTimeInterface</option>
+                    </constraint>
                 </property>
             </class>
         </constraint-mapping>

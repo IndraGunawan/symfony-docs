@@ -56,7 +56,8 @@ between all of the rows in your user table:
         # config/validator/validation.yaml
         App\Entity\User:
             constraints:
-                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                    fields: email
             properties:
                 email:
                     - Email: ~

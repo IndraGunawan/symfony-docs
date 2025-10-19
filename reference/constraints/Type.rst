@@ -58,10 +58,12 @@ The following example checks if ``emailAddress`` is an instance of ``Symfony\Com
         App\Entity\Author:
             properties:
                 emailAddress:
-                    - Type: Symfony\Component\Mime\Address
+                    - Type:
+                        type: Symfony\Component\Mime\Address
 
                 firstName:
-                    - Type: string
+                    - Type:
+                        type: string
 
                 age:
                     - Type:

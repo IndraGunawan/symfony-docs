@@ -51,7 +51,8 @@ The following constraints ensure that:
         App\Entity\Person:
             properties:
                 firstName:
-                    - IdenticalTo: Mary
+                    - IdenticalTo:
+                        value: Mary
                 age:
                     - IdenticalTo:
                         value: 20
@@ -67,7 +68,7 @@ The following constraints ensure that:
             <class name="App\Entity\Person">
                 <property name="firstName">
                     <constraint name="IdenticalTo">
-                        Mary
+                        <option name="value">Mary</option>
                     </constraint>
                 </property>
                 <property name="age">

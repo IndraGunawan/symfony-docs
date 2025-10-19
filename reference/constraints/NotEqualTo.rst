@@ -50,7 +50,8 @@ the following:
         App\Entity\Person:
             properties:
                 firstName:
-                    - NotEqualTo: Mary
+                    - NotEqualTo:
+                        value: Mary
                 age:
                     - NotEqualTo:
                         value: 15
@@ -66,7 +67,7 @@ the following:
             <class name="App\Entity\Person">
                 <property name="firstName">
                     <constraint name="NotEqualTo">
-                        Mary
+                        <option name="value">Mary</option>
                     </constraint>
                 </property>
                 <property name="age">

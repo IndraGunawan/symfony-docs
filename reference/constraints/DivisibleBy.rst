@@ -49,7 +49,8 @@ The following constraints ensure that:
         App\Entity\Item:
             properties:
                 weight:
-                    - DivisibleBy: 0.25
+                    - DivisibleBy:
+                        value: 0.25
                 quantity:
                     - DivisibleBy:
                         value: 5
@@ -65,7 +66,7 @@ The following constraints ensure that:
             <class name="App\Entity\Item">
                 <property name="weight">
                     <constraint name="DivisibleBy">
-                        <value>0.25</value>
+                        <option name="value">0.25</option>
                     </constraint>
                 </property>
                 <property name="quantity">
