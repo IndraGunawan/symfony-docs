@@ -2325,6 +2325,18 @@ Now you'll get the expected results when generating URLs in your commands::
     value, but you can change it with the ``asset.request_context.base_path``
     and ``asset.request_context.secure`` container parameters.
 
+.. note::
+
+    By default, routes generated outside the HTTP context use the
+    :ref:`default locale <config-framework-default_locale>` as the value of the
+    ``_locale`` parameter. You can override this by providing a different value
+    for the ``_locale`` parameter when generating each route.
+
+    .. versionadded:: 7.4
+
+        The default locale is used as the value of the ``_locale`` parameter
+        starting from Symfony 7.4.
+
 Checking if a Route Exists
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
