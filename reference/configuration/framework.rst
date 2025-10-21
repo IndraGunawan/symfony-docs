@@ -1335,6 +1335,88 @@ If this option is a boolean value, the response is buffered when the value is
 returned value is ``true`` (the closure receives as argument an array with the
 response headers).
 
+caching
+.......
+
+**type**: ``array``
+
+This option configures the behavior of the :ref:`HTTP client caching <http-client_caching>`,
+including which types of requests to cache and how many times. The behavior is
+defined with the following options:
+
+* :ref:`cache_pool <reference-http-client-caching-cache-pool>`
+* :ref:`shared <reference-http-client-caching-shared>`
+* :ref:`max_ttl <reference-http-client-caching-max-ttl>`
+
+.. code-block:: yaml
+
+    # config/packages/framework.yaml
+    framework:
+        # ...
+        http_client:
+            # ...
+            default_options:
+                caching:
+                    cache_pool: cache.app
+                    shared: true
+                    max_ttl: 86400
+
+            scoped_clients:
+                my_api.client:
+                    # ...
+                    caching:
+                        cache_pool: my_taggable_pool
+
+.. versionadded:: 7.4
+
+    The ``caching`` option was introduced in Symfony 7.4.
+
+.. _reference-http-client-caching-cache-pool:
+
+cache_pool
+""""""""""
+
+**type**: ``string``
+
+The service ID of the cache pool used to store the cached responses. The service
+must implement the :class:`Symfony\\Contracts\\Cache\\TagAwareCacheInterface`.
+
+By default, it uses an instance of :class:`Symfony\\Component\\Cache\\Adapter\\TagAwareAdapter`
+wrapping the ``cache.app`` pool.
+
+.. versionadded:: 7.4
+
+    The ``cache_pool`` option was introduced in Symfony 7.4.
+
+.. _reference-http-client-caching-shared:
+
+shared
+""""""
+
+**type**: ``boolean`` **default**: ``true``
+
+If ``true``, it uses a `shared cache`_ so cached responses can be reused across
+users. Set it to ``false`` to use a `private cache`_.
+
+.. versionadded:: 7.4
+
+    The ``shared`` option was introduced in Symfony 7.4.
+
+.. _reference-http-client-caching-max-ttl:
+
+max_ttl
+"""""""
+
+**type**: ``integer`` **default**: ``null``
+
+The maximum time-to-live (in seconds) for cached responses. By default, responses
+are cached for as long as the TTL specified by the server. When this option is
+set, server-provided TTLs are capped to this value.
+
+.. versionadded:: 7.4
+
+    The ``max_ttl`` option was introduced in Symfony 7.4.
+
 cafile
 ......
 
@@ -3403,3 +3485,5 @@ to know their differences.
 .. _`Link HTTP header`: https://tools.ietf.org/html/rfc5988
 .. _`SMTP session`: https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol#SMTP_transport_example
 .. _`PHP attributes`: https://www.php.net/manual/en/language.attributes.overview.php
+.. _`public cache`: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching#shared_cache
+.. _`private cache`: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching#private_caches
