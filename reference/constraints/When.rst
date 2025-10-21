@@ -85,7 +85,8 @@ One way to accomplish this is with the When constraint:
         App\Model\Discount:
             properties:
                 value:
-                    - GreaterThan: 0
+                    - GreaterThan:
+                        value: 0
                     - When:
                         expression: "this.getType() == 'percent'"
                         constraints:
@@ -106,7 +107,9 @@ One way to accomplish this is with the When constraint:
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
             <class name="App\Model\Discount">
                 <property name="value">
-                    <constraint name="GreaterThan">0</constraint>
+                    <constraint name="GreaterThan">
+                        <option name="value">0</option>
+                    </constraint>
                     <constraint name="When">
                         <option name="expression">
                             this.getType() == 'percent'

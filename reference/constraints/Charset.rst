@@ -37,7 +37,8 @@ class uses UTF-8, you could do the following:
         App\Entity\FileDTO:
             properties:
                 content:
-                    - Charset: 'UTF-8'
+                    - Charset:
+                        charset: 'UTF-8'
 
     .. code-block:: xml
 

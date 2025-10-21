@@ -41,9 +41,10 @@ entry in that array:
             properties:
                 favoriteColors:
                     - All:
-                        - NotBlank:  ~
-                        - Length:
-                            min: 5
+                        constraints:
+                            - NotBlank:  ~
+                            - Length:
+                                min: 5
 
     .. code-block:: xml
 

@@ -50,7 +50,7 @@ positive number (greater than zero):
 
             <class name="App\Entity\Employee">
                 <property name="income">
-                    <constraint name="Positive"></constraint>
+                    <constraint name="Positive"/>
                 </property>
             </class>
         </constraint-mapping>

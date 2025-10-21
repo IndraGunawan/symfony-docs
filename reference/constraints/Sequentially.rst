@@ -68,9 +68,11 @@ You can validate each of these constraints sequentially to solve these issues:
                 address:
                     - Sequentially:
                         - NotNull: ~
-                        - Type: string
+                        - Type:
+                            value: string
                         - Length: { min: 10 }
-                        - Regex: !php/const App\Localization\Place::ADDRESS_REGEX
+                        - Regex:
+                            pattern: !php/const App\Localization\Place::ADDRESS_REGEX
                         - App\Validator\Constraints\Geolocalizable: ~
 
     .. code-block:: xml
@@ -85,7 +87,9 @@ You can validate each of these constraints sequentially to solve these issues:
                 <property name="address">
                     <constraint name="Sequentially">
                             <constraint name="NotNull"/>
-                            <constraint name="Type">string</constraint>
+                            <constraint name="Type">
+                                <option name="type">string</option>
+                            </constraint>
                             <constraint name="Length">
                                 <option name="min">10</option>
                             </constraint>

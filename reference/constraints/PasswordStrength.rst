@@ -53,7 +53,7 @@ By default, the minimum required score is ``2``.
 
             <class name="App\Entity\User">
                 <property name="rawPassword">
-                    <constraint name="PasswordStrength"></constraint>
+                    <constraint name="PasswordStrength"/>
                 </property>
             </class>
         </constraint-mapping>

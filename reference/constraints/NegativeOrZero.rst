@@ -49,7 +49,7 @@ is a negative number or equal to zero:
 
             <class name="App\Entity\UnderGroundGarage">
                 <property name="level">
-                    <constraint name="NegativeOrZero"></constraint>
+                    <constraint name="NegativeOrZero"/>
                 </property>
             </class>
         </constraint-mapping>
