@@ -1488,22 +1488,23 @@ in the foreach loop::
         }
     }
 
+.. _http-client_caching:
+
 Caching Requests and Responses
 ------------------------------
 
 This component provides a :class:`Symfony\\Component\\HttpClient\\CachingHttpClient`
-decorator that allows caching responses and serving them from the cache storage
-for next requests as described in `RFC 9111`_.
+decorator that enables caching of HTTP responses and serving them from cache
+storage on subsequent requests, as described in `RFC 9111`_.
 
-The implementation leverages a
-:class:`tag aware cache <Symfony\\Contracts\\Cache\\TagAwareCacheInterface>` under the hood
-so the :doc:`Cache component </components/cache>` needs to be
-installed in your application.
+Internally, it relies on a :class:`tag aware cache <Symfony\\Contracts\\Cache\\TagAwareCacheInterface>`,
+so the :doc:`Cache component </components/cache>` must be installed in your application.
 
 .. tip::
 
-    The implementation is asynchronous, so the response must be consumed
-    (e.g., via getContent() or streaming) for caching to occur.
+    The caching mechanism is asynchronous. The response must be fully consumed
+    (for example, by calling ``getContent()`` or using a stream) for it to be
+    stored in the cache.
 
 .. configuration-block::
 
@@ -1586,14 +1587,15 @@ installed in your application.
 
 .. tip::
 
-    It is also highly recommended to configure a :ref:`retry strategy <http-client-retry-failed-requests>`
-    to gracefully handle cache inconsistency.
+    It is strongly recommended to configure a
+    :ref:`retry strategy <http-client-retry-failed-requests>` to gracefully
+    handle temporary cache inconsistencies or validation failures.
 
 .. versionadded:: 7.4
 
-    Compliance with `RFC 9111`_ and leveraging the
-    :doc:`Cache component </components/cache>` was introduced in Symfony 7.4.
-    Prior to this, it used ``HttpCache`` from the HttpKernel component.
+    In Symfony 7.4, caching was refactored to comply with `RFC 9111`_ and to
+    leverage the :doc:`Cache component </components/cache>`. In previous versions,
+    it relied on ``HttpCache`` from the HttpKernel component.
 
 Limit the Number of Requests
 ----------------------------
