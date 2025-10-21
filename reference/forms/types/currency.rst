@@ -35,7 +35,7 @@ Overridden Options
 
 An active currency is one that is still in use today as `legal tender`_
 somewhere. This option allows you to show only the currencies that are active
-at that date:
+at that date::
 
     use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 
@@ -80,7 +80,7 @@ regardless of their legal tender status.
 **type**: ``\DateTimeInterface::class`` or ``null`` **default**: ``null``
 
 An inactive currency is one that is a legacy currency, no longer in circulation.
-This option allows you to show only the currencies that are inactive at that date:
+This option allows you to show only the currencies that are inactive at that date::
 
     use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 
