@@ -2332,11 +2332,6 @@ Now you'll get the expected results when generating URLs in your commands::
     ``_locale`` parameter. You can override this by providing a different value
     for the ``_locale`` parameter when generating each route.
 
-    .. versionadded:: 7.4
-
-        The default locale is used as the value of the ``_locale`` parameter
-        starting from Symfony 7.4.
-
 Checking if a Route Exists
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
