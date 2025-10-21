@@ -45,7 +45,8 @@ The following constraints ensure that:
         App\Entity\Person:
             properties:
                 siblings:
-                    - GreaterThanOrEqual: 5
+                    - GreaterThanOrEqual:
+                        value: 5
                 age:
                     - GreaterThanOrEqual:
                         value: 18
@@ -61,7 +62,7 @@ The following constraints ensure that:
             <class name="App\Entity\Person">
                 <property name="siblings">
                     <constraint name="GreaterThanOrEqual">
-                        5
+                        <option name="value">5</option>
                     </constraint>
                 </property>
                 <property name="age">
@@ -122,7 +123,8 @@ that a date must at least be the current day:
         App\Entity\Order:
             properties:
                 deliveryDate:
-                    - GreaterThanOrEqual: today
+                    - GreaterThanOrEqual:
+                        value: today
 
     .. code-block:: xml
 
@@ -134,7 +136,9 @@ that a date must at least be the current day:
 
             <class name="App\Entity\Order">
                 <property name="deliveryDate">
-                    <constraint name="GreaterThanOrEqual">today</constraint>
+                    <constraint name="GreaterThanOrEqual">
+                        <option name="value">today</option>
+                    </constraint>
                 </property>
             </class>
         </constraint-mapping>
@@ -181,7 +185,8 @@ dates. If you want to fix the timezone, append it to the date string:
         App\Entity\Order:
             properties:
                 deliveryDate:
-                    - GreaterThanOrEqual: today UTC
+                    - GreaterThanOrEqual:
+                        value: today UTC
 
     .. code-block:: xml
 
@@ -193,7 +198,9 @@ dates. If you want to fix the timezone, append it to the date string:
 
             <class name="App\Entity\Order">
                 <property name="deliveryDate">
-                    <constraint name="GreaterThanOrEqual">today UTC</constraint>
+                    <constraint name="GreaterThanOrEqual">
+                        <option name="value">today UTC</option>
+                    </constraint>
                 </property>
             </class>
         </constraint-mapping>
@@ -241,7 +248,8 @@ current time:
         App\Entity\Order:
             properties:
                 deliveryDate:
-                    - GreaterThanOrEqual: +5 hours
+                    - GreaterThanOrEqual:
+                        value: +5 hours
 
     .. code-block:: xml
 
@@ -253,7 +261,9 @@ current time:
 
             <class name="App\Entity\Order">
                 <property name="deliveryDate">
-                    <constraint name="GreaterThanOrEqual">+5 hours</constraint>
+                    <constraint name="GreaterThanOrEqual">
+                        <option name="value">+5 hours</option>
+                    </constraint>
                 </property>
             </class>
         </constraint-mapping>

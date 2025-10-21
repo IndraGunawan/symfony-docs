@@ -46,7 +46,8 @@ The following constraints ensure that:
         App\Entity\Person:
             properties:
                 siblings:
-                    - LessThan: 5
+                    - LessThan:
+                        value: 5
                 age:
                     - LessThan:
                         value: 80
@@ -62,7 +63,7 @@ The following constraints ensure that:
             <class name="App\Entity\Person">
                 <property name="siblings">
                     <constraint name="LessThan">
-                        5
+                        <option name="value">5</option>
                     </constraint>
                 </property>
                 <property name="age">
@@ -123,7 +124,8 @@ that a date must be in the past like this:
         App\Entity\Person:
             properties:
                 dateOfBirth:
-                    - LessThan: today
+                    - LessThan:
+                        value: today
 
     .. code-block:: xml
 
@@ -135,7 +137,9 @@ that a date must be in the past like this:
 
             <class name="App\Entity\Person">
                 <property name="dateOfBirth">
-                    <constraint name="LessThan">today</constraint>
+                    <constraint name="LessThanOrEqual">
+                        <option name="value">today</option>
+                    </constraint>
                 </property>
             </class>
         </constraint-mapping>
@@ -182,7 +186,8 @@ dates. If you want to fix the timezone, append it to the date string:
         App\Entity\Person:
             properties:
                 dateOfBirth:
-                    - LessThan: today UTC
+                    - LessThan:
+                        value: today UTC
 
     .. code-block:: xml
 
@@ -194,7 +199,9 @@ dates. If you want to fix the timezone, append it to the date string:
 
             <class name="App\Entity\Person">
                 <property name="dateOfBirth">
-                    <constraint name="LessThan">today UTC</constraint>
+                    <constraint name="LessThanOrEqual">
+                        <option name="value">today UTC</option>
+                    </constraint>
                 </property>
             </class>
         </constraint-mapping>
@@ -241,7 +248,8 @@ can check that a person must be at least 18 years old like this:
         App\Entity\Person:
             properties:
                 dateOfBirth:
-                    - LessThan: -18 years
+                    - LessThan:
+                        value: -18 years
 
     .. code-block:: xml
 
@@ -253,7 +261,9 @@ can check that a person must be at least 18 years old like this:
 
             <class name="App\Entity\Person">
                 <property name="dateOfBirth">
-                    <constraint name="LessThan">-18 years</constraint>
+                    <constraint name="LessThanOrEqual">
+                        <option name="value">-18 years</option>
+                    </constraint>
                 </property>
             </class>
         </constraint-mapping>

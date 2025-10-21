@@ -53,7 +53,8 @@ The following constraints ensure that:
             properties:
                 password:
                     - AtLeastOneOf:
-                        - Regex: '/#/'
+                        - Regex:
+                            pattern: '/#/'
                         - Length:
                             min: 10
                 grades:
@@ -61,7 +62,9 @@ The following constraints ensure that:
                         - Count:
                             min: 3
                         - All:
-                            - GreaterThanOrEqual: 5
+                            constraints:
+                                - GreaterThanOrEqual:
+                                    value: 5
 
     .. code-block:: xml
 
@@ -93,7 +96,7 @@ The following constraints ensure that:
                             <constraint name="All">
                                 <option name="constraints">
                                     <constraint name="GreaterThanOrEqual">
-                                        5
+                                        <option name="value">5</option>
                                     </constraint>
                                 </option>
                             </constraint>

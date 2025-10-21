@@ -38,7 +38,8 @@ more word characters at the beginning of your string:
         App\Entity\Author:
             properties:
                 description:
-                    - Regex: '/^\w+/'
+                    - Regex:
+                        pattern: '/^\w+/'
 
     .. code-block:: xml
 

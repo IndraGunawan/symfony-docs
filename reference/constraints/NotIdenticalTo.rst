@@ -51,7 +51,8 @@ The following constraints ensure that:
         App\Entity\Person:
             properties:
                 firstName:
-                    - NotIdenticalTo: Mary
+                    - NotIdenticalTo:
+                        value: Mary
                 age:
                     - NotIdenticalTo:
                         value: 15
@@ -67,7 +68,7 @@ The following constraints ensure that:
             <class name="App\Entity\Person">
             <property name="firstName">
                     <constraint name="NotIdenticalTo">
-                        Mary
+                        <option name="value">Mary</option>
                     </constraint>
                 </property>
                 <property name="age">

@@ -49,7 +49,7 @@ is positive or zero:
 
             <class name="App\Entity\Person">
                 <property name="siblings">
-                    <constraint name="PositiveOrZero"></constraint>
+                    <constraint name="PositiveOrZero"/>
                 </property>
             </class>
         </constraint-mapping>

@@ -49,7 +49,7 @@ The following constraint ensures that the ``rawPassword`` property of the
 
             <class name="App\Entity\User">
                 <property name="rawPassword">
-                    <constraint name="NotCompromisedPassword"></constraint>
+                    <constraint name="NotCompromisedPassword"/>
                 </property>
             </class>
         </constraint-mapping>

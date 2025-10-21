@@ -50,7 +50,8 @@ Configuration
         # config/validator/validation.yaml
         App\Entity\Author:
             constraints:
-                - Callback: validate
+                - Callback:
+                    callback: validate
 
     .. code-block:: xml
 
@@ -61,7 +62,9 @@ Configuration
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
             <class name="App\Entity\Author">
-                <constraint name="Callback">validate</constraint>
+                <constraint name="Callback">
+                    <option name="callback">validate</option>
+                </constraint>
             </class>
         </constraint-mapping>
 
@@ -177,7 +180,8 @@ You can then use the following configuration to invoke this validator:
         # config/validator/validation.yaml
         App\Entity\Author:
             constraints:
-                - Callback: [Acme\Validator, validate]
+                - Callback:
+                    callback: [Acme\Validator, validate]
 
     .. code-block:: xml
 
@@ -189,8 +193,10 @@ You can then use the following configuration to invoke this validator:
 
             <class name="App\Entity\Author">
                 <constraint name="Callback">
-                    <value>Acme\Validator</value>
-                    <value>validate</value>
+                    <option name="callback">
+                        <value>Acme\Validator</value>
+                        <value>validate</value>
+                    </option>
                 </constraint>
             </class>
         </constraint-mapping>

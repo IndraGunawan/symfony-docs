@@ -50,7 +50,7 @@ The following constraint ensures that the ``withdraw`` of a  bank account
 
             <class name="App\Entity\TransferItem">
                 <property name="withdraw">
-                    <constraint name="Negative"></constraint>
+                    <constraint name="Negative"/>
                 </property>
             </class>
         </constraint-mapping>
