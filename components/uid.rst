@@ -398,13 +398,16 @@ of the UUID parameters::
         }
     }
 
-MockUuidFactory
-===============
+Testing UUIDs
+~~~~~~~~~~~~~
 
-The :class:`Symfony\\Component\\Uid\\Factory\\MockUuidFactory` class allows you to
-control the UUIDs generated during your tests, making them predictable and reproducible.
+Many UUID versions include random or time-dependent parts, which makes them
+hard to use in tests. The :class:`Symfony\\Component\\Uid\\Factory\\MockUuidFactory`
+class allows you to control the UUIDs generated during your tests, making them
+predictable and reproducible.
 
-Suppose you have a service that generates a UUID for each new user::
+First, make sure that your service generates UUID values using the
+:class:`Symfony\\Component\\Uid\\Factory\\UuidFactory`::
 
     use Symfony\Component\Uid\Factory\UuidFactory;
     use Symfony\Component\Uid\Uuid;
@@ -422,7 +425,8 @@ Suppose you have a service that generates a UUID for each new user::
         }
     }
 
-In your tests, you can use ``MockUuidFactory`` to inject predictable UUIDs and verify the expected behavior::
+Then, in your tests, you can use ``MockUuidFactory`` to define a sequence of the
+UUIDs that will be returned each time you generate one::
 
     use PHPUnit\Framework\TestCase;
     use Symfony\Component\Uid\Factory\MockUuidFactory;
@@ -430,7 +434,7 @@ In your tests, you can use ``MockUuidFactory`` to inject predictable UUIDs and v
 
     class UserServiceTest extends TestCase
     {
-        public function testCreateUserIdReturnsExpectedUuid()
+        public function testCreateUserId(): void
         {
             $factory = new MockUuidFactory([
                 UuidV4::fromString('11111111-1111-4111-8111-111111111111'),
@@ -444,15 +448,14 @@ In your tests, you can use ``MockUuidFactory`` to inject predictable UUIDs and v
         }
     }
 
-.. warning::
-
-    ``MockUuidFactory`` is intended for use in tests only and should never be used in production.
+In addition to the ``create()`` method, the ``MockUuidFactory`` also works for
+the ``randomBased()``, ``timeBased()``, and ``nameBased()`` methods. You can even
+mix different UUID versions in the same sequence.
 
 .. note::
 
-    - Supports the :method:`Symfony\\Component\\Uid\\Factory\\MockUuidFactory::create`, :method:`Symfony\\Component\\Uid\\Factory\\MockUuidFactory::randomBased`, :method:`Symfony\\Component\\Uid\\Factory\\MockUuidFactory::timeBased`, and :method:`Symfony\\Component\\Uid\\Factory\\MockUuidFactory::nameBased` methods.
-    - You can mix different UUID versions in the same sequence.
-    - Throws an exception if the sequence is exhausted or the type does not match.
+    ``MockUuidFactory`` throws an exception if the sequence is exhausted or the
+    available UUID types don't match the requested type.
 
 .. _ulid:
 
