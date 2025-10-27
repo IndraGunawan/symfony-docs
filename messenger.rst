@@ -1769,6 +1769,10 @@ The transport has a number of options:
 ``debug`` (default: ``false``)
     If ``true`` it logs all HTTP requests and responses (it impacts performance)
 
+``delete_on_rejection`` (default: ``true``)
+    If set to ``false``, the message will not be deleted when rejected. Instead,
+    its visibility will be changed so that SQS can handle retries
+
 ``endpoint`` (default: ``https://sqs.eu-west-1.amazonaws.com``)
     Absolute URL to the SQS service
 
@@ -1786,6 +1790,10 @@ The transport has a number of options:
 
 ``region`` (default: ``eu-west-1``)
     Name of the AWS region
+
+``retry_delay`` (default: ``0``)
+    Used only when ``delete_on_rejection`` is ``false``. Defines the visibility
+    timeout (in seconds) that SQS should apply when a message is rejected
 
 ``secret_key``
     AWS secret key (must be urlencoded)
