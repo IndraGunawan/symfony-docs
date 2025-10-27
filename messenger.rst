@@ -2131,6 +2131,9 @@ The transport has a number of options:
 ``debug`` (default: ``false``)
     If ``true`` it logs all HTTP requests and responses (it impacts performance)
 
+``delete_on_rejection`` (default: ``true``)
+    If ``false`` instead of deleting the message on reject it will instead change the visibility allowing SQS to handle retries.
+
 ``endpoint`` (default: ``https://sqs.eu-west-1.amazonaws.com``)
     Absolute URL to the SQS service
 
@@ -2149,6 +2152,9 @@ The transport has a number of options:
 ``region`` (default: ``eu-west-1``)
     Name of the AWS region
 
+``retry_delay`` (default: ``0``)
+    Only used when ``delete_on_rejection`` is set to ``false``. Defines the visibility timeout sent to SQS when a message is rejected.
+
 ``secret_key``
     AWS secret key (must be urlencoded)
 
@@ -2164,6 +2170,10 @@ The transport has a number of options:
 .. versionadded:: 7.3
 
     The ``queue_attributes`` and ``queue_tags`` options were introduced in Symfony 7.3.
+
+.. versionadded:: 7.4
+
+    The ``delete_on_rejection`` and ``retry_delay`` options were introduced in Symfony 7.4.
 
 .. note::
 
