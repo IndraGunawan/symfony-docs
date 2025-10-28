@@ -87,7 +87,7 @@ try it out by going to: http://localhost:8000/lucky/number
 
     Symfony recommends defining routes as attributes to have the controller code
     and its route configuration at the same location. However, if you prefer, you can
-    :doc:`define routes in separate files </routing>` using YAML and PHP formats.
+    :doc:`define routes in separate files </routing>` using the YAML or PHP formats.
 
 If you see a lucky number being printed back to you, congratulations! But before
 you run off to play the lottery, check out how this works. Remember the two steps

@@ -586,7 +586,7 @@ all their types (string, boolean, array, binary and PHP constant parameters).
 
 However, there is another type of parameter related to services. In YAML config,
 any string which starts with ``@`` is considered as the ID of a service, instead
-of a regular string:
+of a regular string. In PHP config use the ``service()`` function:
 
 .. configuration-block::
 

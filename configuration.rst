@@ -67,7 +67,8 @@ readable. These are the main advantages and disadvantages of each format:
 * **YAML**: simple, clean and readable, but not all IDEs support autocompletion
   and validation for it. :doc:`Learn the YAML syntax </reference/formats/yaml>`;
 * **PHP**: very powerful and it allows you to create dynamic configuration with
-  arrays or a :ref:`ConfigBuilder <config-config-builder>`.
+  arrays, and benefits from auto completion and static analysis using
+  array shapes.
 
 Importing Configuration Files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,9 +89,9 @@ configuration files, even if they use a different format:
             - { resource: '/etc/myapp/*.yaml' }
 
             # ignore_errors: not_found silently discards errors if the loaded file doesn't exist
-            - { resource: 'my_config_file.xml', ignore_errors: not_found }
+            - { resource: 'my_config_file.php', ignore_errors: not_found }
             # ignore_errors: true silently discards all errors (including invalid code and not found)
-            - { resource: 'my_other_config_file.xml', ignore_errors: true }
+            - { resource: 'my_other_config_file.php', ignore_errors: true }
 
         # ...
 
@@ -212,7 +213,11 @@ configuration file using a special syntax: wrap the parameter name in two ``%``
                 'email_address' => param('app.admin_email'),
 
                 // ... but if you prefer it, you can also pass the name as a string
+<<<<<<< HEAD
                 // surrounded by two % (same as in YAML format) and Symfony will
+=======
+                // surrounded by two % (same as in the YAML format) and Symfony will
+>>>>>>> 7.4
                 // replace it by that parameter value
                 'email_address' => '%app.admin_email%',
             ]);
@@ -1062,52 +1067,6 @@ parameters at once by type-hinting any of its constructor arguments with the
             // ...
         }
     }
-
-.. _config-config-builder:
-
-Using PHP ConfigBuilders
-------------------------
-
-Writing PHP config is sometimes difficult because you end up with large nested
-arrays and you have no autocompletion help from your favorite IDE. A way to
-address this is to use "ConfigBuilders". They are objects that will help you
-build these arrays.
-
-Symfony generates the ConfigBuilder classes automatically in the
-:ref:`kernel build directory <configuration-kernel-build-directory>` for all the
-bundles installed in your application. By convention they all live in the
-namespace ``Symfony\Config``::
-
-    // config/packages/security.php
-    use Symfony\Config\SecurityConfig;
-
-    return static function (SecurityConfig $security): void {
-        $security->firewall('main')
-            ->pattern('^/*')
-            ->lazy(true)
-            ->security(false);
-
-        $security
-            ->roleHierarchy('ROLE_ADMIN', ['ROLE_USER'])
-            ->roleHierarchy('ROLE_SUPER_ADMIN', ['ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH'])
-            ->accessControl()
-                ->path('^/user')
-                ->roles('ROLE_USER');
-
-        $security->accessControl(['path' => '^/admin', 'roles' => 'ROLE_ADMIN']);
-    };
-
-.. note::
-
-    Only root classes in the namespace ``Symfony\Config`` are ConfigBuilders.
-    Nested configs (e.g. ``\Symfony\Config\Framework\CacheConfig``) are regular
-    PHP objects which aren't autowired when using them as an argument type.
-
-.. note::
-
-    In order to get ConfigBuilders autocompletion in your IDE/editor, make sure
-    to not exclude the directory where these classes are generated (by default,
-    in ``var/cache/dev/Symfony/Config/``).
 
 Keep Going!
 -----------

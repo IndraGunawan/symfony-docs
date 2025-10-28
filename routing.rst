@@ -12,9 +12,8 @@ provides other useful features, like generating SEO-friendly URLs (e.g.
 Creating Routes
 ---------------
 
-Routes can be configured in YAML, PHP or using attributes.
-All formats provide the same features and performance, so choose
-your favorite.
+Routes can be configured in YAML, PHP or using attributes. All formats
+provide the same features and performance, so choose your favorite.
 :ref:`Symfony recommends attributes <best-practice-controller-attributes>`
 because it's convenient to put the route and controller in the same place.
 
