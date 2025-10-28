@@ -12,11 +12,15 @@ provides other useful features, like generating SEO-friendly URLs (e.g.
 Creating Routes
 ---------------
 
-Routes can be configured in YAML, XML, PHP or using attributes.
-All formats provide the same features and performance, so choose
-your favorite.
+Routes can be configured in YAML, PHP or using attributes. All formats
+provide the same features and performance, so choose your favorite.
 :ref:`Symfony recommends attributes <best-practice-controller-attributes>`
 because it's convenient to put the route and controller in the same place.
+
+.. deprecated:: 7.4
+
+    The XML format to configure routes is deprecated in Symfony 7.4 and
+    will be removed in Symfony 8.0.
 
 .. _routing-route-attributes:
 
