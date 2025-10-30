@@ -67,14 +67,17 @@ what's going on and if the tests are broken because of the new code.
 Testing Generated Code
 ----------------------
 
-Some tests generate code on the fly and check that it matches expected stored in
-in a file. To regenerate those files, you can use the following approach, run
-the tests with the environment variable ``TEST_GENERATE_FIXTURES`` set to ``1``:
+Some tests generate code on the fly and verify that it matches the expected
+output stored in a file. To regenerate those files, run the tests with the
+environment variable ``TEST_GENERATE_FIXTURES`` set to ``1``:
 
 .. code-block:: terminal
 
     $ TEST_GENERATE_FIXTURES=1 php ./phpunit src/Symfony/Component/Config/Tests/Builder/GeneratedConfigTest.php
 
+.. versionadded:: 7.4
+
+    The ``TEST_GENERATE_FIXTURES`` environment variable was introduced in Symfony 7.4.
 
 .. _`install Composer`: https://getcomposer.org/download/
 .. _Cmder: https://cmder.app/
