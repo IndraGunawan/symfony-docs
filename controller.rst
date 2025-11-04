@@ -935,6 +935,79 @@ This way, browsers can start downloading the assets immediately; like the
 ``sendEarlyHints()`` method also returns the ``Response`` object, which you
 must use to create the full response sent from the controller action.
 
+Decoupling Controllers from Symfony
+-----------------------------------
+
+Extending the :ref:`AbstractController base class <the-base-controller-class-services>`
+simplifies controller development and is **recommended for most applications**.
+However, some advanced users prefer to fully decouple your controllers from Symfony
+(for example, to improve testability or to follow a more framework-agnostic design)
+Symfony provides tools to help you do that.
+
+To decouple controllers, Symfony exposes all the helpers from ``AbstractController``
+through another class called :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerHelper`,
+where each helper is available as a public method::
+
+    use Symfony\Bundle\FrameworkBundle\Controller\ControllerHelper;
+    use Symfony\Component\DependencyInjection\Attribute\AutowireMethodOf;
+    use Symfony\Component\HttpFoundation\Response;
+
+    class MyController
+    {
+        public function __construct(
+            #[AutowireMethodOf(ControllerHelper::class)]
+            private \Closure $render,
+            #[AutowireMethodOf(ControllerHelper::class)]
+            private \Closure $redirectToRoute,
+        ) {
+        }
+
+        public function showProduct(int $id): Response
+        {
+            if (!$id) {
+                return ($this->redirectToRoute)('product_list');
+            }
+
+            return ($this->render)('product/show.html.twig', ['product_id' => $id]);
+        }
+    }
+
+You can inject the entire ``ControllerHelper`` class if you prefer, but using the
+:ref:`AutowireMethodOf <autowiring_closures>` attribute as in the previous example,
+lets you inject only the exact helpers you need, making your code more efficient.
+
+Since ``#[AutowireMethodOf]`` also works with interfaces, you can define interfaces
+for these helper methods::
+
+    interface RenderInterface
+    {
+        // this is the signature of the render() helper
+        public function __invoke(string $view, array $parameters = [], ?Response $response = null): Response;
+    }
+
+Then, update your controller to use the interface instead of a closure::
+
+    use Symfony\Bundle\FrameworkBundle\Controller\ControllerHelper;
+    use Symfony\Component\DependencyInjection\Attribute\AutowireMethodOf;
+
+    class MyController
+    {
+        public function __construct(
+            #[AutowireMethodOf(ControllerHelper::class)]
+            private RenderInterface $render,
+        ) {
+        }
+
+        // ...
+    }
+
+Using interfaces like in the previous example provides full static analysis and
+autocompletion benefits with no extra boilerplate code.
+
+.. versionadded:: 7.4
+
+    The ``ControllerHelper`` class was introduced in Symfony 7.4.
+
 Final Thoughts
 --------------
 
