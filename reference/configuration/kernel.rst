@@ -347,6 +347,22 @@ servers support it, and you have to use a long-running web server like `FrankenP
 This parameter stores the value of
 :ref:`the framework.secret parameter <configuration-framework-secret>`.
 
+``kernel.share_dir``
+--------------------
+
+**type**: ``string`` **default**: ``$this->getCacheDir()``
+
+This parameter stores the absolute path of the shared cache directory of your Symfony
+application. The default value is the current cache directory.
+
+This value is also exposed via the :method:`Symfony\\Component\\HttpKernel\\Kernel::getShareDir`
+method of the kernel class, which you can override to return a different value.
+
+.. versionadded:: 7.4
+
+    The ``Kernel::getShareDir()`` method and the ``%kernel.share_dir`` parameter
+    were introduced in Symfony 7.4.
+
 ``kernel.trust_x_sendfile_type_header``
 ---------------------------------------
 
