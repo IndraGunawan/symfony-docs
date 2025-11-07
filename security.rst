@@ -31,7 +31,9 @@ creates a ``security.yaml`` configuration file for you:
             users_in_memory: { memory: null }
         firewalls:
             dev:
-                pattern: ^/(_(profiler|wdt)|css|images|js)/
+                # 'assets/' is for AssetMapper, 'build/' for Webpack Encore.
+                # (Note: no regex delimiters needed; Symfony adds `{}` automatically.)
+                pattern: ^/(_profiler|_wdt|assets|build)/
                 security: false
             main:
                 lazy: true
