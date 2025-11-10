@@ -779,6 +779,10 @@ to the ``form()`` or the ``form_start()`` helper functions:
     ``DELETE`` request. The :ref:`http_method_override <configuration-framework-http_method_override>`
     option must be enabled for this to work.
 
+    For security, you can restrict which HTTP methods can be overridden using the
+    :ref:`allowed_http_method_override <configuration-framework-allowed_http_method_override>`
+    option.
+
 Changing the Form Name
 ~~~~~~~~~~~~~~~~~~~~~~
 
