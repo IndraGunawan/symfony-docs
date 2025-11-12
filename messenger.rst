@@ -2840,6 +2840,7 @@ In addition to middleware, Messenger also dispatches several events. You can
 of the process. For each, the event class is the event name:
 
 * :class:`Symfony\\Component\\Messenger\\Event\\SendMessageToTransportsEvent`
+* :class:`Symfony\\Component\\Messenger\\Event\\MessageSentToTransportsEvent`
 * :class:`Symfony\\Component\\Messenger\\Event\\WorkerMessageFailedEvent`
 * :class:`Symfony\\Component\\Messenger\\Event\\WorkerMessageHandledEvent`
 * :class:`Symfony\\Component\\Messenger\\Event\\WorkerMessageReceivedEvent`
@@ -2848,6 +2849,16 @@ of the process. For each, the event class is the event name:
 * :class:`Symfony\\Component\\Messenger\\Event\\WorkerRunningEvent`
 * :class:`Symfony\\Component\\Messenger\\Event\\WorkerStartedEvent`
 * :class:`Symfony\\Component\\Messenger\\Event\\WorkerStoppedEvent`
+
+.. versionadded:: 7.4
+
+    The ``MessageSentToTransportsEvent`` event was introduced in Symfony 7.4.
+
+.. note::
+
+    The ``MessageSentToTransportsEvent`` event is dispatched **only** after a
+    message was sent to at least one transport. If the message was sent to
+    multiple transports, the event is dispatched only once.
 
 Additional Handler Arguments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
