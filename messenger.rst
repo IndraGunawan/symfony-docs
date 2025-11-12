@@ -2009,6 +2009,88 @@ contains many useful information such as the exit code or the output of the
 process. You can refer to the page dedicated on
 :ref:`handler results <messenger-getting-handler-results>` for more information.
 
+Securing Messages with Signatures
+---------------------------------
+
+When messages are sent to message queues, there is a potential security risk
+if an attacker injects forged payloads into the queue. Although message queues
+should be properly secured to prevent unauthorized access, Symfony adds an extra
+layer of protection by supporting message signing.
+
+This is particularly important for handlers that execute commands or processes,
+which is why the ``RunProcessHandler`` has message signing **enabled by default**.
+
+Enabling Message Signing
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+To enable message signing for your handler, set the ``sign`` option to ``true``:
+
+.. configuration-block::
+
+    .. code-block:: php-attributes
+
+        // src/MessageHandler/SmsNotificationHandler.php
+        namespace App\MessageHandler;
+
+        use App\Message\SmsNotification;
+        use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+
+        #[AsMessageHandler(sign: true)]
+        class SmsNotificationHandler
+        {
+            public function __invoke(SmsNotification $message): void
+            {
+                // ... handle message
+            }
+        }
+
+    .. code-block:: yaml
+
+        # config/services.yaml
+        services:
+            App\MessageHandler\SmsNotificationHandler:
+                tags:
+                    - { name: messenger.message_handler, sign: true }
+
+    .. code-block:: xml
+
+        <!-- config/services.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="App\MessageHandler\SmsNotificationHandler">
+                    <tag name="messenger.message_handler" sign="true"/>
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        // config/services.php
+        use App\MessageHandler\SmsNotificationHandler;
+
+        $container->register(SmsNotificationHandler::class)
+            ->addTag('messenger.message_handler', ['sign' => true]);
+
+When signing is enabled:
+
+1. Messages are signed using an HMAC signature computed with your application's
+   secret key (``kernel.secret`` parameter).
+2. The signature is added to the message headers (``Body-Sign`` and ``Sign-Algo``)
+   when the message is sent to a transport.
+3. When the message is received and decoded, the signature is automatically verified.
+4. If the signature is missing or invalid, an
+   :class:`Symfony\\Component\\Messenger\\Exception\\InvalidMessageSignatureException`
+   is thrown, and the message will not be handled.
+
+.. versionadded:: 7.4
+
+    Message signing support was introduced in Symfony 7.4.
+
 Pinging A Webservice
 --------------------
 
@@ -2232,6 +2314,15 @@ Possible options to configure with tags are:
 ``priority``
     Defines the order in which the handler is executed when multiple handlers
     can process the same message; those with higher priority run first.
+
+``sign``
+    Whether messages handled by this handler should be cryptographically signed
+    to prevent tampering. When enabled, messages are signed using HMAC with the
+    application's secret key. Default: ``false``.
+
+    .. versionadded:: 7.4
+
+        The ``sign`` option was introduced in Symfony 7.4.
 
 .. _handler-subscriber-options:
 
