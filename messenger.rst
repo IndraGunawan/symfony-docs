@@ -2420,12 +2420,12 @@ process. You can refer to the page dedicated on
 Securing Messages with Signatures
 ---------------------------------
 
-When messages are sent to message queues, there's a potential security risk
-if an attacker can inject forged payloads into the queue. While message queues
-should be secured to prevent unauthorized access, Symfony provides an additional
-layer of security by supporting message signing.
+When messages are sent to message queues, there is a potential security risk
+if an attacker injects forged payloads into the queue. Although message queues
+should be properly secured to prevent unauthorized access, Symfony adds an extra
+layer of protection by supporting message signing.
 
-This is especially important for handlers that execute commands or processes,
+This is particularly important for handlers that execute commands or processes,
 which is why the ``RunProcessHandler`` has message signing **enabled by default**.
 
 Enabling Message Signing
@@ -2493,11 +2493,11 @@ When signing is enabled:
 3. When the message is received and decoded, the signature is automatically verified.
 4. If the signature is missing or invalid, an
    :class:`Symfony\\Component\\Messenger\\Exception\\InvalidMessageSignatureException`
-   is thrown and the message will not be handled.
+   is thrown, and the message will not be handled.
 
 .. versionadded:: 7.4
 
-    The support for message signing was introduced in Symfony 7.4.
+    Message signing support was introduced in Symfony 7.4.
 
 Pinging A Webservice
 --------------------
