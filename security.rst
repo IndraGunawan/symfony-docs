@@ -2265,17 +2265,21 @@ Users with ``ROLE_SUPER_ADMIN``, will automatically have ``ROLE_ADMIN``,
     :doc:`security voter </security/voters>` that looks for the user roles
     in the database.
 
-.. versionadded:: 7.4
+.. tip::
 
-    To help you debug your roles hierarchy, you can generate a visual representation
-    of them as SVG or PNG images. First, install the free and open source
-    `Mermaid CLI`_, providing the ``mmdc`` command, then executes::
+    To help debug your roles hierarchy, you can generate a visual representation
+    of it as an SVG or PNG image. First, install the free and open-source
+    `Mermaid CLI`_, which provides the ``mmdc`` command, and then run:
 
     .. code-block:: terminal
-        
+
         $ php bin/console debug:security:role-hierarchy | mmdc -o roles.svg
 
-    You can open the file `roles.svg` to see the graph.
+    You can then open the ``roles.svg`` file to see the generated graph.
+
+.. versionadded:: 7.4
+
+    The ``debug:security:role-hierarchy`` command was introduced in Symfony 7.4.
 
 .. _security-role-authorization:
 
