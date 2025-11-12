@@ -337,5 +337,5 @@ For example, to select the ``invoice`` lock defined earlier::
 
 .. versionadded:: 7.4
 
-    Before Symfony 7.4, the target name had to include the ``.lock.factory``
-    suffix (e.g. ``#[Target('invoice.lock.factory')]``).
+    Before Symfony 7.4, the target name had to follow the ``lock.<lock-name>.factory``
+    pattern (e.g. ``#[Target('lock.invoice.factory')]``).
