@@ -128,6 +128,15 @@ example, the kernel will automatically release semaphores acquired by the
 store (see :ref:`lock stores <lock-stores>` for supported stores), an
 exception will be thrown when the application tries to serialize the key.
 
+Locks can be serialized using both the native PHP serialization system
+and its :phpfunction:`serialize` function, or using the Serializer
+component.
+
+.. versionadded:: 7.4
+
+    The support for serializing locks with the Serializer component was
+    introduced in Symfony 7.4.
+
 .. _lock-blocking-locks:
 
 Blocking Locks
