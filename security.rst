@@ -1883,6 +1883,22 @@ Users with ``ROLE_SUPER_ADMIN``, will automatically have ``ROLE_ADMIN``,
     :doc:`security voter </security/voters>` that looks for the user roles
     in the database.
 
+.. tip::
+
+    To help debug your roles hierarchy, you can generate a visual representation
+    of it as an SVG or PNG image. First, install the free and open-source
+    `Mermaid CLI`_, which provides the ``mmdc`` command, and then run:
+
+    .. code-block:: terminal
+
+        $ php bin/console debug:security:role-hierarchy | mmdc -o roles.svg
+
+    You can then open the ``roles.svg`` file to see the generated graph.
+
+.. versionadded:: 7.4
+
+    The ``debug:security:role-hierarchy`` command was introduced in Symfony 7.4.
+
 .. _security-role-authorization:
 
 Add Code to Deny Access
@@ -2617,3 +2633,4 @@ Authorization (Denying Access)
 .. _`Login CSRF attacks`: https://en.wikipedia.org/wiki/Cross-site_request_forgery#Forging_login_requests
 .. _`PHP date relative formats`: https://www.php.net/manual/en/datetime.formats.php#datetime.formats.relative
 .. _`Oauth2-client`: https://github.com/thephpleague/oauth2-client
+.. _`Mermaid CLI`: https://github.com/mermaid-js/mermaid-cli
