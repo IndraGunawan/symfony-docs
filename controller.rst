@@ -1004,10 +1004,6 @@ Then, update your controller to use the interface instead of a closure::
 Using interfaces like in the previous example provides full static analysis and
 autocompletion benefits with no extra boilerplate code.
 
-.. versionadded:: 7.4
-
-    The ``ControllerHelper`` class was introduced in Symfony 7.4.
-
 Final Thoughts
 --------------
 

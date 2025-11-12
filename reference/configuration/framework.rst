@@ -1367,10 +1367,6 @@ defined with the following options:
                     caching:
                         cache_pool: my_taggable_pool
 
-.. versionadded:: 7.4
-
-    The ``caching`` option was introduced in Symfony 7.4.
-
 .. _reference-http-client-caching-cache-pool:
 
 cache_pool
@@ -1384,10 +1380,6 @@ must implement the :class:`Symfony\\Contracts\\Cache\\TagAwareCacheInterface`.
 By default, it uses an instance of :class:`Symfony\\Component\\Cache\\Adapter\\TagAwareAdapter`
 wrapping the ``cache.app`` pool.
 
-.. versionadded:: 7.4
-
-    The ``cache_pool`` option was introduced in Symfony 7.4.
-
 .. _reference-http-client-caching-shared:
 
 shared
@@ -1397,10 +1389,6 @@ shared
 
 If ``true``, it uses a `shared cache`_ so cached responses can be reused across
 users. Set it to ``false`` to use a `private cache`_.
-
-.. versionadded:: 7.4
-
-    The ``shared`` option was introduced in Symfony 7.4.
 
 .. _reference-http-client-caching-max-ttl:
 
@@ -1412,10 +1400,6 @@ max_ttl
 The maximum time-to-live (in seconds) for cached responses. By default, responses
 are cached for as long as the TTL specified by the server. When this option is
 set, server-provided TTLs are capped to this value.
-
-.. versionadded:: 7.4
-
-    The ``max_ttl`` option was introduced in Symfony 7.4.
 
 cafile
 ......

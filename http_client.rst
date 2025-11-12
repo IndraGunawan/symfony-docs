@@ -1436,12 +1436,6 @@ so the :doc:`Cache component </components/cache>` must be installed in your appl
     :ref:`retry strategy <http-client-retry-failed-requests>` to gracefully
     handle temporary cache inconsistencies or validation failures.
 
-.. versionadded:: 7.4
-
-    In Symfony 7.4, caching was refactored to comply with `RFC 9111`_ and to
-    leverage the :doc:`Cache component </components/cache>`. In previous versions,
-    it relied on ``HttpCache`` from the HttpKernel component.
-
 Limit the Number of Requests
 ----------------------------
 
