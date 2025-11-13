@@ -1804,25 +1804,6 @@ set to a specific list of methods, only those methods will be allowed as overrid
             # Only allow PUT, PATCH, and DELETE to be overridden
             allowed_http_method_override: ['PUT', 'PATCH', 'DELETE']
 
-    .. code-block:: xml
-
-        <!-- config/packages/framework.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                https://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony
-                https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <framework:config http-method-override="true">
-                <framework:allowed-http-method-override>PUT</framework:allowed-http-method-override>
-                <framework:allowed-http-method-override>PATCH</framework:allowed-http-method-override>
-                <framework:allowed-http-method-override>DELETE</framework:allowed-http-method-override>
-            </framework:config>
-        </container>
-
     .. code-block:: php
 
         // config/packages/framework.php
