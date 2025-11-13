@@ -344,11 +344,6 @@ application. The default value is the current cache directory.
 This value is also exposed via the :method:`Symfony\\Component\\HttpKernel\\Kernel::getShareDir`
 method of the kernel class, which you can override to return a different value.
 
-.. versionadded:: 7.4
-
-    The ``Kernel::getShareDir()`` method and the ``%kernel.share_dir`` parameter
-    were introduced in Symfony 7.4.
-
 ``kernel.trust_x_sendfile_type_header``
 ---------------------------------------
 

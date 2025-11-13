@@ -1780,10 +1780,6 @@ named ``kernel.http_method_override``.
 allowed_http_method_override
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 7.4
-
-    The ``allowed_http_method_override`` option was introduced in Symfony 7.4.
-
 **type**: ``array`` **default**: ``null``
 
 This option controls which HTTP methods can be overridden via the ``_method``

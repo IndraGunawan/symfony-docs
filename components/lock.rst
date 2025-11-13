@@ -132,11 +132,6 @@ Locks can be serialized using both the native PHP serialization system
 and its :phpfunction:`serialize` function, or using the Serializer
 component.
 
-.. versionadded:: 7.4
-
-    The support for serializing locks with the Serializer component was
-    introduced in Symfony 7.4.
-
 .. _lock-blocking-locks:
 
 Blocking Locks

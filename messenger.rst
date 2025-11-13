@@ -2071,10 +2071,6 @@ When signing is enabled:
    :class:`Symfony\\Component\\Messenger\\Exception\\InvalidMessageSignatureException`
    is thrown, and the message will not be handled.
 
-.. versionadded:: 7.4
-
-    Message signing support was introduced in Symfony 7.4.
-
 Pinging A Webservice
 --------------------
 
@@ -2303,10 +2299,6 @@ Possible options to configure with tags are:
     Whether messages handled by this handler should be cryptographically signed
     to prevent tampering. When enabled, messages are signed using HMAC with the
     application's secret key. Default: ``false``.
-
-    .. versionadded:: 7.4
-
-        The ``sign`` option was introduced in Symfony 7.4.
 
 .. _handler-subscriber-options:
 
@@ -2849,10 +2841,6 @@ of the process. For each, the event class is the event name:
 * :class:`Symfony\\Component\\Messenger\\Event\\WorkerRunningEvent`
 * :class:`Symfony\\Component\\Messenger\\Event\\WorkerStartedEvent`
 * :class:`Symfony\\Component\\Messenger\\Event\\WorkerStoppedEvent`
-
-.. versionadded:: 7.4
-
-    The ``MessageSentToTransportsEvent`` event was introduced in Symfony 7.4.
 
 .. note::
 

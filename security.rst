@@ -1895,10 +1895,6 @@ Users with ``ROLE_SUPER_ADMIN``, will automatically have ``ROLE_ADMIN``,
 
     You can then open the ``roles.svg`` file to see the generated graph.
 
-.. versionadded:: 7.4
-
-    The ``debug:security:role-hierarchy`` command was introduced in Symfony 7.4.
-
 .. _security-role-authorization:
 
 Add Code to Deny Access
