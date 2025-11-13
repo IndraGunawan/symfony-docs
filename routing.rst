@@ -206,6 +206,10 @@ Use the ``methods`` option to restrict the verbs each route should respond to:
     automatically for you when the :ref:`framework.http_method_override <configuration-framework-http_method_override>`
     option is ``true``.
 
+    For security, you can restrict which HTTP methods can be overridden using the
+    :ref:`framework.allowed_http_method_override <configuration-framework-allowed_http_method_override>`
+    option.
+
 Matching Environments
 ~~~~~~~~~~~~~~~~~~~~~
 
