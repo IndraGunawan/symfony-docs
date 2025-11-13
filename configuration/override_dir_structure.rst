@@ -118,6 +118,19 @@ named ``APP_CACHE_DIR`` whose value is the full path of the cache folder.
     its own cached configuration files, and so each needs its own directory to
     store those cache files.
 
+In case you have multiple frontend servers using the same shared filesystem, you
+can make use of the :method:`Symfony\\Component\\HttpKernel\\Kernel::getShareDir` method to
+get a shared directory for cache and shared data. The shared directory can be set
+by overriding an environment variable named ``APP_SHARE_DIR`` whose value is the full
+path of the shared folder. This directory is also accessible as a container parameter
+named ``%kernel.share_dir%``.
+
+.. versionadded:: 7.4
+
+    The ``Kernel::getShareDir()`` method, the ``%kernel.share_dir`` parameter and
+    the support for the ``APP_SHARE_DIR`` environment variable were introduced
+    in Symfony 7.4.
+
 .. _override-logs-dir:
 
 Override the Log Directory
