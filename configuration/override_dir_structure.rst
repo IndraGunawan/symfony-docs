@@ -125,12 +125,6 @@ by overriding an environment variable named ``APP_SHARE_DIR`` whose value is the
 path of the shared folder. This directory is also accessible as a container parameter
 named ``%kernel.share_dir%``.
 
-.. versionadded:: 7.4
-
-    The ``Kernel::getShareDir()`` method, the ``%kernel.share_dir`` parameter and
-    the support for the ``APP_SHARE_DIR`` environment variable were introduced
-    in Symfony 7.4.
-
 .. _override-logs-dir:
 
 Override the Log Directory
