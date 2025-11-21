@@ -156,4 +156,3 @@ as a starting point for your own GitHub CI configuration:
 
 .. _`Symfony releases plan`: https://symfony.com/releases
 .. _`Composer path repository option`: https://getcomposer.org/doc/05-repositories.md#path
-.. _`gromnan/symfony-config-xml-to-php`: https://github.com/GromNaN/symfony-config-xml-to-php

@@ -213,11 +213,7 @@ configuration file using a special syntax: wrap the parameter name in two ``%``
                 'email_address' => param('app.admin_email'),
 
                 // ... but if you prefer it, you can also pass the name as a string
-<<<<<<< HEAD
                 // surrounded by two % (same as in YAML format) and Symfony will
-=======
-                // surrounded by two % (same as in the YAML format) and Symfony will
->>>>>>> 7.4
                 // replace it by that parameter value
                 'email_address' => '%app.admin_email%',
             ]);
