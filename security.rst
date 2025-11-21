@@ -637,7 +637,7 @@ Form Login
 
 Most websites have a login form where users authenticate using an
 identifier (e.g. email address or username) and a password. This
-functionality is provided by the built-in :class:`Symfony\\Component\\Security\\Http\Authenticator\\FormLoginAuthenticator`.
+functionality is provided by the built-in :class:`Symfony\\Component\\Security\\Http\\Authenticator\\FormLoginAuthenticator`.
 
 You can run the following command to create everything needed to add a login
 form in your application:
