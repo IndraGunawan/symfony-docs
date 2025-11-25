@@ -1721,8 +1721,6 @@ or :ref:`serializer.encoder <reference-dic-tags-serializer-encoder>` tags:
             # ...
 
             Symfony\Component\Serializer\Normalizer\CustomNormalizer:
-                # prevent this normalizer from being automatically added to the default serializer
-                autoconfigure: false
                 tags:
                     # add this normalizer only to a specific named serializer
                     - serializer.normalizer: { serializer: 'api_client1' }
@@ -1743,11 +1741,7 @@ or :ref:`serializer.encoder <reference-dic-tags-serializer-encoder>` tags:
             <services>
                 <!-- ... -->
 
-                <!-- prevent this normalizer from being automatically added to the default serializer -->
-                <service
-                    id="Symfony\Component\Serializer\Normalizer\CustomNormalizer"
-                    autoconfigure="false"
-                >
+                <service id="Symfony\Component\Serializer\Normalizer\CustomNormalizer">
                     <!-- add this normalizer only to a specific named serializer -->
                     <tag name="serializer.normalizer" serializer="api_client1"/>
 
@@ -1772,9 +1766,6 @@ or :ref:`serializer.encoder <reference-dic-tags-serializer-encoder>` tags:
             // ...
 
             $services->set(CustomNormalizer::class)
-                // prevent this normalizer from being automatically added to the default serializer
-                ->autoconfigure(false)
-
                 // add this normalizer only to a specific named serializer
                 ->tag('serializer.normalizer', ['serializer' => 'api_client1'])
                 // add this normalizer to several named serializers
@@ -1783,6 +1774,13 @@ or :ref:`serializer.encoder <reference-dic-tags-serializer-encoder>` tags:
                 ->tag('serializer.normalizer', ['serializer' => '*'])
             ;
         };
+
+.. versionadded:: 7.3
+
+    Before Symfony 7.3, named serializer normalizers were added automatically
+    to the default serializer, so you had to set their ``autoconfigure``
+    option to ``false`` to disable them. As of Symfony 7.3, they are no longer
+    registered by default.
 
 When the ``serializer`` attribute is not set, the service is registered only with
 the default serializer.
