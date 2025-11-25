@@ -505,14 +505,21 @@ when needed and vice-versa when working with your objects::
 Using Weighted Transitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Weighted transitions allow you to define transitions where multiple tokens (instances)
-are consumed from or produced to places. This is useful for modeling complex workflows
-such as manufacturing processes, resource allocation, or any scenario where multiple
-instances of something need to be produced or consumed.
-
 .. versionadded:: 7.4
 
-    The support for weighted transitions was introduced in Symfony 7.4.
+    Support for weighted transitions was introduced in Symfony 7.4.
+
+A key feature of workflows (as opposed to state machines) is that an object can
+be in multiple places simultaneously. For example, when building a product, you
+might assemble several components in parallel. However, in the previous example,
+each place could only record whether the object was there or not, like a binary flag.
+
+**Weighted transitions** introduce multiplicity: a place can now track how many
+times an object is in that place. Technically, weighted transitions allow you to
+define transitions where multiple tokens (instances) are consumed from or produced
+to places. This is useful for modeling complex workflows such as manufacturing
+processes, resource allocation, or any scenario where multiple instances of something
+need to be produced or consumed.
 
 For example, imagine a table-making workflow where you need to create 4 legs, 1 top,
 and track the process with a stopwatch. You can use weighted transitions to model this:
