@@ -209,7 +209,7 @@ Parameter               Description
 
 .. versionadded:: 7.4
 
-    The `{{ min }}` and `{{ max }}` parameters were introduced in Symfony 7.4.
+    The ``{{ min }}`` and ``{{ max }}`` parameters were introduced in Symfony 7.4.
 
 ``min``
 ~~~~~~~
@@ -247,7 +247,7 @@ Parameter               Description
 
 .. versionadded:: 7.4
 
-    The `{{ min }}` and `{{ max }}` parameters were introduced in Symfony 7.4.
+    The ``{{ min }}`` and ``{{ max }}`` parameters were introduced in Symfony 7.4.
 
 .. include:: /reference/constraints/_normalizer-option.rst.inc
 
