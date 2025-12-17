@@ -86,8 +86,6 @@ regardless of their legal tender status.
 
     The ``legal_tender`` option was introduced in Symfony 7.4.
 
-.. include:: /reference/forms/types/options/choice_translation_domain.rst.inc
-
 ``not_active_at``
 ~~~~~~~~~~~~~~~~~
 
